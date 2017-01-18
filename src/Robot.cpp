@@ -1,31 +1,65 @@
-#include "WPILib.h"
+#include "Robot.h"
 
-#include "DriveTrain.h"
+std::shared_ptr<DriveTrain> Robot::drivetrain = std::make_shared<DriveTrain>();
+std::unique_ptr<OI> Robot::oi = std::make_unique<OI>();
+
+void Robot::RobotInit() {
+}
 
 /**
- * This is a demo program showing how to use Mecanum control with the RobotDrive
- * class.
+ * This function is called once each time the robot enters Disabled mode.
+ * You can use it to reset any subsystem information you want to clear when
+ * the robot is disabled.
  */
-class Robot: public frc::SampleRobot {
-public:
-	Robot() {
-		driveTrain = new DriveTrain();
+void Robot::DisabledInit() {
+
+}
+
+void Robot::DisabledPeriodic() {
+	frc::Scheduler::GetInstance()->Run();
+}
+
+/**
+ * This autonomous (along with the chooser code above) shows how to select
+ * between different autonomous modes using the dashboard. The sendable
+ * chooser code works with the Java SmartDashboard. If you prefer the
+ * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+ * GetString code to get the auto name from the text box below the Gyro.
+ *
+ * You can add additional auto modes by adding additional commands to the
+ * chooser code above (like the commented example) or additional comparisons
+ * to the if-else structure below with additional strings & commands.
+ */
+void Robot::AutonomousInit() {
+	/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+	if (autoSelected == "My Auto") {
+		autonomousCommand.reset(new MyAutoCommand());
 	}
+	else {
+		autonomousCommand.reset(new ExampleCommand());
+	} */
+}
 
-	/**
-	 * Runs the motors with Mecanum drive.
-	 */
-	void OperatorControl() override {
-		driveTrain->SetSafetyEnabled(false);
-		while (IsOperatorControl() && IsEnabled()) {
-			driveTrain->update();
+void Robot::AutonomousPeriodic() {
+	frc::Scheduler::GetInstance()->Run();
+}
 
-			Wait(0.005); // wait 5ms to avoid hogging CPU cycles
-		}
+void Robot::TeleopInit() {
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (autonomousCommand != nullptr) {
+		autonomousCommand->Cancel();
 	}
+}
 
-private:
-	DriveTrain* driveTrain;
-};
+void Robot::TeleopPeriodic() {
+	frc::Scheduler::GetInstance()->Run();
+}
+
+void Robot::TestPeriodic() {
+	frc::LiveWindow::GetInstance()->Run();
+}
 
 START_ROBOT_CLASS(Robot)
