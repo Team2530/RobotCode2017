@@ -29,9 +29,10 @@ void DriveTrain::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveTrain::Drive(Joystick* stick) {
+	double scale = 0.6-0.4*stick->GetThrottle();
 	robotDrive->MecanumDrive_Cartesian(
-		stick->GetX(), stick->GetY(),
-		stick->GetZ()
+		scale*stick->GetX(), scale*stick->GetY(),
+		scale*stick->GetZ()
 	);
 }
 
