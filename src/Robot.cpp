@@ -1,9 +1,12 @@
 #include "Robot.h"
 
-std::shared_ptr<DriveTrain> Robot::drivetrain = std::make_shared<DriveTrain>();
-std::unique_ptr<OI> Robot::oi = std::make_unique<OI>();
+std::shared_ptr<DriveTrain> Robot::drivetrain;
+std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
+	// Wait until here to initialize systems that depend on WPILib
+	drivetrain = std::make_shared<DriveTrain>();
+	oi = std::make_unique<OI>();
 }
 
 /**
@@ -49,9 +52,9 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// this line or comment it out.
-	if (autonomousCommand != nullptr) {
+	/*if (autonomousCommand != nullptr) {
 		autonomousCommand->Cancel();
-	}
+	}*/
 }
 
 void Robot::TeleopPeriodic() {
