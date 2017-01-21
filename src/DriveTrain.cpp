@@ -8,9 +8,9 @@
  */
 DriveTrain::DriveTrain() {
 	stick = new Joystick(kJoystickChannel);
-	frontLeftController = new VictorSP(kFrontLeftChannel);
+	frontLeftController = new Spark(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
-	frontRightController = new VictorSP(kFrontRightChannel);
+	frontRightController = new Spark(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
 	robotDrive = new RobotDrive(
 		frontLeftController, rearLeftController,
@@ -19,10 +19,10 @@ DriveTrain::DriveTrain() {
 	robotDrive->SetExpiration(0.1);
 
 	// Invert the left side motors
-	robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
+	robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 
 	// You may need to change or remove this to match your robot
-	robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+	robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
 }
 
 void DriveTrain::SetSafetyEnabled(bool safety) {

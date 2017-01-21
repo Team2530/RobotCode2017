@@ -15,16 +15,16 @@ public:
 
 private:
 	// Channels for the wheels
-	static constexpr int kFrontLeftChannel = 2;
-	static constexpr int kRearLeftChannel = 3;
-	static constexpr int kFrontRightChannel = 1;
-	static constexpr int kRearRightChannel = 0;
+	static constexpr int kFrontLeftChannel = 1;
+	static constexpr int kRearLeftChannel = 2;
+	static constexpr int kFrontRightChannel = 0;
+	static constexpr int kRearRightChannel = 3;
 
 	static constexpr int kJoystickChannel = 0;
 
-	VictorSP* frontLeftController;
+	Spark* frontLeftController;
 	VictorSP* rearLeftController;
-	VictorSP* frontRightController;
+	Spark* frontRightController;
 	VictorSP* rearRightController;
 
 	// Robot drive system
