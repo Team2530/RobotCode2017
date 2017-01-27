@@ -29,6 +29,7 @@ public:
 	void Drive(Joystick* stick);
 	void Stop();
 	void InitDefaultCommand();
+	void DriveForward();
 };
 
 #endif  // DriveTrain_H

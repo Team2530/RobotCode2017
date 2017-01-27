@@ -40,4 +40,9 @@ void DriveTrain::Stop() {
 	// TODO: is there a stop command for robot drive?
 	robotDrive->MecanumDrive_Cartesian(0,0,0);
 }
+void DriveTrain::DriveForward() {
+	// TODO: is there a stop command for robot drive?
+	robotDrive->MecanumDrive_Cartesian(0,-0.5,0);
+}
+
 
