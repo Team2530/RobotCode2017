@@ -20,11 +20,15 @@
 
 #include "OI.h"
 #include "Commands/MecanumDriveWithJoystick.h"
+#include "Commands/Output.h"
 #include "Subsystems/DriveTrain.h"
+#include "Subsystems/Dumper.h"
+
 
 class Robot: public frc::IterativeRobot {
 public:
 	static std::shared_ptr<DriveTrain> drivetrain;
+	static std::shared_ptr<Dumper> dumper;
 	static std::unique_ptr<OI> oi;
 	void RobotInit() override;
 

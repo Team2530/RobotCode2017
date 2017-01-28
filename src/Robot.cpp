@@ -1,11 +1,13 @@
 #include "Robot.h"
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
+std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
 	drivetrain = std::make_shared<DriveTrain>();
+	dumper = std::make_shared<Dumper>();
 	oi = std::make_unique<OI>();
 }
 
