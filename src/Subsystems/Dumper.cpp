@@ -1,7 +1,8 @@
 #include "Dumper.h"
 #include "ControllerConstants.h"
 #include "../RobotMap.h"
-
+//THIS IS A VERY ROUGH DRAFT~ it presumes motors, not pneumatics. Depending where mechanical goes,
+//    things may need to change in order for it to work for pneumatics.
 Dumper::Dumper() : Subsystem("DumperSubsystem") {
 	hatchController= new VictorSP(kHatchController);
 	dumperController = new VictorSP(kDumperController);
