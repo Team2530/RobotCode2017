@@ -4,6 +4,7 @@ std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
+std::shared_ptr<Tracker> Robot::tracker;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -11,6 +12,7 @@ void Robot::RobotInit() {
 	dumper = std::make_shared<Dumper>();
 	oi = std::make_unique<OI>();
 	intake = std::make_shared<Intake>();
+	tracker = std::make_shared<Tracker>();
 }
 
 /**

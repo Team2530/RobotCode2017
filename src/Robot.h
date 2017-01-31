@@ -25,6 +25,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
+#include "Subsystems/Tracker.h"
 
 
 class Robot: public frc::IterativeRobot {
@@ -33,6 +34,7 @@ public:
 	static std::shared_ptr<Dumper> dumper;
 	static std::unique_ptr<OI> oi;
 	static std::shared_ptr<Intake> intake;
+	static std::shared_ptr<Tracker> tracker;
 	void RobotInit() override;
 
 	/**
