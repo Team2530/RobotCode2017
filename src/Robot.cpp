@@ -2,11 +2,13 @@
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::unique_ptr<OI> Robot::oi;
+std::shared_ptr<Intake> Robot::intake;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
 	drivetrain = std::make_shared<DriveTrain>();
 	oi = std::make_unique<OI>();
+	intake = std::make_shared<Intake>();
 }
 
 /**

@@ -9,6 +9,11 @@ OI::OI() {
 	joy = new Joystick(0);
 	B2 = new frc::JoystickButton(joy,2);
 	B2->WhileHeld(new  DriveForward());
+	B7 = new frc::JoystickButton(joy,2);
+	B7->WhileHeld(new  IntakeOn());
+	B8 = new frc::JoystickButton(joy,2);
+	B8->WhileHeld(new  IntakeInvert());
+
 }
 
 Joystick* OI::GetJoystick() {

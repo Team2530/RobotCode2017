@@ -11,6 +11,9 @@ public:
 private:
 	Joystick* joy;
 	JoystickButton *B2;
+	JoystickButton *B7;
+	JoystickButton *B8;
+
 };
 
 #endif  // OI_H
