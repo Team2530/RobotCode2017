@@ -1,11 +1,12 @@
-#ifndef GetFeildPosition_H
-#define GetFeildPosition_H
+#ifndef GetFieldPosition_H
+#define GetFieldPosition_H
 
-#include "../CommandBase.h"
+#include <Commands/Command.h>
 
-class GetFeildPosition : public CommandBase {
+
+class GetFieldPosition : public Command {
 public:
-	GetFeildPosition();
+	GetFieldPosition();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +14,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // GetFeildPosition_H
+#endif  // GetFieldPosition_H

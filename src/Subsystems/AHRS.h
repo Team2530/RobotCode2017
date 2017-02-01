@@ -9,6 +9,7 @@
 /*
  * Premade functions/variables from NavX
  */
+
 #ifndef SRC_AHRS_H_
 #define SRC_AHRS_H_
 
@@ -118,7 +119,7 @@ private:
 	OffsetTracker *         yaw_offset_tracker;
 	IIOProvider *           io;
 
-	Task *                  task;
+	//Task *                  task;
 
 public:
 	AHRS(SPI::Port spi_port_id);
@@ -200,5 +201,6 @@ private:
 	/* PIDSource implementation */
 	double PIDGet();
 };
+
 
 #endif /* SRC_AHRS_H_ */

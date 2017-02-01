@@ -1,34 +1,34 @@
 #include <Commands/GetFieldPosition.h>
-#include "AHRS.h"
+#include "Robot.h"
 
-GetFeildPosition::GetFeildPosition() : Command("GetFeildPosition"){
+GetFieldPosition::GetFieldPosition() : Command("GetFieldPosition"){
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::tracker.Get())
+	Requires(Robot::tracker.get());
 }
 
 // Called just before this Command runs the first time
-void GetFeildPosition::Initialize() {
+void GetFieldPosition::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetFeildPosition::Execute() {
-
+void GetFieldPosition::Execute() {
+	Robot::tracker->GetPosition();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool GetFeildPosition::IsFinished() {
+bool GetFieldPosition::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void GetFeildPosition::End() {
+void GetFieldPosition::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void GetFeildPosition::Interrupted() {
-
+void GetFieldPosition::Interrupted() {
+	End();
 }

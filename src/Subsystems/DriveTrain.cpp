@@ -1,5 +1,6 @@
 #include "DriveTrain.h"
 #include "../RobotMap.h"
+#include "ControllerConstants.h"
 
 #include "../Commands/MecanumDriveWithJoystick.h"
 
@@ -8,6 +9,12 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
 	rearLeftController = new VictorSP(kRearLeftChannel);
 	frontRightController = new Spark(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
+
+	frontEncoder = new Encoder (ControllerConstants::DIOPort::kDIO2, ControllerConstants::DIOPort::kDIO3, true, CounterBase:: k4X); //check ports
+	sideEncoder = new Encoder (ControllerConstants::DIOPort::kDIO0, ControllerConstants::DIOPort::kDIO1, true, CounterBase:: k4X);
+	frontEncoder->SetDistancePerPulse(kFronDistancePerPulse); //check circumference/(pulses per revolution)
+	sideEncoder->SetDistancePerPulse(kSideDistancePerPulse);
+
 	robotDrive = new RobotDrive(
 		frontLeftController, rearLeftController,
 		frontRightController, rearRightController
