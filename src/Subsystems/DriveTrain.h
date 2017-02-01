@@ -21,6 +21,11 @@ private:
 	VictorSP* rearLeftController;
 	Spark* frontRightController;
 	VictorSP* rearRightController;
+	Encoder *leftEncoder;
+	Encoder *rightEncoder;
+
+	double kLeftDistancePerPulse= -1*3.14159*8/339;//check
+	double kRightDistancePerPulse= 3.14159*8/230;//check
 
 	// Robot drive system
 	RobotDrive* robotDrive;

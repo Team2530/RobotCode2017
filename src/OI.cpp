@@ -1,7 +1,8 @@
 #include "OI.h"
 
 #include <WPILib.h>
-
+#include <Commands/IntakeOn.h>
+#include <Commands/IntakeInvert.h>
 #include <Commands/DriveForward.h>
 
 OI::OI() {
