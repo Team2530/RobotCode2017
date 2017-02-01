@@ -2,14 +2,10 @@
 #include "Tracker.h"
 #include "../RobotMap.h"
 #include "AHRS.h"
+#include "DriveTrain.h"
 #include "Robot.h"
 
 Tracker::Tracker() : Subsystem("TrackerSubsystem") {
-	//ahrs= new AHRS(SerialPort::kMXP);
-	xAccel = new float(AHRS->GetRawAccelX());
-	yAccel = new float(AHRS->());
-	angle = new double(AHRS->GetAngle());
-}
 
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
@@ -19,14 +15,11 @@ void Tracker::InitDefaultCommand() {
 void Tracker::GetPosition(){
 	double xValue;//can be set depending where are on map
 	double yValue;//^^
-	//angle = angle.Get();
-	//xAccel = xAccel.Get();
-	//yAccel = yAccel.Get();
-	double distanceX;
-	double distanceY;
-	//xValue += (distanceX)(angle) + (distanceY)(angle);
-	//yValue += (distanceY)(angle) - (distanceX)(angle);
 
+	double distanceX = sideEncoder->GetDistance();
+	double distanceY = frontEncoder->GetDistance();
+	double angle = ahrs->GetAngle();
+}
 }
 
 // Put methods for controlling this subsystem

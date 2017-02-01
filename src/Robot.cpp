@@ -1,4 +1,7 @@
 #include "Robot.h"
+#include "WPILib.h"
+#include "DriveTrain.h"
+#include "AHRS.h"
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
