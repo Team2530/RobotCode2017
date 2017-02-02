@@ -7,8 +7,11 @@
 Tracker::Tracker() : Subsystem("TrackerSubsystem") {
 	//ahrs= new AHRS(SerialPort::kMXP);
 	xAccel = new float(AHRS->GetRawAccelX());
-	yAccel = new float(AHRS->());
+	yAccel = new float(AHRS->GetRawAccelY());
 	angle = new double(AHRS->GetAngle());
+	xDistance = new double(sideEncoder.Get());
+	yDistance = new double(frontEncoder.Get());
+	//feel like making this to complicated: finish implimenting encoders!
 }
 
 void Tracker::InitDefaultCommand() {
