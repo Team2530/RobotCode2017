@@ -17,6 +17,10 @@ private:
 	DigitalInput* hatchTop;
 	DigitalInput* dumperBottom;
 	DigitalInput* dumperTop;
+	
+	Encoder* frontEncoder;
+	Encoder* sideEncoder;
+	
 
 	double kHatchSpeedCap = 0.2; //SET TO ACTUAL
 	double kDumperSpeedCap = 0.7; //SET TO ACTUAL
