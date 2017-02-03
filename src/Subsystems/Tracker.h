@@ -11,7 +11,12 @@ private:
 	double* angle;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
+	Encoder *frontEncoder;
+	Encoder *sideEncoder;
+	AHRS *ahrs;
 
+	double kFrontDistancePerPulse= -1*3.14159*8/339;//check
+	double kSideDistancePerPulse= 3.14159*8/230;//check
 public:
 	Tracker();
 	void InitDefaultCommand();
