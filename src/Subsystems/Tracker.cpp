@@ -32,8 +32,8 @@ void Tracker::GetPosition(){
 	double angle = ahrs->GetAngle();
 	double changeInX = cos(angle)* distanceX + sin(angle) * distanceY;
 	double changeInY = cos(angle)*distanceY - sin(angle) * distanceX;
-	 xValue += changeInX ;
-	 yValue += changeInY ;
+	xValue += changeInX ;
+	yValue += changeInY ;
 }
 
 
