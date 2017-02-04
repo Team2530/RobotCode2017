@@ -6,9 +6,11 @@
 
 class Tracker : public Subsystem {
 private:
-	float* xAccel;
-	float* yAccel;
+
 	double* angle;
+	Encoder* frontEncoder;
+	Encoder* sideEncoder;
+	AHRS* ahrs;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
