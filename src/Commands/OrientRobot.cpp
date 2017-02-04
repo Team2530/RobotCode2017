@@ -4,8 +4,11 @@
  *  Created on: Feb 1, 2017
  *      Author: Shadotiz
  */
-/*Uses the gyro (most likely incorrectly however). Does not yet rotate the robot to a particular orientation.
-This will be super useful to line up on pegs, goals, hoppers, etc. in auto and teleop when it can rotate the robot.*/
+
+/*Utilizes gyro using iterative robot (probably inaccurately). Does not yet rotate the robot to a particular orientation,
+  which would be super useful to line up on pegs, goals, hoppers, etc. in auto and teleop. Successfully compiles.
+  */
+
 #include <cmath>
 
 #include <AnalogGyro.h>
@@ -13,24 +16,23 @@ This will be super useful to line up on pegs, goals, hoppers, etc. in auto and t
 #include <Joystick.h>
 #include <RobotDrive.h>
 
-/**
- * This is a sample program to demonstrate how to use a gyro sensor to make a robot drive
- * straight. This program uses a joystick to drive forwards and backwards while the gyro
- * is used for direction keeping.
- */
+//This uses a gyro sensor to make the robot drive straight and for direction keeping.
+
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		gyro.SetSensitivity(kVoltsPerDegreePerSecond);
 	}
 
-	/**
-	 * The motor speed is set from the joystick while the RobotDrive turning
-	 * value is assigned from the error between the setpoint and the gyro angle.
-	 */
+	/*The motor speed is set from the joystick while the RobotDrive turning
+	  value is assigned from the error between the setpoint and the gyro angle.
+	  */
+
 	void TeleopPeriodic() override {
 		double turningValue = (kAngleSetpoint - gyro.GetAngle()) * kP;
+
 		// Invert the direction of the turn if we are going backwards
+
 		turningValue = std::copysign(turningValue, joystick.GetY());
 		myRobot.Drive(joystick.GetY(), turningValue);
 	}
@@ -41,6 +43,7 @@ private:
 
 	// Gyro calibration constant, may need to be adjusted
 	// Gyro value of 360 is set to correspond to one full revolution
+
 	static constexpr double kVoltsPerDegreePerSecond = 0.0128;
 
 	static constexpr int kLeftMotorPort = 0;
@@ -52,6 +55,3 @@ private:
 	frc::AnalogGyro gyro { kGyroPort };
 	frc::Joystick joystick { kJoystickPort };
 };
-
-
-

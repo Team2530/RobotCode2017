@@ -8,7 +8,9 @@
 #ifndef SRC_COMMANDS_DELIVERGEAR_H_
 #define SRC_COMMANDS_DELIVERGEAR_H_
 #include "WPILib.h"
+
 //#include "../CommandBase.h"
+
 #include <Commands\Command.h>
 
 class DeliverGear : public Command {
@@ -20,7 +22,5 @@ public:
 	void End();
 	void Interrupted();
 };
-
-
 
 #endif /* SRC_COMMANDS_DELIVERGEAR_H_ */

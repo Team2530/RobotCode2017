@@ -4,6 +4,8 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 
+#include "AHRS.h" //for automatic balancing
+
 class DriveTrain : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
@@ -15,15 +17,18 @@ private:
 	static constexpr int kFrontRightChannel = 0;
 	static constexpr int kRearRightChannel = 3;
 
-	static constexpr int kJoystickChannel = 0;
+	static constexpr int kJoystickChannel = 4; //Was 0, but a wheel and a joystick cannot run on the same channel
 
 	Spark* frontLeftController;
 	VictorSP* rearLeftController;
 	Spark* frontRightController;
 	VictorSP* rearRightController;
 
-	// Robot drive system
-	RobotDrive* robotDrive;
+
+	RobotDrive* robotDrive; // Robot drive system
+
+	AHRS *ahrs;            //for automatic balancing.
+
 public:
 	DriveTrain();
 	void Drive(Joystick* stick);
