@@ -9,9 +9,17 @@ private:
 	static constexpr int kHatchController = 0; //SET TO ACTUAL
 	static constexpr int kDumperController = 0; //SET TO ACTUAL
 
+	//Victor SP stuff in case hardware decideds to change things again
+	//VictorSP* hatchController;
+	//VictorSP* dumperController;
+	//DigitalInput* hatchBottom;
+	//DigitalInput* hatchTop;
+	//DigitalInput* dumperBottom;
+	//DigitalInput* dumperTop;
 
-	VictorSP* hatchController;
-	VictorSP* dumperController;
+	DoubleSolenoid* hatchDouble;
+	DoubleSolenoid* dumperDouble;
+
 
 	DigitalInput* hatchBottom;
 	DigitalInput* hatchTop;
@@ -29,9 +37,9 @@ public:
 	Dumper();
 	void InitDefaultCommand();
 	void Dump();
-	void Reset();
-	bool FinishedDumping();
-	bool FinishedReseting();
+	void ResetDump();
+	/*void FinishedDumping;
+	void FinishedReseting;*/
 	void Stop();
 };
 

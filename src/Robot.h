@@ -21,7 +21,7 @@
 #include "OI.h"
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/IntakeOn.h"
-#include "Commands/Output.h"
+#include "Commands/Dump.h"
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
