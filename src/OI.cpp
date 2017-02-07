@@ -3,6 +3,8 @@
 #include <WPILib.h>
 
 #include <Commands/DriveForward.h>
+#include <Commands/IntakeOn.h>
+#include <Commands/IntakeInvert.h>
 
 OI::OI() {
 	// Process operator interface input here.
