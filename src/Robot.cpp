@@ -11,6 +11,12 @@ void Robot::RobotInit() {
 	dumper = std::make_shared<Dumper>();
 	oi = std::make_unique<OI>();
 	intake = std::make_shared<Intake>();
+	// Get the USB camera from CameraServer
+	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
+	// Set the resolution
+	camera.SetResolution(320, 240);
+	camera.SetExposureManual(20);
+	camera.SetBrightness(100);
 }
 
 /**
