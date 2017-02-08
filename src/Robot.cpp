@@ -4,6 +4,7 @@ std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
+std::shared_ptr<Tracker> Robot::tracker;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -17,6 +18,9 @@ void Robot::RobotInit() {
 	camera.SetResolution(320, 240);
 	camera.SetExposureManual(20);
 	camera.SetBrightness(100);
+	tracker = std::make_shared<Tracker>();
+
+
 }
 
 /**
