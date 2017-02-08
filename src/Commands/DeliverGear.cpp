@@ -4,7 +4,7 @@
  *  Created on: Feb 1, 2017
  *      Author: Shadotiz
  */
-/*For auto mode, incorporates gyro and tracker, not yet vision, using iterative instead of command based (probably not
+/*For auto mode, incorporates gyro, tracker, and vision, using iterative instead of command based (probably not
   accurately). Does not compile successfully due to tracker part.
   */
 
@@ -124,3 +124,12 @@ void ExampleCommand::Interrupted() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+// Get the USB camera from CameraServer
+
+  cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
+
+// Set the resolution
+  camera.SetResolution(320, 240);
+  camera.SetExposureManual(20);
+  camera.SetBrightness(100);
