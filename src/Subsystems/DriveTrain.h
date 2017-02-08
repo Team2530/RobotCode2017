@@ -1,19 +1,14 @@
+#ifndef DriveTrain_H
+#define DriveTrain_H
+
 #include "WPILib.h"
+#include <Commands/Subsystem.h>
 
-#ifndef SRC_DRIVE_TRAIN_H_
-#define SRC_DRIVE_TRAIN_H_
-
-/**
- * This is a demo program showing how to use Mecanum control with the RobotDrive
- * class.
- */
-class DriveTrain {
-public:
-	DriveTrain();
-	void update();
-	void SetSafetyEnabled(bool safety);
-
+class DriveTrain : public Subsystem {
 private:
+	// It's desirable that everything possible under private except
+	// for methods that implement subsystem capabilities
+
 	// Channels for the wheels
 	static constexpr int kFrontLeftChannel = 1;
 	static constexpr int kRearLeftChannel = 2;
@@ -27,10 +22,17 @@ private:
 	Spark* frontRightController;
 	VictorSP* rearRightController;
 
+
+
+
 	// Robot drive system
 	RobotDrive* robotDrive;
-	// Only joystick
-	Joystick* stick;
+public:
+	DriveTrain();
+	void Drive(Joystick* stick);
+	void Stop();
+	void InitDefaultCommand();
+	void DriveForward();
 };
 
-#endif // SRC_DRIVE_TRAIN_H_
+#endif  // DriveTrain_H
