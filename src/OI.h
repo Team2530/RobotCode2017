@@ -3,6 +3,7 @@
 
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+#include <AHRS.h>
 
 class OI {
 public:
