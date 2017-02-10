@@ -1,36 +1,35 @@
-#include <Commands/Output.h>
+#include "ResetDump.h"
+#include <Commands/Dump.h>
 #include "Robot.h"
 
-Output::Output(): Command("Output") {
+ResetDump::ResetDump() {
+	Requires(Robot::dumper.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::dumper.get());
 }
 
 // Called just before this Command runs the first time
-void Output::Initialize() {
+void ResetDump::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Output::Execute() {
-	Robot::dumper->Dump();
+void ResetDump::Execute() {
+	Robot::dumper->ResetDump();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Output::IsFinished() {
-	//return Robot::dumper->FinishedDumping();// no finished dumping
-	return true;
+bool ResetDump::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void Output::End() {
+void ResetDump::End() {
 	Robot::dumper->Stop();
-
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Output::Interrupted() {
-	End();
+void ResetDump::Interrupted() {
+
 }

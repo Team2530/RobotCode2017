@@ -22,6 +22,7 @@
 
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/IntakeOn.h"
+#include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
 #include "Commands/Output.h"
 //#include "Commands/GetAction.h"

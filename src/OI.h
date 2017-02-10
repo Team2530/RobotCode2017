@@ -14,7 +14,8 @@ private:
 	JoystickButton *B2;
 	JoystickButton *B7;
 	JoystickButton *B8;
-
+	JoystickButton *B9;
+	JoystickButton *B10;
 };
 
 #endif  // OI_H
