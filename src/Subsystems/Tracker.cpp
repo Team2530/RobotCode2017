@@ -5,6 +5,7 @@
 
 #include "Robot.h"
 #include "math.h"
+
 Tracker::Tracker() : Subsystem("TrackerSubsystem") {
 
 
@@ -24,8 +25,6 @@ void Tracker::InitDefaultCommand() {
 }
 
 void Tracker::GetPosition(){
-	double xValue;//can be set depending where are on map
-	double yValue;//^^
 
 	double distanceX = sideEncoder->GetDistance();
 	double distanceY = frontEncoder->GetDistance();

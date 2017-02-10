@@ -19,9 +19,9 @@ OI::OI() {
 	B8 = new frc::JoystickButton(joy,8);
 	B8->WhileHeld(new  IntakeInvert());
 	B9 = new frc::JoystickButton(joy,9);
-	B9->WhileHeld(new  Dump());
+	//B9->WhileHeld(new  Dump());
 	B10 = new frc::JoystickButton(joy,10);
-	B10->WhileHeld(new  ResetDump());
+//	B10->WhileHeld(new  ResetDump());
 
 }
 
