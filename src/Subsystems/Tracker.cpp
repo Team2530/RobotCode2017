@@ -22,19 +22,52 @@ void Tracker::InitDefaultCommand() {
 	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
+void Tracker::StartTracking(StartPosition position, StartTeam team){
+	currentPositionX = Robot::tracker->GetOriginalPositionX(position, team);
+	currentPositionY = 35.50;
+	currentAngle = 0;
+}
 
 void Tracker::GetPosition(){
-	double xValue;//can be set depending where are on map
-	double yValue;//^^
-
 	double distanceX = sideEncoder->GetDistance();
 	double distanceY = frontEncoder->GetDistance();
-	double angle = ahrs->GetAngle();
+	double angle =  ahrs->GetAngle();
 	double changeInX = cos(angle)* distanceX + sin(angle) * distanceY;
 	double changeInY = cos(angle)*distanceY - sin(angle) * distanceX;
-	xValue += changeInX ;
-	yValue += changeInY ;
+	currentPositionX += changeInX;
+	currentPositionY += changeInY;
+	currentAngle = angle;
+	frontEncoder->Reset();
+	sideEncoder->Reset();
 }
+double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
+	double xValue;
+	if (team == RED_TEAM){
+		if (position == START_LEFT){
+			xValue = 75.545; //all these are starting coordinates in inches
+		}
+		else if (position == START_MIDDLE){
+			xValue = 183.107;
+		}
+		else{ // START_RIGHT
+			xValue = 249.587;
+		}
+	}
+	else{ //BLUE_TEAM
+		if (position == START_LEFT){
+			xValue = 73.712;
+		}
+		else if (position == START_MIDDLE){
+			xValue = 140.192;
+		}
+		else{//START_RIGHT
+			xValue = 235.584;
+		}
+	}
+	return xValue;
+
+}
+
 
 
 // Put methods for controlling this subsystem
