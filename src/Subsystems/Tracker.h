@@ -11,6 +11,9 @@ private:
 	Encoder* frontEncoder;
 	Encoder* sideEncoder;
 	AHRS* ahrs;
+	double xValue;//can be set depending where are on map
+	double yValue;//^^
+
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
