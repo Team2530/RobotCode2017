@@ -1,4 +1,4 @@
-#include "DriveTrain.h"
+ #include "DriveTrain.h"
 #include "../RobotMap.h"
 #include "ControllerConstants.h"
 
@@ -38,6 +38,10 @@ void DriveTrain::Drive(Joystick* stick) {
 		scale*stick->GetX(), scale*stick->GetY(),
 		scale*stick->GetZ()
 	);
+}
+
+void DriveTrain::DriveWithCoordinates(double x, double y, double z){
+	robotDrive->MecanumDrive_Cartesian(x, y, z);
 }
 
 void DriveTrain::Stop() {

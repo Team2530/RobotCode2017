@@ -1,57 +1,71 @@
-/*
- * OrientRobot.cpp
- *
- *  Created on: Feb 1, 2017
- *      Author: Shadotiz
- */
-/*Uses the gyro (most likely incorrectly however). Does not yet rotate the robot to a particular orientation.
-This will be super useful to line up on pegs, goals, hoppers, etc. in auto and teleop when it can rotate the robot.*/
-#include <cmath>
+#include "OrientRobot.h"
+#include "math.h"
+#include "Robot.h"
+OrientRobot::OrientRobot(double TargetAngle) {
+	Angle = TargetAngle;
 
-#include <AnalogGyro.h>
-#include <IterativeRobot.h>
-#include <Joystick.h>
-#include <RobotDrive.h>
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get()
+}
 
-/**
- * This is a sample program to demonstrate how to use a gyro sensor to make a robot drive
- * straight. This program uses a joystick to drive forwards and backwards while the gyro
- * is used for direction keeping.
- */
-class Robot: public frc::IterativeRobot {
-public:
-	void RobotInit() override {
-		gyro.SetSensitivity(kVoltsPerDegreePerSecond);
+// Called just before this Command runs the first time
+void OrientRobot::Initialize() {
+
+
+}
+
+// Called repeatedly when this Command is scheduled to run
+void OrientRobot::Execute() {
+	double CurrentAngle = (Robot::oi->GetAHRS()->GetYaw());
+	double turningValue = Angle - CurrentAngle;
+	turningValue = TurnAngleDetermination(turningValue);
+	turningValue = TurningSpeedDetermination(turningValue);
+	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue);
+
+
+
+
+}
+
+double OrientRobot::TurningSpeedDetermination(double OffsetAngle){
+	OffsetAngle /= 180;
+	if(OffsetAngle >= 5 || OffsetAngle <= -5){
+		OffsetAngle *= 0.25;
 	}
 
-	/**
-	 * The motor speed is set from the joystick while the RobotDrive turning
-	 * value is assigned from the error between the setpoint and the gyro angle.
-	 */
-	void TeleopPeriodic() override {
-		double turningValue = (kAngleSetpoint - gyro.GetAngle()) * kP;
-		// Invert the direction of the turn if we are going backwards
-		turningValue = std::copysign(turningValue, joystick.GetY());
-		myRobot.Drive(joystick.GetY(), turningValue);
+	else if(OffsetAngle >= 8 || OffsetAngle <= -3){
+		OffsetAngle *= 0.4;
 	}
-
-private:
-	static constexpr double kAngleSetpoint = 0.0;
-	static constexpr double kP = 0.005;  // Proportional turning constant
-
-	// Gyro calibration constant, may need to be adjusted
-	// Gyro value of 360 is set to correspond to one full revolution
-	static constexpr double kVoltsPerDegreePerSecond = 0.0128;
-
-	static constexpr int kLeftMotorPort = 0;
-	static constexpr int kRightMotorPort = 1;
-	static constexpr int kGyroPort = 0;
-	static constexpr int kJoystickPort = 0;
-
-	frc::RobotDrive myRobot { kLeftMotorPort, kRightMotorPort };
-	frc::AnalogGyro gyro { kGyroPort };
-	frc::Joystick joystick { kJoystickPort };
-};
+	return OffsetAngle;
+}
 
 
+double OrientRobot::TurnAngleDetermination(double OffsetAngle){
+	if(OffsetAngle >= 180){
+		OffsetAngle = OffsetAngle - 360;
+	}
+	else if(OffsetAngle <= -180){
+		OffsetAngle = OffsetAngle + 360;
+	}
+	return OffsetAngle;
+}
 
+// Make this return true when this Command no longer needs to run execute()
+bool OrientRobot::IsFinished() {
+	double CurrentAngle = (Robot::oi->GetAHRS()->GetYaw());
+	if(Angle == CurrentAngle){
+	return false;
+	}
+}
+
+
+// Called once after isFinished returns true
+void OrientRobot::End() {
+
+}
+
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void OrientRobot::Interrupted() {
+
+}

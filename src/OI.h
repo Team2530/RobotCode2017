@@ -3,20 +3,28 @@
 
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+
 #include <AHRS.h>
+
 
 class OI {
 public:
 	OI();
 	Joystick* GetJoystick();
+	AHRS* GetAHRS();
 private:
 	Joystick* joy;
-	JoystickButton *B3;
-	JoystickButton *B4;
+	JoystickButton *B6;
 	JoystickButton *B7;
 	JoystickButton *B8;
+	AHRS* ahrs;
+
+	JoystickButton *B3;
+	JoystickButton *B4;
+
 	JoystickButton *B9;
 	JoystickButton *B10;
+
 };
 
 #endif  // OI_H
