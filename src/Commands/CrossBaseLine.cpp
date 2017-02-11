@@ -1,36 +1,37 @@
-#include <Commands/Output.h>
+#include "CrossBaseLine.h"
 #include "Robot.h"
 
-Output::Output(): Command("Output") {
+CrossBaseLine::CrossBaseLine() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::dumper.get());
+	Requires(Robot::drivetrain.get());
+	Requires(Robot::tracker.get());
 }
 
 // Called just before this Command runs the first time
-void Output::Initialize() {
+void CrossBaseLine::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Output::Execute() {
-	Robot::dumper->Dump();
+void CrossBaseLine::Execute() {
+	while (Robot::tracker->GetForwardDistance() < 112){
+		Robot::drivetrain->DriveForward();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Output::IsFinished() {
-	//return Robot::dumper->FinishedDumping();// no finished dumping
-	return true;
+bool CrossBaseLine::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void Output::End() {
-	Robot::dumper->Stop();
+void CrossBaseLine::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Output::Interrupted() {
-	End();
+void CrossBaseLine::Interrupted() {
+
 }
