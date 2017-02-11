@@ -25,7 +25,8 @@
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
 #include "Commands/Output.h"
-//#include "Commands/GetAction.h"
+#include "Commands/DoNothing.h"
+#include "Commands/CrossBaseLine.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
@@ -72,7 +73,8 @@ public:
 
 private:
 
-	std::unique_ptr<frc::Command> autonomous;
+	std::unique_ptr<frc::Command> autonomousPos;
+	std::unique_ptr<frc::Command> autonomousDo;
 	frc::SendableChooser<frc::Command*> chooserDo;
 	frc::SendableChooser<frc::Command*> chooserPos;
 };
