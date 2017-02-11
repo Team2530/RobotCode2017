@@ -9,11 +9,15 @@
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
 
+#include <Commands/DriveLeftSideForward.h>
+
 OI::OI() {
 	// Process operator interface input here.
 	joy = new Joystick(0);
-	B2 = new frc::JoystickButton(joy,2);
-	B2->WhileHeld(new  DriveForward());
+	B3 = new frc::JoystickButton(joy,3);
+	B3->WhileHeld(new  DriveForward());
+	B4 = new frc::JoystickButton(joy,4);
+	B4->WhileHeld(new  DriveLeftSideForward());
 	B7 = new frc::JoystickButton(joy,7);
 	B7->WhileHeld(new  IntakeOn());
 	B8 = new frc::JoystickButton(joy,8);
@@ -22,7 +26,6 @@ OI::OI() {
 	//B9->WhileHeld(new  Dump());
 	B10 = new frc::JoystickButton(joy,10);
 //	B10->WhileHeld(new  ResetDump());
-
 }
 
 Joystick* OI::GetJoystick() {

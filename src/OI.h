@@ -11,7 +11,8 @@ public:
 	Joystick* GetJoystick();
 private:
 	Joystick* joy;
-	JoystickButton *B2;
+	JoystickButton *B3;
+	JoystickButton *B4;
 	JoystickButton *B7;
 	JoystickButton *B8;
 	JoystickButton *B9;
