@@ -48,12 +48,17 @@ void DriveTrain::DriveForward() {
 
 	robotDrive->MecanumDrive_Cartesian(0,-0.5,0);
 }
+
 void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 	double scale = 0.6-0.4*stick->GetThrottle();
 	robotDrive->MecanumDrive_Cartesian(
 		scale*stick->GetY(), scale*stick->GetX(),
 		scale*stick->GetZ()
 	);
+}
+void DriveTrain::DrivePastBaseLine(){
+
+
 }
 
 

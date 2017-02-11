@@ -73,6 +73,8 @@ public:
 	void GetPosition();
 	double GetOriginalPositionX(StartPosition position, StartTeam team);
 
+	double GetForwardDistance();
+	double GetSideDistance();
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place
