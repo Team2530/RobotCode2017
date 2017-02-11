@@ -33,6 +33,7 @@ public:
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();
+	void DrivePastBaseLine();
 };
 
 #endif  // DriveTrain_H

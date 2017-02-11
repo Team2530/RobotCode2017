@@ -78,6 +78,12 @@ double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	return xValue;
 
 }
+double Tracker::GetForwardDistance(){
+	return frontEncoder->GetDistance();
+}
+double Tracker::GetSideDistance(){
+	return sideEncoder->GetDistance();
+}
 
 void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);

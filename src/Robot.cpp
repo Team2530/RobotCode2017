@@ -27,9 +27,9 @@ void Robot::RobotInit() {
 	camera.SetBrightness(100);
 	tracker = std::make_shared<Tracker>();
 
-	/* TODO:
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
+	/* TODO:
 	chooserDo.AddObject("Deliver Gear", new DeliverGear(););//^^
 	*/
 
@@ -80,8 +80,10 @@ void Robot::AutonomousInit() {
 		autonomousCommand.reset(new ExampleCommand());
 	} */
 	// TODO: add chooserDo here too!
-	Command* autonomous = chooserPos.GetSelected();
-	autonomous->Start();
+	Command* autonomousDo = chooserDo.GetSelected();
+	Command* autonomousPos = chooserPos.GetSelected();
+	autonomousPos->Start();
+	autonomousDo->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -96,6 +98,7 @@ void Robot::TeleopInit() {
 	/*if (autonomousCommand != nullptr) {
 		autonomousCommand->Cancel();
 	}*/
+	//??autonomous->End();
 }
 
 void Robot::TeleopPeriodic() {
