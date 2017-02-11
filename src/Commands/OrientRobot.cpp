@@ -29,14 +29,19 @@ void OrientRobot::Execute() {
 
 double OrientRobot::TurningSpeedDetermination(double OffsetAngle){
 	OffsetAngle /= 180;
-	if(OffsetAngle >= 5 || OffsetAngle <= -5){
-		OffsetAngle *= 0.25;
+	double MinimumPower;
+	double PowerSlope = 0.8;
+	double TurningSpeed;
+	if (OffsetAngle < 0){
+		MinimumPower = -0.2;
 	}
+	else{
+		MinimumPower = 0.2;
+	}
+	TurningSpeed = (PowerSlope * OffsetAngle) + MinimumPower;
 
-	else if(OffsetAngle >= 8 || OffsetAngle <= -3){
-		OffsetAngle *= 0.4;
-	}
-	return OffsetAngle;
+
+	return TurningSpeed;
 }
 
 
@@ -61,7 +66,8 @@ bool OrientRobot::IsFinished() {
 
 	if(HowFarOff < 3.0){
 		return true;
-	} else {
+	}
+	else {
 		return false;
 	}
 }
