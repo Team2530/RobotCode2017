@@ -1,7 +1,7 @@
 #ifndef OrientRobot_H
 #define OrientRobot_H
 
-#include "../CommandBase.h"
+#include "Commands/Command.h"
 #include <Subsystems/AHRS.h>
 
 class OrientRobot : public Command{

@@ -53,8 +53,16 @@ double OrientRobot::TurnAngleDetermination(double OffsetAngle){
 // Make this return true when this Command no longer needs to run execute()
 bool OrientRobot::IsFinished() {
 	double CurrentAngle = (Robot::oi->GetAHRS()->GetYaw());
-	if(Angle == CurrentAngle){
-	return false;
+	double HowFarOff;
+	if (Angle < CurrentAngle)
+		HowFarOff = CurrentAngle - Angle;
+	else
+		HowFarOff = Angle - CurrentAngle;
+
+	if(HowFarOff < 3.0){
+		return true;
+	} else {
+		return false;
 	}
 }
 
