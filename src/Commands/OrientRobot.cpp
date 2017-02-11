@@ -2,7 +2,7 @@
 #include "math.h"
 #include "Robot.h"
 OrientRobot::OrientRobot(double TargetAngle) {
-	double Angle = TargetAngle;
+	Angle = TargetAngle;
 
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get()

@@ -16,7 +16,7 @@ public:
 	double TurningSpeedDetermination(double OffsetAngle);
 private:
 	double TurnAngle;//Is the degree by which the robot needs to turn to correct itself
-	double Angle;//Angle which robot needs to return to; determined at start of program
+	double Angle;
 };
 
 
