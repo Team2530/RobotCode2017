@@ -112,11 +112,12 @@ double Tracker::GetPIDRotation() {
 	return pidr;
 }
 
-double Tracker::GetPIDBackward() {
+//double Tracker::GetPIDBackward() {
 
-}
+//}
 
-double Tracker::GetPIDRight() {
-}
+//double Tracker::GetPIDRight() {
+
+//}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

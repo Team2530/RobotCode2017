@@ -33,7 +33,9 @@ public:
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();
+	void DriveLeftSideForward(Joystick* stick);
 	void DrivePastBaseLine();
+
 };
 
 #endif  // DriveTrain_H
