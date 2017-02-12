@@ -22,7 +22,7 @@ Tracker::Tracker() :
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
-	ahrs = new AHRS(SerialPort::kMXP);//check port
+	ahrs = Robot::oi->GetAHRS();
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.

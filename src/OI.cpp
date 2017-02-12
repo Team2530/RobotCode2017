@@ -29,8 +29,9 @@ OI::OI() {
 	B8->WhileHeld(new  IntakeInvert());
 
 	ahrs= new AHRS(SerialPort::kMXP);
+	ahrs->Reset();
 	B6 = new frc::JoystickButton(joy, 6);
-	B6->WhenPressed(new OrientRobot(90));
+	B6->WhenPressed(new OrientRobot(90.0));
 
 	B9 = new frc::JoystickButton(joy,9);
 	//B9->WhileHeld(new  Dump());
