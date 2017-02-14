@@ -19,20 +19,21 @@ Tracker::Tracker() :
 	pidrc(0.1, 0.001, 0.0, &pidrs, &pidro)
 {
 	frontEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
-	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
+	sideEncoder = new frc::Encoder(2,3,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
-	ahrs = Robot::oi->GetAHRS();
+	ahrs = nullptr;
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	frontEncoder->Reset();
 	sideEncoder->Reset();
-	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
 void Tracker::StartTracking(StartPosition position, StartTeam team){
+	ahrs = Robot::oi->GetAHRS();
+	ahrs->Reset();
 	currentPositionX = Robot::tracker->GetOriginalPositionX(position, team);
 	currentPositionY = 35.50;
 	currentAngle = 0;

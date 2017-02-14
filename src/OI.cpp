@@ -28,16 +28,16 @@ OI::OI() {
 	B8 = new frc::JoystickButton(joy,8);
 	B8->WhileHeld(new  IntakeInvert());
 
-	ahrs= new AHRS(SerialPort::kMXP);
+	ahrs = new AHRS(SPI::Port::kMXP);
 	ahrs->Reset();
 	B6 = new frc::JoystickButton(joy, 6);
 	B6->WhenPressed(new OrientRobot(90.0));
-
+/*
 	B9 = new frc::JoystickButton(joy,9);
 	//B9->WhileHeld(new  Dump());
 	B10 = new frc::JoystickButton(joy,10);
 //	B10->WhileHeld(new  ResetDump());
-
+*/
 }
 
 Joystick* OI::GetJoystick() {

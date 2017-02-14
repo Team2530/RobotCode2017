@@ -2,7 +2,7 @@
 #define OrientRobot_H
 
 #include "Commands/Command.h"
-#include <Subsystems/AHRS.h>
+#include <AHRS.h>
 
 class OrientRobot : public Command{
 public:

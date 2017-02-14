@@ -4,7 +4,8 @@
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
 
-#include <Subsystems/AHRS.h>
+//#include <Subsystems/AHRS.h>
+#include <AHRS.h>
 
 
 class OI {
