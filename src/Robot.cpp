@@ -24,11 +24,11 @@ void Robot::RobotInit() {
 	oi = std::make_unique<OI>();
 
 	// Get the USB camera from CameraServer
-	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
+	//cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
 	// Set the resolution
-	camera.SetResolution(320, 240);
-	camera.SetExposureManual(20);
-	camera.SetBrightness(100);
+	//camera.SetResolution(320, 240);
+	//camera.SetExposureManual(20);
+	//camera.SetBrightness(100);
 
 	//chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	//chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^

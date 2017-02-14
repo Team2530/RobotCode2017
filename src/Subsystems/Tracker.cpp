@@ -42,6 +42,9 @@ void Tracker::StartTracking(StartPosition position, StartTeam team){
 void Tracker::GetPosition(){
 	double distanceX = sideEncoder->GetDistance();
 	double distanceY = frontEncoder->GetDistance();
+	SmartDashboard::PutNumber("X Encoder",distanceX);
+	SmartDashboard::PutNumber("Y encoder",distanceY);
+
 	double angle =  ahrs->GetAngle();
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
