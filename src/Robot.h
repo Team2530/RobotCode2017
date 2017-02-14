@@ -19,22 +19,31 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 #include "OI.h"
+
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
+#include "Commands/IntakeInvert.h"
+#include "Commands/Output.h"
+#include "Commands/DoNothing.h"
+#include "Commands/CrossBaseLine.h"
+
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
 #include "Subsystems/Tracker.h"
 
 
+
 class Robot: public frc::IterativeRobot {
 public:
+
 	static std::shared_ptr<DriveTrain> drivetrain;
 	static std::shared_ptr<Dumper> dumper;
 	static std::unique_ptr<OI> oi;
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
+
 	void RobotInit() override;
 
 	/**
@@ -63,9 +72,11 @@ public:
 	void TestPeriodic() override;
 
 private:
-	// Leftover from example code
-	std::unique_ptr<frc::Command> autonomousCommand;
-	frc::SendableChooser<frc::Command*> chooser;
+
+	std::unique_ptr<frc::Command> autonomousPos;
+	std::unique_ptr<frc::Command> autonomousDo;
+	frc::SendableChooser<frc::Command*> chooserDo;
+	frc::SendableChooser<frc::Command*> chooserPos;
 };
 
 

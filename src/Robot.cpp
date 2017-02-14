@@ -2,11 +2,16 @@
 #include "WPILib.h"
 
 
+#include "Commands/TrackerInit.h"
+
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
+
+SendableChooser<Command*> chooserDo;
+SendableChooser<Command*> chooserPos;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -21,6 +26,23 @@ void Robot::RobotInit() {
 	camera.SetExposureManual(20);
 	camera.SetBrightness(100);
 	tracker = std::make_shared<Tracker>();
+
+	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
+	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
+	/* TODO:
+	chooserDo.AddObject("Deliver Gear", new DeliverGear(););//^^
+	*/
+
+	chooserPos.AddObject("Blue Left", new TrackerInit(START_LEFT, BLUE_TEAM)); //starting position
+	chooserPos.AddObject("Blue Middle", new TrackerInit(START_MIDDLE,BLUE_TEAM));//^^
+	chooserPos.AddObject("Blue Right", new TrackerInit(START_RIGHT, BLUE_TEAM));//^^
+
+
+	chooserPos.AddObject("Red Left", new TrackerInit(START_LEFT, RED_TEAM)); //starting position
+	chooserPos.AddObject("Red Middle", new TrackerInit(START_MIDDLE,RED_TEAM));//^^
+	chooserPos.AddObject("Red Right", new TrackerInit(START_RIGHT, RED_TEAM));//^^
+
+
 
 
 }
@@ -57,6 +79,11 @@ void Robot::AutonomousInit() {
 	else {
 		autonomousCommand.reset(new ExampleCommand());
 	} */
+	// TODO: add chooserDo here too!
+	Command* autonomousDo = chooserDo.GetSelected();
+	Command* autonomousPos = chooserPos.GetSelected();
+	autonomousPos->Start();
+	autonomousDo->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -71,6 +98,7 @@ void Robot::TeleopInit() {
 	/*if (autonomousCommand != nullptr) {
 		autonomousCommand->Cancel();
 	}*/
+	//??autonomous->End();
 }
 
 void Robot::TeleopPeriodic() {

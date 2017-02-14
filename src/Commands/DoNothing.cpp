@@ -1,35 +1,32 @@
-#include <Commands/GetFieldPosition.h>
+#include "DoNothing.h"
 #include "Robot.h"
 
-GetFieldPosition::GetFieldPosition() : Command("GetFieldPosition"){
+DoNothing::DoNothing() {
 	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::tracker.get());
-
+	Requires(Robot::drivetrain.get());
 }
 
 // Called just before this Command runs the first time
-void GetFieldPosition::Initialize() {
+void DoNothing::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetFieldPosition::Execute() {
-	Robot::tracker->GetPosition();
+void DoNothing::Execute() {
+	Robot::drivetrain->Stop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool GetFieldPosition::IsFinished() {
+bool DoNothing::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void GetFieldPosition::End() {
-
+void DoNothing::End() {
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void GetFieldPosition::Interrupted() {
-	End();
+void DoNothing::Interrupted() {
+
 }

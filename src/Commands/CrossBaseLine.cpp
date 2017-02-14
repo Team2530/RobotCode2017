@@ -1,35 +1,37 @@
-#include <Commands/GetFieldPosition.h>
+#include "CrossBaseLine.h"
 #include "Robot.h"
 
-GetFieldPosition::GetFieldPosition() : Command("GetFieldPosition"){
+CrossBaseLine::CrossBaseLine() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(Robot::drivetrain.get());
 	Requires(Robot::tracker.get());
-
 }
 
 // Called just before this Command runs the first time
-void GetFieldPosition::Initialize() {
+void CrossBaseLine::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetFieldPosition::Execute() {
-	Robot::tracker->GetPosition();
+void CrossBaseLine::Execute() {
+	while (Robot::tracker->GetForwardDistance() < 112){
+		Robot::drivetrain->DriveForward();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool GetFieldPosition::IsFinished() {
+bool CrossBaseLine::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void GetFieldPosition::End() {
+void CrossBaseLine::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void GetFieldPosition::Interrupted() {
-	End();
+void CrossBaseLine::Interrupted() {
+
 }
