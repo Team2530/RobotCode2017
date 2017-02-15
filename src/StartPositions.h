@@ -29,7 +29,7 @@ enum ObjectPositions{
 	MIDDLE_GEAR_DELIVERY,
 	RIGHT_GEAR_DELIVERY
 };
-	static const double leftStartingPlaceY = 17.25; //y coordinate of starting place roughly
+	static const double StartingPlaceY = 17.25; //y coordinate of starting place roughly
 	//
 	static const double startingRedLeftX = 75.545;
 	static const double startingRedMiddleX = 183.107;
@@ -40,10 +40,18 @@ enum ObjectPositions{
 	static const double startingBlueRightX = 235.584;
 
 	static const double redBoilerPositionX = 278.23058;
+	static const double redBoilerPositionY = 70.562761;
+	static const double redBoilerPositionR = 120;
 	static const double redHopperPositionX = 51.7957;
+	static const double redHopperPositionY = 64.352291;
+	static const double redHopperPositionR = -120;
 
 	static const double blueBoilerPositionX = 51.79561;
+	static const double blueBoilerPositionY = 70.562761;
+	static const double blueBoilerPositionR = -120;
 	static const double blueHopperPositionX = 278.23059;
+	static const double blueHopperPositionY = 64.352291;
+	static const double blueHopperPositionR = 120;
 
 	//gear positions
 	static const double leftGearPlaceX = 162.2656;
