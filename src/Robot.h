@@ -24,7 +24,6 @@
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
-#include "Commands/Output.h"
 #include "Commands/DoNothing.h"
 #include "Commands/CrossBaseLine.h"
 
@@ -32,6 +31,7 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
 #include "Subsystems/Tracker.h"
+#include "Subsystems/Vision.h"
 
 
 
@@ -43,6 +43,7 @@ public:
 	static std::unique_ptr<OI> oi;
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
+	static std::shared_ptr<Vision> vision;
 
 	void RobotInit() override;
 
