@@ -1,6 +1,7 @@
 #include "OrientRobot.h"
 #include "math.h"
 #include "Robot.h"
+#include <AHRS.h>
 
 
 OrientRobot::OrientRobot(double TargetAngle) {
@@ -18,19 +19,19 @@ OrientRobot::OrientRobot(double x, double y) {
 	double deltaxValue = x - currentPositionX;
 	double deltayValue = y - currentPositionY;
 
-	if (deltaxValue < 0, deltayValue > 0){
+	if (deltaxValue < 0 && deltayValue > 0){
 			TargetAngle = atan ((-deltaxValue) / deltayValue) + 90;
 		}
-	if (deltaxValue > 0, deltayValue > 0){
+	if (deltaxValue > 0 && deltayValue > 0){
 			TargetAngle = atan (deltayValue / deltaxValue);
 		}
-	if (deltaxValue > 0, deltayValue < 0){
+	if (deltaxValue > 0 && deltayValue < 0){
 			TargetAngle = -atan ((-deltayValue) / deltaxValue);
 		}
-	if (deltaxValue < 0, deltayValue < 0){
+	if (deltaxValue < 0 && deltayValue < 0){
 			TargetAngle = -(atan ((-deltaxValue) / (-deltayValue)) + 90);
 		}
-	Angle = TargetAngle;
+	*Angle = *TargetAngle;
 }
 // Called just before this Command runs the first time
 void OrientRobot::Initialize() {
@@ -43,7 +44,7 @@ void OrientRobot::Execute() {
 	double CurrentAngle = (Robot::oi->GetAHRS()->GetAngle());
 	SmartDashboard::PutNumber("CurrentAngle",CurrentAngle);
 
-	double turningValue = Angle - CurrentAngle;
+	double turningValue = *Angle - CurrentAngle;
 	turningValue = TurnAngleDetermination(turningValue);
 	turningValue = TurningSpeedDetermination(turningValue);
 	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue);
@@ -84,10 +85,10 @@ double OrientRobot::TurnAngleDetermination(double OffsetAngle){
 bool OrientRobot::IsFinished() {
 	double CurrentAngle = (Robot::oi->GetAHRS()->GetAngle());
 	double HowFarOff;
-	if (Angle < CurrentAngle)
-		HowFarOff = CurrentAngle - Angle;
+	if (*Angle < CurrentAngle)
+		HowFarOff = CurrentAngle - *Angle;
 	else
-		HowFarOff = Angle - CurrentAngle;
+		HowFarOff = *Angle - CurrentAngle;
 
 	if(HowFarOff < 3.0){
 		return true;
