@@ -25,14 +25,13 @@ Tracker::Tracker() :
 	pidxc.SetTolerance(1.0); // inches
 	pidyc.SetTolerance(1.0); // inches
 	pidrc.SetTolerance(1.0); // degrees
-	ahrs = new AHRS(SerialPort::kMXP);//check port
+	ahrs = Robot::oi->GetAHRS();
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	frontEncoder->Reset();
 	sideEncoder->Reset();
-	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
 void Tracker::StartTracking(StartPosition position, StartTeam team){
