@@ -1,5 +1,7 @@
 #include "CalculateTargetAngle.h"
 
+#include "robot.h"
+
 CalculateTargetAngle::CalculateTargetAngle(double *x, double *y, double *angle) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -29,6 +31,7 @@ void CalculateTargetAngle::Initialize() {
 		}
 	if (deltaxValue > 0 && deltayValue < 0){
 			TargetAngle = -atan ((-deltayValue) / deltaxValue);
+		}
 	if (deltaxValue < 0 && deltayValue < 0){
 			TargetAngle = -(atan ((-deltaxValue) / (-deltayValue)) + 90);
 		}

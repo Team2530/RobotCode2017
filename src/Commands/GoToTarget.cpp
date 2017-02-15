@@ -9,6 +9,6 @@
 
 GoToTarget::GoToTarget(double *angle, double *x, double *y)
 {
-	AddSequential(new CalculateTargetAngle(angle));
-	AddSequential(new DriveForward(x, y));
+	//AddSequential(new CalculateTargetAngle(angle));
+//	AddSequential(new DriveForward(x, y));
 }
