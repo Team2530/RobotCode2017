@@ -9,6 +9,9 @@ Vision::Vision() : Subsystem("VisionSubsystem") {
 	targets = 0;
 	displacement = 0;
 	distance = 0;
+
+	LEDRing = new frc::Relay(kLEDRing, frc::Relay::Direction::kForwardOnly);
+
 	table = NetworkTable::GetTable("GearAutonomous");
 
 	// Get the USB camera from CameraServer,
@@ -38,6 +41,10 @@ double Vision::GetDisplacement() {
 }
 double Vision::GetDistance() {
 	return distance;
+}
+
+void Vision::SetLED(bool on) {
+	LEDRing->Set(on ? frc::Relay::Value::kForward : frc::Relay::Value::kOff);
 }
 
 void Vision::Update() {
