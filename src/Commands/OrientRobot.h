@@ -7,7 +7,6 @@
 class OrientRobot : public Command{
 public:
 	OrientRobot(double TargetAngle);
-	OrientRobot(double x, double y);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

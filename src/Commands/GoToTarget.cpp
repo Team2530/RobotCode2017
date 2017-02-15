@@ -7,8 +7,8 @@
 
 #include "GoToTarget.h"
 
-GoToTarget::GoToTarget(double x, double y)
+GoToTarget::GoToTarget(double *angle, double *x, double *y)
 {
-	AddSequential(new OrientRobot(x, y));
+	AddSequential(new CalculateTargetAngle(angle));
 	AddSequential(new DriveForward(x, y));
 }
