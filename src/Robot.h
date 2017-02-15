@@ -34,6 +34,7 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
 #include "Subsystems/Tracker.h"
+#include "Subsystems/Vision.h"
 
 
 
@@ -45,6 +46,7 @@ public:
 	static std::unique_ptr<OI> oi;
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
+	static std::shared_ptr<Vision> vision;
 
 	void RobotInit() override;
 
