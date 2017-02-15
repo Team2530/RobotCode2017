@@ -73,8 +73,13 @@ public:
 	void GetPosition();
 	double GetOriginalPositionX(StartPosition position, StartTeam team);
 
+	double GetHopperPositionX(StartTeam team);
+	double GetBoilerPositionX(StartTeam team);
 	double GetForwardDistance();
 	double GetSideDistance();
+
+	double GetGearPositionX(ObjectPositions position);
+	double GetGearPositionY(ObjectPositions position);  // Celeste persisted.
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place

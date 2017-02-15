@@ -10,6 +10,7 @@
 
 
 #include <memory>
+#include "WPILib.h"
 
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
@@ -25,8 +26,9 @@
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
 #include "Commands/Output.h"
-#include "Commands/DoNothing.h"
 #include "Commands/CrossBaseLine.h"
+#include "Commands/DoNothing.h"
+#include "Commands/DeliverMiddleGear.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
@@ -73,8 +75,7 @@ public:
 
 private:
 
-	std::unique_ptr<frc::Command> autonomousPos;
-	std::unique_ptr<frc::Command> autonomousDo;
+	std::unique_ptr<frc::Command> autonomous;
 	frc::SendableChooser<frc::Command*> chooserDo;
 	frc::SendableChooser<frc::Command*> chooserPos;
 };

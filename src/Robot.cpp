@@ -1,7 +1,4 @@
 #include "Robot.h"
-#include "WPILib.h"
-
-
 #include "Commands/TrackerInit.h"
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
@@ -29,9 +26,8 @@ void Robot::RobotInit() {
 
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
-	/* TODO:
-	chooserDo.AddObject("Deliver Gear", new DeliverGear(););//^^
-	*/
+	chooserDo.AddObject("Deliver Gear", new DeliverMiddleGear());//^^
+
 
 	chooserPos.AddObject("Blue Left", new TrackerInit(START_LEFT, BLUE_TEAM)); //starting position
 	chooserPos.AddObject("Blue Middle", new TrackerInit(START_MIDDLE,BLUE_TEAM));//^^

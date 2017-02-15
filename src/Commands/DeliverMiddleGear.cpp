@@ -1,7 +1,7 @@
-#include "CrossBaseLine.h"
+#include "DeliverMiddleGear.h"
 #include "Robot.h"
 
-CrossBaseLine::CrossBaseLine() {
+DeliverMiddleGear::DeliverMiddleGear() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::drivetrain.get());
@@ -9,29 +9,28 @@ CrossBaseLine::CrossBaseLine() {
 }
 
 // Called just before this Command runs the first time
-void CrossBaseLine::Initialize() {
+void DeliverMiddleGear::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void CrossBaseLine::Execute() {
-	while (Robot::tracker->GetForwardDistance() < 112){//where 112 = 93.25 + robot distance
-		Robot::drivetrain->DriveForward();
-	}
+void DeliverMiddleGear::Execute() {
+	Robot::tracker->GetGearPositionX(MIDDLE_GEAR_DELIVERY);
+	Robot::tracker->GetGearPositionY(MIDDLE_GEAR_DELIVERY);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool CrossBaseLine::IsFinished() {
+bool DeliverMiddleGear::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void CrossBaseLine::End() {
+void DeliverMiddleGear::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void CrossBaseLine::Interrupted() {
+void DeliverMiddleGear::Interrupted() {
 
 }

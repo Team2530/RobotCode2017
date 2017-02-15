@@ -78,6 +78,51 @@ double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	return xValue;
 
 }
+double Tracker::GetHopperPositionX(StartTeam team){
+	double xValueHopper;
+	if (team == RED_TEAM){
+		xValueHopper = 51.7957;//note: "actual" 26.6934 but have calc where navx is. assumes theta=45
+	}
+	else{ //BLUE_TEAM
+
+	}
+	return xValueHopper;
+}
+double Tracker::GetBoilerPositionX(StartTeam team){
+	double xValueBoiler;
+	if (team == RED_TEAM){
+		xValueBoiler = 278.23058; //note: "actual" 303.33288 but have calc where navx is. assumes theta 22.5, 45
+	}
+	else{ //BLUE_TEAM
+
+	}
+	return xValueBoiler;
+}
+double Tracker::GetGearPositionX(ObjectPositions position){
+	double gearPlaceX;
+	if (position == MIDDLE_GEAR_DELIVERY){
+		gearPlaceX = 192.0868;
+	}
+	else if (position == LEFT_GEAR_DELIVERY){
+		gearPlaceX = 162.2656;
+	}
+	else {//RIGHT_GEAR_DELIVERY
+		gearPlaceX = 221.908;
+	}
+	return gearPlaceX;
+}
+double Tracker::GetGearPositionY(ObjectPositions position){
+	double gearPlaceY;
+	if (position == MIDDLE_GEAR_DELIVERY){
+		gearPlaceY= 93.25;
+	}
+	else if (position == LEFT_GEAR_DELIVERY){
+		gearPlaceY = 146.1925;
+	}
+	else { //RIGHT_GEAR_DELIVERY
+		gearPlaceY = 146.1925;
+	}
+}
 double Tracker::GetForwardDistance(){
 	return frontEncoder->GetDistance();
 }

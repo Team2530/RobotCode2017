@@ -11,6 +11,8 @@ TrackerInit::TrackerInit(StartPosition position, StartTeam team) {
 // Called just before this Command runs the first time
 void TrackerInit::Initialize() {
 	Robot::tracker->StartTracking(this->position, this->team);
+	Robot::tracker->GetHopperPositionX(this->team);
+	Robot::tracker->GetBoilerPositionX(this->team);
 }
 
 // Called repeatedly when this Command is scheduled to run
