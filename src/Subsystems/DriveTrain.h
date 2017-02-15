@@ -34,6 +34,7 @@ public:
 	void InitDefaultCommand();
 	void DriveForward();
 
+	void DriveDistanceForward();
 	void DriveWithCoordinates(double x, double y, double z);
 
 	void DriveLeftSideForward(Joystick* stick);

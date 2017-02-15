@@ -39,7 +39,9 @@ void DriveTrain::Drive(Joystick* stick) {
 		scale*stick->GetZ()
 	);
 }
-
+void DriveTrain::DriveDistanceForward() {
+	robotDrive->MecanumDrive_Cartesian(0, 0, 0);
+}
 void DriveTrain::DriveWithCoordinates(double x, double y, double z){
 	robotDrive->MecanumDrive_Cartesian(x, y, z);
 }
