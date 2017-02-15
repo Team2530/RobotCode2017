@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
+#include "Tracker.h"
 
 class DriveTrain : public Subsystem {
 private:
@@ -30,6 +31,7 @@ private:
 public:
 	DriveTrain();
 	void Drive(Joystick* stick);
+	void Track(Tracker* tracker);
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();

@@ -14,11 +14,13 @@ private:
 
 public:
 	Vision();
+	void InitDefaultCommand();
 	bool GetValid();
 	double GetTargets();
 	double GetDisplacement();
 	double GetDistance();
 	void Update();
+	void Cancel();
 };
 
 #endif  // Vision_H

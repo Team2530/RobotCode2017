@@ -65,4 +65,10 @@ void DriveTrain::DrivePastBaseLine(){
 
 }
 
-
+void DriveTrain::Track(Tracker* tracker) {
+	robotDrive->MecanumDrive_Cartesian(
+		tracker->GetPIDBackward(),
+		tracker->GetPIDRight(),
+		tracker->GetPIDRotation()
+	);
+}

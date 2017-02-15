@@ -3,7 +3,7 @@
 #include "../RobotMap.h"
 
 
-#include "Robot.h"
+#include "../Robot.h"
 #include "math.h"
 
 Tracker::Tracker() :
@@ -22,6 +22,9 @@ Tracker::Tracker() :
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
+	pidxc.SetTolerance(1.0); // inches
+	pidyc.SetTolerance(1.0); // inches
+	pidrc.SetTolerance(1.0); // degrees
 	ahrs = new AHRS(SerialPort::kMXP);//check port
 }
 void Tracker::InitDefaultCommand() {
@@ -43,8 +46,8 @@ void Tracker::GetPosition(){
 	double distanceY = frontEncoder->GetDistance();
 	double angle =  ahrs->GetAngle();
 	double rad = angle * M_PI / 180;
-	double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
-	double changeInY = cos(rad)*distanceY - sin(rad) * distanceX;
+	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
+	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
 	currentPositionX += changeInX;
 	currentPositionY += changeInY;
 	currentAngle = angle;
@@ -112,12 +115,15 @@ double Tracker::GetPIDRotation() {
 	return pidr;
 }
 
-//double Tracker::GetPIDBackward() {
+bool Tracker::PIDFinished() {
+	return pidxc.OnTarget() && pidyc.OnTarget() && pidrc.OnTarget();
+}
+double Tracker::GetPIDBackward() {
+	double rad = currentAngle * M_PI / 180;
+	return -sin(rad) * pidx - cos(rad) * pidy;
+}
 
-//}
-
-//double Tracker::GetPIDRight() {
-
-//}
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+double Tracker::GetPIDRight() {
+	double rad = currentAngle * M_PI / 180;
+	return cos(rad) * pidx + sin(rad) * pidy;
+}
