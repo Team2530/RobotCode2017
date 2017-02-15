@@ -29,15 +29,15 @@ enum ObjectPositions{
 	MIDDLE_GEAR_DELIVERY,
 	RIGHT_GEAR_DELIVERY
 };
-	double leftGearPlaceX = 162.2656;
-	double leftGearPlaceY = 146.1925;
-	double leftGearPlaceR = 60;
-	double rightGearPlaceX = 221.908;
-	double rightGearPlaceY = 146.1925;
-	double rightGearPlaceR = -60;
-	double middleGearPlaceX = 192.0868;
-	double middleGearPlaceY = 93.25;
-	double middleGearPlaceR = 0;
+	static const double leftGearPlaceX = 162.2656;
+	static const double leftGearPlaceY = 146.1925;
+	static const double leftGearPlaceR = 60;
+	static const double rightGearPlaceX = 221.908;
+	static const double rightGearPlaceY = 146.1925;
+	static const double rightGearPlaceR = -60;
+	static const double middleGearPlaceX = 192.0868;
+	static const double middleGearPlaceY = 93.25;
+	static const double middleGearPlaceR = 0;
 
 
 
