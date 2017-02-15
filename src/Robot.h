@@ -27,6 +27,7 @@
 #include "Commands/Output.h"
 #include "Commands/DoNothing.h"
 #include "Commands/CrossBaseLine.h"
+#include "Commands/DriveDistanceForward.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
