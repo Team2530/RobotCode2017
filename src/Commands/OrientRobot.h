@@ -1,16 +1,13 @@
 #ifndef OrientRobot_H
 #define OrientRobot_H
 
-<<<<<<< HEAD
 #include "Commands/Command.h"
-=======
->>>>>>> master
+
 #include <AHRS.h>
 
 class OrientRobot : public Command{
 public:
 	OrientRobot(double TargetAngle);
-	OrientRobot(double x, double y);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

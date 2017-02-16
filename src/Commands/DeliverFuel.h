@@ -6,6 +6,7 @@
 class DeliverFuel : public CommandGroup {
 public:
 	DeliverFuel();
+
 };
 
 #endif  // DeliverFuel_H

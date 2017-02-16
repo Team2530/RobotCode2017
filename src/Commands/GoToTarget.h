@@ -8,14 +8,14 @@
 #ifndef SRC_COMMANDS_GOTOTARGET_H_
 #define SRC_COMMANDS_GOTOTARGET_H_
 
-#include "OrientRobot.h"
+#include "CalculateTargetAngle.h"
 #include "DriveForward.h"
 
 #include <Commands/CommandGroup.h>
 
 class GoToTarget : public CommandGroup {
 public:
-	GoToTarget(double x,double y);
+	GoToTarget(double *angle, double *x,double *y);
 
 };
 

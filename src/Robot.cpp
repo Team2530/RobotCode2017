@@ -21,7 +21,7 @@ void Robot::RobotInit() {
 	dumper = std::make_shared<Dumper>();
 	intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
-<<<<<<< HEAD
+
 
 	oi = std::make_unique<OI>();
 
@@ -31,9 +31,8 @@ void Robot::RobotInit() {
 	//camera.SetResolution(320, 240);
 	//camera.SetExposureManual(20);
 	//camera.SetBrightness(100);
-=======
+
 	vision = std::make_shared<Vision>();
->>>>>>> master
 
 	//chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	//chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^

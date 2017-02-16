@@ -10,6 +10,7 @@ OrientRobot::OrientRobot(double TargetAngle) {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::drivetrain.get());
 }
+<<<<<<< HEAD
 OrientRobot::OrientRobot(double x, double y) {
 	double currentPositionX = Robot::tracker->GetcurrentPositionX();
 	double currentPositionY = Robot::tracker->GetcurrentPositionY();
@@ -33,6 +34,9 @@ OrientRobot::OrientRobot(double x, double y) {
 		}
 	*Angle = *TargetAngle;
 }
+=======
+
+>>>>>>> OrientRobot
 // Called just before this Command runs the first time
 void OrientRobot::Initialize() {
 
