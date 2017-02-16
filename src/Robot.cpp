@@ -17,17 +17,16 @@ SendableChooser<Command*> chooserPos;
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
 	drivetrain = std::make_shared<DriveTrain>();
-	dumper = std::make_shared<Dumper>();
-	oi = std::make_unique<OI>();
-	intake = std::make_shared<Intake>();
+	//dumper = std::make_shared<Dumper>();
+	//intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
 	vision = std::make_shared<Vision>();
-
+	oi = std::make_unique<OI>();
+/*
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
-	/* TODO:
-	chooserDo.AddObject("Deliver Gear", new DeliverGear(););//^^
-	*/
+	// TODO:
+	//chooserDo.AddObject("Deliver Gear", new DeliverGear(););//^^
 
 	chooserPos.AddObject("Blue Left", new TrackerInit(START_LEFT, BLUE_TEAM)); //starting position
 	chooserPos.AddObject("Blue Middle", new TrackerInit(START_MIDDLE,BLUE_TEAM));//^^
@@ -37,7 +36,7 @@ void Robot::RobotInit() {
 	chooserPos.AddObject("Red Left", new TrackerInit(START_LEFT, RED_TEAM)); //starting position
 	chooserPos.AddObject("Red Middle", new TrackerInit(START_MIDDLE,RED_TEAM));//^^
 	chooserPos.AddObject("Red Right", new TrackerInit(START_RIGHT, RED_TEAM));//^^
-
+*/
 
 
 

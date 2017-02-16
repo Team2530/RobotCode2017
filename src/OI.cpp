@@ -11,6 +11,7 @@
 #include <Commands/IntakeInvert.h>
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
+#include <Commands/LEDControl.h>
 
 #include <Commands/DriveLeftSideForward.h>
 
@@ -23,12 +24,15 @@ OI::OI() {
 	B3->WhileHeld(new  DriveForward());
 	B4 = new frc::JoystickButton(joy,4);
 	B4->WhileHeld(new  DriveLeftSideForward());
+	B0 = new frc::JoystickButton(joy,1);
+	B0->WhenPressed(new LEDControl(true));
+	B0->WhenReleased(new LEDControl(false));
 	B7 = new frc::JoystickButton(joy,7);
-	B7->WhileHeld(new  IntakeOn());
+	//B7->WhileHeld(new  IntakeOn());
 	B8 = new frc::JoystickButton(joy,8);
-	B8->WhileHeld(new  IntakeInvert());
+	//B8->WhileHeld(new  IntakeInvert());
 
-	ahrs= new AHRS(SerialPort::kMXP);
+	ahrs = new AHRS(SerialPort::kMXP);
 	B6 = new frc::JoystickButton(joy, 6);
 	B6->WhenPressed(new OrientRobot(90));
 

@@ -18,9 +18,9 @@ private:
 
 	static constexpr int kJoystickChannel = 0;
 
-	Spark* frontLeftController;
+	VictorSP* frontLeftController;
 	VictorSP* rearLeftController;
-	Spark* frontRightController;
+	VictorSP* frontRightController;
 	VictorSP* rearRightController;
 
 

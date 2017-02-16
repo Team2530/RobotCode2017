@@ -5,9 +5,9 @@
 #include "../Commands/MecanumDriveWithJoystick.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
-	frontLeftController = new Spark(kFrontLeftChannel);
+	frontLeftController = new VictorSP(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
-	frontRightController = new Spark(kFrontRightChannel);
+	frontRightController = new VictorSP(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
 
 

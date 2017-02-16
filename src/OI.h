@@ -14,6 +14,7 @@ public:
 	AHRS* GetAHRS();
 private:
 	Joystick* joy;
+	JoystickButton *B0;
 	JoystickButton *B6;
 	JoystickButton *B7;
 	JoystickButton *B8;
