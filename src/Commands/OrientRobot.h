@@ -2,12 +2,12 @@
 #define OrientRobot_H
 
 #include "Commands/Command.h"
+
 #include <AHRS.h>
 
 class OrientRobot : public Command{
 public:
 	OrientRobot(double TargetAngle);
-	OrientRobot(double x, double y);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
