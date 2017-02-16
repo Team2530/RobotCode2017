@@ -18,16 +18,16 @@ OrientRobot::OrientRobot(double x, double y) {
 	double deltaxValue = x - currentPositionX;
 	double deltayValue = y - currentPositionY;
 
-	if (deltaxValue < 0, deltayValue > 0){
+	if (deltaxValue < 0 && deltayValue > 0){
 			TargetAngle = atan ((-deltaxValue) / deltayValue) + 90;
 		}
-	if (deltaxValue > 0, deltayValue > 0){
+	if (deltaxValue > 0 && deltayValue > 0){
 			TargetAngle = atan (deltayValue / deltaxValue);
 		}
-	if (deltaxValue > 0, deltayValue < 0){
+	if (deltaxValue > 0 && deltayValue < 0){
 			TargetAngle = -atan ((-deltayValue) / deltaxValue);
 		}
-	if (deltaxValue < 0, deltayValue < 0){
+	if (deltaxValue < 0 && deltayValue < 0){
 			TargetAngle = -(atan ((-deltaxValue) / (-deltayValue)) + 90);
 		}
 	Angle = TargetAngle;

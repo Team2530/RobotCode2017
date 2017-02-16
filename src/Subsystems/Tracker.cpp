@@ -45,15 +45,17 @@ void Tracker::GetPosition(){
 	SmartDashboard::PutNumber("X Encoder",distanceX);
 	SmartDashboard::PutNumber("Y encoder",distanceY);
 
-	double angle =  ahrs->GetAngle();
-	double rad = angle * M_PI / 180;
-	double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
-	double changeInY = cos(rad)*distanceY - sin(rad) * distanceX;
-	currentPositionX += changeInX;
-	currentPositionY += changeInY;
-	currentAngle = angle;
-	frontEncoder->Reset();
-	sideEncoder->Reset();
+	if (ahrs) {
+		double angle = ahrs->GetAngle();
+		double rad = angle * M_PI / 180;
+		double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
+		double changeInY = cos(rad)*distanceY - sin(rad) * distanceX;
+		currentPositionX += changeInX;
+		currentPositionY += changeInY;
+		currentAngle = angle;
+		//frontEncoder->Reset();
+		//sideEncoder->Reset();
+	}
 }
 double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	double xValue;
