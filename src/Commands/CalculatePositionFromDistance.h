@@ -5,7 +5,14 @@
 
 class CalculatePositionFromDistance : public Command {
 public:
-	CalculatePositionFromDistance();
+	//CPFD is short for Calculate Position From Distance
+	double CPFDCoordinatesX;
+	double CPFDCoordinatesY;
+	double *angleCPFD;
+	double *distanceForwardToGoCPFD;
+	double *currentPositionXCPFD; // Right
+	double *currentPositionYCPFD; // Forward
+	CalculatePositionFromDistance(double *angle, double *distanceForwardToGo, double *currentPositionX, double *currentPositionY);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

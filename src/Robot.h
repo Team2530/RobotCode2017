@@ -28,6 +28,7 @@
 #include "Commands/DoNothing.h"
 #include "Commands/CrossBaseLine.h"
 #include "Commands/DriveDistanceForward.h"
+#include "Commands/CalculatePositionFromDistance.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
