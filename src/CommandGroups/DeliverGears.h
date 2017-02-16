@@ -9,7 +9,7 @@
 #define SRC_COMMANDGROUPS_DELIVERGEARS_H_
 
 #include "WPIlib.h"
-#include "../Commands/TurnLEDRingOn.h"
+#include "../Commands/LEDControl.h"
 #include "../Commands/WaitForVision.h"
 #include "../Commands/PullVisionEstimate.h"
 #include "../Commands/MoveBasedOnVision.h"
@@ -17,7 +17,7 @@
 
 class DeliverGears : public frc::CommandGroup {
 	DeliverGears() {
-		AddSequential(new TurnLEDRingOn());
+		AddSequential(new LEDControl(true));
 		AddSequential(new WaitForVision());
 		AddSequential(new PullVisionEstimate());
 		AddSequential(new MoveBasedOnVision());

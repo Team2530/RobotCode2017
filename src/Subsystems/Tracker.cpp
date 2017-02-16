@@ -92,6 +92,8 @@ double Tracker::GetSideDistance(){
 
 void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);
+	pidxc.SetSetpoint(currentPositionX);
+	pidyc.SetSetpoint(currentPositionY);
 }
 
 void Tracker::RotateBy(double deltaAngle) {
@@ -103,6 +105,9 @@ void Tracker::MoveToRel(double forward, double right) {
 }
 
 void Tracker::MoveToAbs(double x, double y) {
+	pidxc.SetSetpoint(x);
+	pidyc.SetSetpoint(y);
+	pidrc.SetSetpoint(currentAngle); // make sure we stay aligned while moving
 }
 
 double Tracker::GetPIDX() {
