@@ -1,7 +1,7 @@
 #include "TrackerInit.h"
 #include "../Robot.h"
 
-TrackerInit::TrackerInit(StartPosition position, StartTeam team) {
+TrackerInit::TrackerInit(StartPosition position, Alliance team) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	this->position = position;
@@ -13,6 +13,7 @@ void TrackerInit::Initialize() {
 	Robot::tracker->StartTracking(this->position, this->team);
 	Robot::tracker->GetHopperPositionX(this->team);
 	Robot::tracker->GetBoilerPositionX(this->team);
+
 }
 
 // Called repeatedly when this Command is scheduled to run

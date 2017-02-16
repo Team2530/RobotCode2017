@@ -1,12 +1,12 @@
 #ifndef TrackerInit_H
 #define TrackerInit_H
-
+#include "DriverStation.h"
 #include <Commands/Command.h>
 #include "../StartPositions.h"
 
 class TrackerInit : public Command {
 public:
-	TrackerInit(StartPosition position, StartTeam team);
+	TrackerInit(StartPosition position, frc::DriverStation::Alliance team);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -14,7 +14,7 @@ public:
 	void Interrupted();
 private:
 	StartPosition position;
-	StartTeam team;
+	frc::DriverStation::Alliance team;
 };
 
 

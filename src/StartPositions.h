@@ -14,9 +14,16 @@ enum StartPosition{
 	START_RIGHT
 
 };
-enum StartTeam{
-	BLUE_TEAM,
-	RED_TEAM
+//enum StartTeam{
+	//BLUE_TEAM,
+	//RED_TEAM
+//};
+enum Objects{
+	HOPPER,
+	BOILER,
+	LEFT_GEAR_DELIVERY,
+	MIDDLE_GEAR_DELIVERY,
+	RIGHT_GEARD_ELIVERY
 };
 enum ObjectPositions{
 	HOPPERY,
@@ -25,9 +32,6 @@ enum ObjectPositions{
 	BOILERY,
 	BOILERX,
 	BOILERR,
-	LEFT_GEAR_DELIVERY,
-	MIDDLE_GEAR_DELIVERY,
-	RIGHT_GEAR_DELIVERY
 };
 //all X,Y are in inches. all R are in radians
 	//almost 100% positive starting position accounts for length of robot
@@ -43,18 +47,17 @@ enum ObjectPositions{
 	//all below do not account for robot width (39.5) or length (35.5)
 	//coordinates (x,y,r) of red boiler and hopper
 	static const double redBoilerPositionX = 278.23058;
-	static const double redBoilerPositionY = 70.562761;
 	static const double redBoilerPositionR = 120;
 	static const double redHopperPositionX = 51.7957;
-	static const double redHopperPositionY = 64.352291;
 	static const double redHopperPositionR = -120;
 	//coordinates (x,y,r) of blue boiler and hopper
 	static const double blueBoilerPositionX = 51.79561;
-	static const double blueBoilerPositionY = 70.562761;
 	static const double blueBoilerPositionR = -120;
 	static const double blueHopperPositionX = 278.23059;
-	static const double blueHopperPositionY = 64.352291;
 	static const double blueHopperPositionR = 120;
+
+	static const double hopperPositionY = 64.352291;
+	static const double boilerPositionY = 70.562761;
 
 	//gear positions
 	static const double leftGearPlaceX = 162.2656;

@@ -1,35 +1,37 @@
-#include <Commands/GetFieldPosition.h>
+#include "GetDestinationCoordinates.h"
 #include "Robot.h"
 
-GetFieldPosition::GetFieldPosition(){// : Command("GetFieldPosition")
+GetDestinationCoordinates::GetDestinationCoordinates(Objects aTarget, Alliance aTeam) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Alliance team = aTeam;
+	Objects target = aTarget;
 	Requires(Robot::tracker.get());
-
 }
 
 // Called just before this Command runs the first time
-void GetFieldPosition::Initialize() {
+void GetDestinationCoordinates::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetFieldPosition::Execute() {
-	Robot::tracker->GetPosition();
+void GetDestinationCoordinates::Execute() {
+	Robot::tracker->GetTargetCoordinatesX(target, team);
+	Robot::tracker->GetTargetCoordinatesY(target);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool GetFieldPosition::IsFinished() {
+bool GetDestinationCoordinates::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void GetFieldPosition::End() {
+void GetDestinationCoordinates::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void GetFieldPosition::Interrupted() {
-	End();
+void GetDestinationCoordinates::Interrupted() {
+
 }

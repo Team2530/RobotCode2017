@@ -11,6 +11,7 @@
 
 #include <memory>
 #include "WPILib.h"
+#include "DriverStation.h"
 
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
@@ -28,7 +29,7 @@
 #include "Commands/Output.h"
 #include "Commands/CrossBaseLine.h"
 #include "Commands/DoNothing.h"
-#include "Commands/DeliverMiddleGear.h"
+#include "CommandGroups/DeliverGear.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
@@ -79,7 +80,7 @@ private:
 
 	std::unique_ptr<frc::Command> autonomous;
 	frc::SendableChooser<frc::Command*> chooserDo;
-	frc::SendableChooser<frc::Command*> chooserPos;
+	frc::SendableChooser<StartPosition> chooserPos;
 };
 
 

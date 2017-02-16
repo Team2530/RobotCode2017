@@ -17,6 +17,7 @@ void DeliverMiddleGear::Initialize() {
 void DeliverMiddleGear::Execute() {
 	Robot::tracker->GetGearPositionX(MIDDLE_GEAR_DELIVERY);
 	Robot::tracker->GetGearPositionY(MIDDLE_GEAR_DELIVERY);
+	Robot::tracker->GetGearPositionR(MIDDLE_GEAR_DELIVERY);
 }
 
 // Make this return true when this Command no longer needs to run execute()

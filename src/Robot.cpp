@@ -9,7 +9,7 @@ std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
 
 SendableChooser<Command*> chooserDo;
-SendableChooser<Command*> chooserPos;
+SendableChooser<StartPosition> chooserPos;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -20,19 +20,18 @@ void Robot::RobotInit() {
 	tracker = std::make_shared<Tracker>();
 	vision = std::make_shared<Vision>();
 
+
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
-	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
-	chooserDo.AddObject("Deliver Gear", new DeliverMiddleGear());//^^
+	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine(chooserPos));//^^
+	chooserDo.AddObject("Deliver Left Gear", new DeliverGear(chooserPos, LEFT_GEAR_DELIVERY));//^^
+	chooserDo.AddObject("Deliver Middle Gear", new  DeliverGear(chooserPos, MIDDLE_GEAR_DELIVERY));//^^
+	chooserDO.AddObject("Deliver Right Gear", new DeliverGear(chooserPos, RIGHT_GEAR_DELIVERY));//^^
 
 
-	chooserPos.AddObject("Blue Left", new TrackerInit(START_LEFT, BLUE_TEAM)); //starting position
-	chooserPos.AddObject("Blue Middle", new TrackerInit(START_MIDDLE,BLUE_TEAM));//^^
-	chooserPos.AddObject("Blue Right", new TrackerInit(START_RIGHT, BLUE_TEAM));//^^
+	chooserPos.AddObject("Left", START_LEFT); //starting position
+	chooserPos.AddObject("Middle", START_MIDDLE);//^^
+	chooserPos.AddObject("Right", START_RIGHT);//^^
 
-
-	chooserPos.AddObject("Red Left", new TrackerInit(START_LEFT, RED_TEAM)); //starting position
-	chooserPos.AddObject("Red Middle", new TrackerInit(START_MIDDLE,RED_TEAM));//^^
-	chooserPos.AddObject("Red Right", new TrackerInit(START_RIGHT, RED_TEAM));//^^
 
 
 
@@ -64,17 +63,9 @@ void Robot::DisabledPeriodic() {
  * to the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
-	/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-	if (autoSelected == "My Auto") {
-		autonomousCommand.reset(new MyAutoCommand());
-	}
-	else {
-		autonomousCommand.reset(new ExampleCommand());
-	} */
-	// TODO: add chooserDo here too!
+	StartPosition autonomousPos = chooserPos.GetSelected();
+	frc::DriverStation::Alliance team = DriverStation::GetInstance().Getfrc::DriverStation::Alliance();
 	Command* autonomousDo = chooserDo.GetSelected();
-	Command* autonomousPos = chooserPos.GetSelected();
-	autonomousPos->Start();
 	autonomousDo->Start();
 }
 

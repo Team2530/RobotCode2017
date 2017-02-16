@@ -1,9 +1,10 @@
 #ifndef Tracker_H
 #define Tracker_H
 #include "WPILib.h"
-#include "AHRS.h"
+#include "OI.h"
 #include <Commands/Subsystem.h>
 #include "../StartPositions.h"
+#include "DriverStation.h"
 #include <Encoder.h>
 #include <PIDSource.h>
 #include <PIDOutput.h>
@@ -69,17 +70,19 @@ private:
 public:
 	Tracker();
 	void InitDefaultCommand();
-	void StartTracking(StartPosition position, StartTeam team);
+	void StartTracking(StartPosition position, frc::DriverStation::Alliance team);
 	void GetPosition();
-	double GetOriginalPositionX(StartPosition position, StartTeam team);
-
-	double GetHopperPositionX(StartTeam team);
-	double GetBoilerPositionX(StartTeam team);
+	double GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team);
+	double GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance team);
+	double GetTargetPositionY(Objects aTarget);
+	double GetHopperPositionX(frc::DriverStation::Alliance team);
+	double GetBoilerPositionX(frc::DriverStation::Alliance team);
 	double GetForwardDistance();
 	double GetSideDistance();
 
-	double GetGearPositionX(ObjectPositions position);
-	double GetGearPositionY(ObjectPositions position);  // Celeste persisted.
+	double GetGearPositionX(Objects position);
+	double GetGearPositionY(Objects position);
+	double GetGearPositionR(Objects position); // Celeste persisted.
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place

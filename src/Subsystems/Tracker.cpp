@@ -32,9 +32,9 @@ void Tracker::InitDefaultCommand() {
 	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
-void Tracker::StartTracking(StartPosition position, StartTeam team){
+void Tracker::StartTracking(StartPosition position, frc::DriverStation::Alliance team){
 	currentPositionX = Robot::tracker->GetOriginalPositionX(position, team);
-	currentPositionY = 35.50;
+	currentPositionY = 17.25;
 	currentAngle = 0;
 }
 
@@ -51,9 +51,9 @@ void Tracker::GetPosition(){
 	frontEncoder->Reset();
 	sideEncoder->Reset();
 }
-double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
+double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team){
 	double xValue;
-	if (team == RED_TEAM){
+	if (team == frc::DriverStation::Alliance kRed){
 		if (position == START_LEFT){
 			xValue = 75.545; //all these are starting coordinates in inches
 		}
@@ -61,15 +61,15 @@ double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 			xValue = 183.107;
 		}
 		else{ // START_RIGHT
-			xValue = 249.587;
+			xValue = 249.587;//^^
 		}
 	}
-	else{ //BLUE_TEAM
+	else{ //frc::DriverStation::Alliance kBlue
 		if (position == START_LEFT){
-			xValue = 73.712;
+			xValue = 73.712;//^^
 		}
 		else if (position == START_MIDDLE){
-			xValue = 140.192;
+			xValue = 140.192;//^^
 		}
 		else{//START_RIGHT
 			xValue = 235.584;
@@ -78,27 +78,27 @@ double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	return xValue;
 
 }
-double Tracker::GetHopperPositionX(StartTeam team){
+double Tracker::GetHopperPositionX(frc::DriverStation::Alliance team){
 	double xValueHopper;
-	if (team == RED_TEAM){
+	if (team == frc::DriverStation::Alliance kRed){
 		xValueHopper = 51.7957;//note: "actual" 26.6934 but have calc where navx is. assumes theta=45
 	}
-	else{ //BLUE_TEAM
+	else{ //frc::DriverStation::Alliance kBlue
 
 	}
 	return xValueHopper;
 }
-double Tracker::GetBoilerPositionX(StartTeam team){
+double Tracker::GetBoilerPositionX(frc::DriverStation::Alliance team){
 	double xValueBoiler;
-	if (team == RED_TEAM){
+	if (team == frc::DriverStation::Alliance kRed){
 		xValueBoiler = 278.23058; //note: "actual" 303.33288 but have calc where navx is. assumes theta 22.5, 45
 	}
-	else{ //BLUE_TEAM
+	else{ //frc::DriverStation::Alliance kBlue
 
 	}
 	return xValueBoiler;
 }
-double Tracker::GetGearPositionX(ObjectPositions position){
+double Tracker::GetGearPositionX(Objects position){
 	double gearPlaceX;
 	if (position == MIDDLE_GEAR_DELIVERY){
 		gearPlaceX = 192.0868;
@@ -111,7 +111,7 @@ double Tracker::GetGearPositionX(ObjectPositions position){
 	}
 	return gearPlaceX;
 }
-double Tracker::GetGearPositionY(ObjectPositions position){
+double Tracker::GetGearPositionY(Objects position){
 	double gearPlaceY;
 	if (position == MIDDLE_GEAR_DELIVERY){
 		gearPlaceY= 93.25;
@@ -122,6 +122,20 @@ double Tracker::GetGearPositionY(ObjectPositions position){
 	else { //RIGHT_GEAR_DELIVERY
 		gearPlaceY = 146.1925;
 	}
+	return gearPlaceY;
+}
+double Tracker::GetGearPositionR(Objects position){
+	double gearPlaceR;
+	if (position == LEFT_GEAR_DELIVERY){
+		gearPlaceR = 60;
+	}
+	else if (position == MIDDLE_GEAR_DELIVERY){
+		gearPlaceR = 0;
+	}
+	else {//RIGHT_GEAR_DELIVERY
+		gearPlaceR = -60;
+	}
+	return gearPlaceR;
 }
 double Tracker::GetForwardDistance(){
 	return frontEncoder->GetDistance();
@@ -132,6 +146,31 @@ double Tracker::GetSideDistance(){
 
 void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);
+}
+double Tracker::GetTargetCoordinatesX(Objects aTarget, frc::DriverStation::Alliance aTeam){
+	double targetX;
+	if (aTarget == HOPPER){
+		targetX = Robot::tracker->GetHopperPositionX(aTeam);
+	}
+	else if (aTarget == BOILER){
+		targetX = Robot::tracker->GetBoilerPositionX(aTeam);
+	}
+	else{//if it's a gear thing
+		targetX = Robot::tracker->GetGearPositionX(aTarget);
+	}
+	return targetX;
+}
+double Tracker::GetTargetCoordinatesY(Objects aTarget){
+	double targetY;
+	if (aTarget == HOPPER){
+		targetY = 64.352291;//hopperPositionY
+	}
+	else if (aTarget == BOILER){
+		targetY = 70.562761;//boilerPositionY
+	}
+	else{//if it's a gear thing
+		targetY = Robot::tracker->GetGearPositionY(aTarget);
+	}
 }
 
 void Tracker::RotateBy(double deltaAngle) {

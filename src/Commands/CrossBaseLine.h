@@ -2,10 +2,12 @@
 #define CrossBaseLine_H
 
 #include <Commands/Command.h>
+#include "../StartPositions.h"
+#include "DriverStation.h"
 
 class CrossBaseLine : public Command {
 public:
-	CrossBaseLine();
+	CrossBaseLine(StartPosition aPosition);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
