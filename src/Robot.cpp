@@ -26,8 +26,8 @@ void Robot::RobotInit() {
 	tracker = std::make_shared<Tracker>();
 	vision = std::make_shared<Vision>();
 
-    CameraServo = std::make_shared<AimCameratoTaco>();
-    CameraServo = std::make_shared<AimCameratoLift>();
+    cameraservo = std::make_shared<CameraServo>();
+
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
 	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
 	/* TODO:
