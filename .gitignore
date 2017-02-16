@@ -28,3 +28,5 @@
 *.out
 *.app
 /Debug/
+
+\.settings/language\.settings\.xml
