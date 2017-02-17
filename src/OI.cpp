@@ -13,6 +13,7 @@
 #include <Commands/ResetDump.h>
 
 #include <Commands/DriveLeftSideForward.h>
+#include <Commands/MecanumDriveFieldOriented.h>
 
 
 OI::OI() {
@@ -32,7 +33,6 @@ OI::OI() {
 	ahrs->Reset();
 	B6 = new frc::JoystickButton(joy, 6);
 	B6->WhenPressed(new OrientRobot(&ninetyDegrees));
-	B6->WhenPressed(new OrientRobot(90.0));
 	B11 = new frc::JoystickButton(joy, 11);
 	B11->WhenPressed(new MecanumDriveFieldOriented());
 /*

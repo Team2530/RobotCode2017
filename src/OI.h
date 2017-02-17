@@ -25,6 +25,7 @@ private:
 
 	JoystickButton *B9;
 	JoystickButton *B10;
+	JoystickButton *B11;
 
 	double ninetyDegrees = 90.0;
 };
