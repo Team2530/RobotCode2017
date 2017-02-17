@@ -26,6 +26,7 @@ Tracker::Tracker() :
 	pidyc.SetTolerance(1.0); // inches
 	pidrc.SetTolerance(1.0); // degrees
 	ahrs = nullptr;
+	table = NetworkTable::GetTable("robotPosition");
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
@@ -55,6 +56,9 @@ void Tracker::GetPosition(){
 	currentAngle = angle;
 	frontEncoder->Reset();
 	sideEncoder->Reset();
+	table->PutNumber("x", currentPositionX);;
+	table->PutNumber("y", currentPositionY);;
+	table->PutNumber("angle", currentAngle);
 }
 double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	double xValue;
