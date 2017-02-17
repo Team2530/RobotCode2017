@@ -12,7 +12,7 @@ std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
-
+std::shared_ptr<Lift> Robot::lifter;
 std:: shared_ptr<CameraServo> Robot::cameraservo;
 SendableChooser<Command*> chooserDo;
 SendableChooser<Command*> chooserPos;
@@ -25,7 +25,7 @@ void Robot::RobotInit() {
 	intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
 	vision = std::make_shared<Vision>();
-
+    Lift = std::make_shared<Lifter>();
     cameraservo = std::make_shared<CameraServo>();
 
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action

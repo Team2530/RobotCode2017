@@ -34,7 +34,7 @@
 #include "Subsystems/Tracker.h"
 #include "Subsystems/CameraServo.h"
 #include "Subsystems/Vision.h"
-
+#include "Subsystems/Lifter.h"
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -46,7 +46,7 @@ public:
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
 	static std::shared_ptr<CameraServo> cameraservo;
-
+    static std::shared_ptr<Lift> lifter;
 	void RobotInit() override;
 
 	/**
