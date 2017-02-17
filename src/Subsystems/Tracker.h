@@ -66,6 +66,7 @@ private:
 	frc::PIDController pidxc;
 	frc::PIDController pidyc;
 	frc::PIDController pidrc;
+	std::shared_ptr<NetworkTable> table;
 
 public:
 	Tracker();

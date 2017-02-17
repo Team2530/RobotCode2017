@@ -23,6 +23,7 @@ Tracker::Tracker() :
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
 	ahrs = new AHRS(SerialPort::kMXP);//check port
+	table = NetworkTable::GetTable("robotPosition");
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
@@ -50,6 +51,9 @@ void Tracker::GetPosition(){
 	currentAngle = angle;
 	frontEncoder->Reset();
 	sideEncoder->Reset();
+	table->PutNumber("x", currentPositionX);;
+	table->PutNumber("y", currentPositionY);;
+	table->PutNumber("angle", currentAngle);
 }
 double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team){
 	double xValue;
