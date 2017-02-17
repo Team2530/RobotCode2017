@@ -26,6 +26,7 @@ private:
 	JoystickButton *B9;
 	JoystickButton *B10;
 
+	double ninetyDegrees = 90.0;
 };
 
 #endif  // OI_H

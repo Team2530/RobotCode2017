@@ -1,11 +1,11 @@
 #ifndef MecanumDriveFieldOriented_H
 #define MecanumDriveFieldOriented_H
 
-#include "../CommandBase.h"
+#include "Commands/Command.h"
 #include "AHRS.h"
 #include "WPILib.h"
 
-class MecanumDriveFieldOriented : public CommandBase {
+class MecanumDriveFieldOriented : public Command {
 public:
 	MecanumDriveFieldOriented();
 	void Initialize();

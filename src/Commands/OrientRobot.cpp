@@ -4,42 +4,16 @@
 #include <AHRS.h>
 
 
-OrientRobot::OrientRobot(double TargetAngle) {
+OrientRobot::OrientRobot(double* TargetAngle) {
 	Angle = TargetAngle;
 
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::drivetrain.get());
 }
 
-OrientRobot::OrientRobot(double x, double y) {
-	double currentPositionX = Robot::tracker->GetcurrentPositionX();
-	double currentPositionY = Robot::tracker->GetcurrentPositionY();
-
-	double TargetAngle = 0; //get real angle
-
-	double deltaxValue = x - currentPositionX;
-	double deltayValue = y - currentPositionY;
-
-	if (deltaxValue < 0 && deltayValue > 0){
-			TargetAngle = atan ((-deltaxValue) / deltayValue) + 90;
-		}
-	if (deltaxValue > 0 && deltayValue > 0){
-			TargetAngle = atan (deltayValue / deltaxValue);
-		}
-	if (deltaxValue > 0 && deltayValue < 0){
-			TargetAngle = -atan ((-deltayValue) / deltaxValue);
-		}
-	if (deltaxValue < 0 && deltayValue < 0){
-			TargetAngle = -(atan ((-deltaxValue) / (-deltayValue)) + 90);
-		}
-	*Angle = *TargetAngle;
-}
-
-
 
 // Called just before this Command runs the first time
 void OrientRobot::Initialize() {
-
 
 }
 
@@ -51,7 +25,7 @@ void OrientRobot::Execute() {
 	double turningValue = *Angle - CurrentAngle;
 	turningValue = TurnAngleDetermination(turningValue);
 	turningValue = TurningSpeedDetermination(turningValue);
-	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue);
+	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue, 0.0);
 }
 
 double OrientRobot::TurningSpeedDetermination(double OffsetAngle){

@@ -7,7 +7,7 @@
 
 class OrientRobot : public Command{
 public:
-	OrientRobot(double TargetAngle);
+	OrientRobot(double* TargetAngle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,7 +17,7 @@ public:
 	double TurningSpeedDetermination(double OffsetAngle);
 private:
 
-	double Angle;
+	double* Angle;
 };
 
 

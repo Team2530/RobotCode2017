@@ -1,4 +1,6 @@
 #include "MecanumDriveFieldOriented.h"
+#include <AHRS.h>
+#include "Robot.h"
 
 MecanumDriveFieldOriented::MecanumDriveFieldOriented() : Command("MecanumDriveFieldOriented") {
 	// Use Requires() here to declare subsystem dependencies
@@ -13,6 +15,8 @@ void MecanumDriveFieldOriented::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MecanumDriveFieldOriented::Execute() {
+	AHRS* ahrs = Robot::oi->GetAHRS();
+	Joystick &stick = *Robot::oi->GetJoystick();
 	Robot::drivetrain->DriveWithCoordinates(stick.GetX(), stick.GetY(),
 			stick.GetZ(),ahrs->GetAngle());
 }
