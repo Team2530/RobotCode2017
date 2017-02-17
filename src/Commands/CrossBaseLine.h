@@ -7,7 +7,7 @@
 
 class CrossBaseLine : public Command {
 public:
-	CrossBaseLine(StartPosition aPosition);
+	CrossBaseLine();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

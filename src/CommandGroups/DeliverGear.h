@@ -12,16 +12,14 @@
 #include "DriverStation.h"
 //#include "../Tracker.h"//??need??
 #include "../Commands/TrackerInit.h"
-#include "../Commands/GetDestinationCoordinates.h"
 //#include "GetFieldPosition.h"
 #include "Commands/Command.h"
 #include "Commands/CommandGroupEntry.h"
 
 
 
-class DeliverGears : public frc::CommandGroup {
-	DeliverGears() {
-	}
+class DeliverGear : public frc::CommandGroup {
+	DeliverGear();
 };
 
 

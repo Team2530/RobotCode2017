@@ -47,12 +47,12 @@ enum ObjectPositions{
 	//all below do not account for robot width (39.5) or length (35.5)
 	//coordinates (x,y,r) of red boiler and hopper
 	static const double redBoilerPositionX = 278.23058;
-	static const double redBoilerPositionR = 120;
+	static const double redBoilerPositionR = 135;
 	static const double redHopperPositionX = 51.7957;
 	static const double redHopperPositionR = -120;
 	//coordinates (x,y,r) of blue boiler and hopper
 	static const double blueBoilerPositionX = 51.79561;
-	static const double blueBoilerPositionR = -120;
+	static const double blueBoilerPositionR = -135;
 	static const double blueHopperPositionX = 278.23059;
 	static const double blueHopperPositionR = 120;
 

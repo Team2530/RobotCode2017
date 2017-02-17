@@ -37,6 +37,7 @@
 #include "Subsystems/Tracker.h"
 #include "Subsystems/Vision.h"
 
+#include "StartPositions.h"
 
 
 class Robot: public frc::IterativeRobot {
@@ -48,6 +49,16 @@ public:
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
+
+	// Initial robot position for Tracker based on StartPosition chooser
+	static double initialX;
+	static double initialY;
+	static double hopperX;
+	static double hopperR;
+	static double hopperY;
+	static double boilerX;
+	static double boilerR;
+	static double boilerY;
 
 	void RobotInit() override;
 

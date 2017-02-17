@@ -53,7 +53,7 @@ void Tracker::GetPosition(){
 }
 double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team){
 	double xValue;
-	if (team == frc::DriverStation::Alliance kRed){
+	if (team == frc::DriverStation::Alliance::kRed){
 		if (position == START_LEFT){
 			xValue = 75.545; //all these are starting coordinates in inches
 		}
@@ -80,7 +80,7 @@ double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation:
 }
 double Tracker::GetHopperPositionX(frc::DriverStation::Alliance team){
 	double xValueHopper;
-	if (team == frc::DriverStation::Alliance kRed){
+	if (team == frc::DriverStation::Alliance::kRed){
 		xValueHopper = 51.7957;//note: "actual" 26.6934 but have calc where navx is. assumes theta=45
 	}
 	else{ //frc::DriverStation::Alliance kBlue
@@ -90,7 +90,7 @@ double Tracker::GetHopperPositionX(frc::DriverStation::Alliance team){
 }
 double Tracker::GetBoilerPositionX(frc::DriverStation::Alliance team){
 	double xValueBoiler;
-	if (team == frc::DriverStation::Alliance kRed){
+	if (team == frc::DriverStation::Alliance::kRed){
 		xValueBoiler = 278.23058; //note: "actual" 303.33288 but have calc where navx is. assumes theta 22.5, 45
 	}
 	else{ //frc::DriverStation::Alliance kBlue
@@ -147,7 +147,7 @@ double Tracker::GetSideDistance(){
 void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);
 }
-double Tracker::GetTargetCoordinatesX(Objects aTarget, frc::DriverStation::Alliance aTeam){
+double Tracker::GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance aTeam){
 	double targetX;
 	if (aTarget == HOPPER){
 		targetX = Robot::tracker->GetHopperPositionX(aTeam);
@@ -160,7 +160,7 @@ double Tracker::GetTargetCoordinatesX(Objects aTarget, frc::DriverStation::Allia
 	}
 	return targetX;
 }
-double Tracker::GetTargetCoordinatesY(Objects aTarget){
+double Tracker::GetTargetPositionY(Objects aTarget){
 	double targetY;
 	if (aTarget == HOPPER){
 		targetY = 64.352291;//hopperPositionY

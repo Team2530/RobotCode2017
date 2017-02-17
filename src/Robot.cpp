@@ -8,6 +8,15 @@ std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
 
+double Robot::initialX;
+double Robot::initialY;
+double Robot::hopperX;
+double Robot::hopperR;
+double Robot::hopperY;
+double Robot::boilerX;
+double Robot::boilerR;
+double Robot::boilerY;
+
 SendableChooser<Command*> chooserDo;
 SendableChooser<StartPosition> chooserPos;
 
@@ -22,16 +31,19 @@ void Robot::RobotInit() {
 
 
 	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
-	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine(chooserPos));//^^
-	chooserDo.AddObject("Deliver Left Gear", new DeliverGear(chooserPos, LEFT_GEAR_DELIVERY));//^^
-	chooserDo.AddObject("Deliver Middle Gear", new  DeliverGear(chooserPos, MIDDLE_GEAR_DELIVERY));//^^
-	chooserDO.AddObject("Deliver Right Gear", new DeliverGear(chooserPos, RIGHT_GEAR_DELIVERY));//^^
+	/*
+	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
+	chooserDo.AddObject("Deliver Left Gear", new DeliverGear(LEFT_GEAR_DELIVERY));//^^
+	chooserDo.AddObject("Deliver Middle Gear", new  DeliverGear(MIDDLE_GEAR_DELIVERY));//^^
+	chooserDO.AddObject("Deliver Right Gear", new DeliverGear(RIGHT_GEAR_DELIVERY));//^^
+	*/
 
-
+/*
+	// TODO: THIS DOES NOT WORK kthxbye --NickScheel
 	chooserPos.AddObject("Left", START_LEFT); //starting position
 	chooserPos.AddObject("Middle", START_MIDDLE);//^^
 	chooserPos.AddObject("Right", START_RIGHT);//^^
-
+*/
 
 
 
@@ -63,8 +75,44 @@ void Robot::DisabledPeriodic() {
  * to the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
-	StartPosition autonomousPos = chooserPos.GetSelected();
-	frc::DriverStation::Alliance team = DriverStation::GetInstance().Getfrc::DriverStation::Alliance();
+	StartPosition autonomousPos = START_MIDDLE;// chooserPos.GetSelected();
+	frc::DriverStation::Alliance team = DriverStation::GetInstance().GetAlliance();
+	Robot::initialY = StartingPlaceY;
+	Robot::hopperY = hopperPositionY;
+	Robot::boilerY = boilerPositionY;
+	if (team == frc::DriverStation::Alliance::kBlue) {
+		Robot::boilerX = blueBoilerPositionX;
+		Robot::boilerR = blueBoilerPositionR;
+		Robot::hopperX = blueHopperPositionX;
+		Robot::hopperR = blueHopperPositionR;
+		switch (autonomousPos) {
+		case START_LEFT:
+			Robot::initialX = startingBlueLeftX;
+			break;
+		case START_RIGHT:
+			Robot::initialX = startingBlueRightX;
+			break;
+		case START_MIDDLE:
+			Robot::initialX = startingBlueMiddleX;
+			break;
+		}
+	} else {
+		Robot::boilerX = redBoilerPositionX;
+		Robot::boilerR = redBoilerPositionR;
+		Robot::hopperX = redHopperPositionX;
+		Robot::hopperR = redHopperPositionR;
+		switch (autonomousPos) {
+		case START_LEFT:
+			Robot::initialX = startingRedLeftX;
+			break;
+		case START_RIGHT:
+			Robot::initialX = startingRedRightX;
+			break;
+		case START_MIDDLE:
+			Robot::initialX = startingRedMiddleX;
+			break;
+		}
+	}
 	Command* autonomousDo = chooserDo.GetSelected();
 	autonomousDo->Start();
 }

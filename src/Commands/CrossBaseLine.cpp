@@ -1,7 +1,7 @@
 #include "CrossBaseLine.h"
 #include "Robot.h"
 
-CrossBaseLine::CrossBaseLine(StartPosition aPosition) {
+CrossBaseLine::CrossBaseLine() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 
