@@ -15,7 +15,6 @@ void MecanumDriveFieldOriented::Initialize() {
 void MecanumDriveFieldOriented::Execute() {
 	Robot::drivetrain->DriveWithCoordinates(stick.GetX(), stick.GetY(),
 			stick.GetZ(),ahrs->GetAngle());
-	Robot::drivetrain->Drive(Robot::oi->GetJoystick());
 }
 
 // Make this return true when this Command no longer needs to run execute()
