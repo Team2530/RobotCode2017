@@ -65,6 +65,7 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 	);
 }
 
+<<<<<<< Updated upstream
 void DriveTrain::DriveRightSideForward(Joystick* stick) {
 	double scale = 0.6-0.4*stick->GetThrottle();
 	robotDrive->MecanumDrive_Cartesian(
@@ -73,6 +74,8 @@ void DriveTrain::DriveRightSideForward(Joystick* stick) {
 	);
 }
 
+=======
+>>>>>>> Stashed changes
 void DriveTrain::DriveBackSideForward(Joystick* stick) {
     double scale = 0.6-0.4*stick->GetThrottle();
     robotDrive->MecanumDrive_Cartesian(
@@ -80,6 +83,10 @@ void DriveTrain::DriveBackSideForward(Joystick* stick) {
       scale*stick->GetZ()
     );
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 void DriveTrain::DrivePastBaseLine(){
 
 

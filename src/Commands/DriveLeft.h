@@ -1,13 +1,11 @@
-#ifndef SlowLift_H
-#define SlowLift_H
+#ifndef DriveLeft_H
+#define DriveLeft_H
 
 #include <Commands/Command.h>
-#include "Robot.h"
 
-class SlowLift : public Command {
+class DriveLeft : public frc::Command {
 public:
-
-  SlowLift();
+  DriveLeft();
   void Initialize();
   void Execute();
   bool IsFinished();
@@ -15,4 +13,4 @@ public:
   void Interrupted();
 };
 
-#endif  // Lift_H
+#endif  // DriveLeft_H

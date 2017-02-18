@@ -1,6 +1,6 @@
 #include "MoveBasedOnVision.h"
 
-#include "../Robot.h"
+#include "Robot.h"
 
 MoveBasedOnVision::MoveBasedOnVision() {
 	// Use Requires() here to declare subsystem dependencies

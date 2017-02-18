@@ -17,9 +17,6 @@ public:
 	void Slow();
 	void Stop();
 
-
-
-
 };
 
 #endif  // Lifter_H

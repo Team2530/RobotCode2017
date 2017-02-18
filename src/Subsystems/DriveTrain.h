@@ -23,9 +23,6 @@ private:
 	VictorSP* frontRightController;
 	VictorSP* rearRightController;
 
-
-
-
 	// Robot drive system
 	RobotDrive* robotDrive;
 public:
