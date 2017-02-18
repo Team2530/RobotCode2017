@@ -4,7 +4,6 @@
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
 
-//#include <Subsystems/AHRS.h>
 #include <AHRS.h>
 
 
@@ -25,9 +24,7 @@ private:
 
 	JoystickButton *B9;
 	JoystickButton *B10;
-	JoystickButton *B11;
 
-	double ninetyDegrees = 90.0;
 };
 
 #endif  // OI_H

@@ -17,9 +17,9 @@ private:
 
 	static constexpr int kJoystickChannel = 0;
 
-	VictorSP* frontLeftController;
+	Spark* frontLeftController;
 	VictorSP* rearLeftController;
-	VictorSP* frontRightController;
+	Spark* frontRightController;
 	VictorSP* rearRightController;
 
 
@@ -34,7 +34,7 @@ public:
 	void InitDefaultCommand();
 	void DriveForward();
 
-	void DriveWithCoordinates(double x, double y, double z, double Angle);
+	void DriveWithCoordinates(double x, double y, double z);
 
 	void DriveLeftSideForward(Joystick* stick);
 	void DrivePastBaseLine();

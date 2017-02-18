@@ -28,5 +28,3 @@
 *.out
 *.app
 /Debug/
-
-\.cproject

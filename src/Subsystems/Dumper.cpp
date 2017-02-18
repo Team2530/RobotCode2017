@@ -14,15 +14,15 @@ Dumper::Dumper() : Subsystem("DumperSubsystem") {
 	//dumperTop= new DigitalInput(ControllerConstants::DIOPort::kDIO8);//setReal
 	//dumperBottom= new DigitalInput(ControllerConstants::DIOPort::kDIO9);//setReal
 
-	//hatchDouble = new DoubleSolenoid(1, 2);
-	//dumperDouble = new DoubleSolenoid(3, 4);
+	hatchDouble = new DoubleSolenoid(1, 2);
+	dumperDouble = new DoubleSolenoid(3, 4);
 
 
 }
 
 void Dumper::InitDefaultCommand() {
-	//dumperDouble->Set(DoubleSolenoid::Value::kOff);
-	//hatchDouble->Set(DoubleSolenoid::Value::kOff);
+	dumperDouble->Set(DoubleSolenoid::Value::kOff);
+	hatchDouble->Set(DoubleSolenoid::Value::kOff);
 
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());

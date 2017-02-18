@@ -5,15 +5,6 @@ DriveForward::DriveForward():Command("DriveForward") {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::drivetrain.get());;
 }
-DriveForward::DriveForward(double x, double y) {
-	double currentPositionx = Robot::tracker->GetcurrentPositionX();
-	double currentPositiony = Robot::tracker->GetcurrentPositionY();
-
-	double deltaxValue = x - currentPositionx;
-	double deltayValue = y - currentPositiony;
-
-	double TargetDistance = sqrt((deltaxValue - currentPositionx) * (deltaxValue - currentPositionx) + (deltayValue - currentPositiony) * (deltayValue - currentPositiony));
-}
 
 // Called just before this Command runs the first time
 void DriveForward::Initialize() {
