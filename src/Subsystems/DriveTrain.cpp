@@ -4,6 +4,8 @@
 
 #include "../Commands/MecanumDriveWithJoystick.h"
 
+#include <math.h>
+
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
 	frontLeftController = new VictorSP(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
@@ -33,18 +35,59 @@ void DriveTrain::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveTrain::Drive(Joystick* stick) {
-	//std::printf("Drive (stick=%p) in %s, line %i\n", stick, __FILE__, __LINE__);
-	  if (stick) {
+    if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
-	    robotDrive->MecanumDrive_Cartesian(
-	      scale*stick->GetX(), scale*stick->GetY(),
-	      scale*stick->GetZ()
+	    DriveWithCoordinates(
+	  	      scale*stick->GetX(), scale*stick->GetY(),
+	  	      scale*stick->GetZ(), 0
 	    );
-	  }
+    }
 }
 
-void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle){
-	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
+void DriveTrain::DriveLeftSideForward(Joystick* stick) {
+    if (stick) {
+	    double scale = 0.6-0.4*stick->GetThrottle();
+	    DriveWithCoordinates(
+	  	      scale*stick->GetX(), scale*stick->GetY(),
+	  	      scale*stick->GetZ(), -90
+	    );
+    }
+}
+
+void DriveTrain::DriveRightSideForward(Joystick* stick) {
+    if (stick) {
+	    double scale = 0.6-0.4*stick->GetThrottle();
+	    DriveWithCoordinates(
+	  	      scale*stick->GetX(), scale*stick->GetY(),
+	  	      scale*stick->GetZ(), 90
+	    );
+    }
+}
+
+void DriveTrain::DriveBackSideForward(Joystick* stick) {
+    if (stick) {
+	    double scale = 0.6-0.4*stick->GetThrottle();
+	    DriveWithCoordinates(
+	  	      scale*stick->GetX(), scale*stick->GetY(),
+	  	      scale*stick->GetZ(), 180
+	    );
+    }
+}
+
+const double db = 0.1;
+
+double deadband(double value) {
+	if (value > 0) {
+		if (value > db) return (value - db)/(1-db);
+	} else {
+		if (value < -db) return (value + db)/(1-db);
+	}
+	return 0;
+}
+
+void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle) {
+	z = z*std::abs(z);
+	robotDrive->MecanumDrive_Cartesian(deadband(x), deadband(y), deadband(z), Angle);
 }
 
 
@@ -57,29 +100,6 @@ void DriveTrain::DriveForward() {
 	robotDrive->MecanumDrive_Cartesian(0,-0.5,0);
 }
 
-void DriveTrain::DriveLeftSideForward(Joystick* stick) {
-	double scale = 0.6-0.4*stick->GetThrottle();
-	robotDrive->MecanumDrive_Cartesian(
-		scale*stick->GetY(), -scale*stick->GetX(),
-		scale*stick->GetZ()
-	);
-}
-
-void DriveTrain::DriveRightSideForward(Joystick* stick) {
-	double scale = 0.6-0.4*stick->GetThrottle();
-	robotDrive->MecanumDrive_Cartesian(
-		-scale*stick->GetY(), scale*stick->GetX(),
-		scale*stick->GetZ()
-	);
-}
-
-void DriveTrain::DriveBackSideForward(Joystick* stick) {
-    double scale = 0.6-0.4*stick->GetThrottle();
-    robotDrive->MecanumDrive_Cartesian(
-      -scale*stick->GetX(), -scale*stick->GetY(),
-      scale*stick->GetZ()
-    );
-}
 void DriveTrain::DrivePastBaseLine(){
 
 

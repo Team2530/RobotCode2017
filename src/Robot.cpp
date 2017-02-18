@@ -21,6 +21,10 @@ ChosenGear leftGear = GEAR_LEFT;
 ChosenGear middleGear = GEAR_MIDDLE;
 ChosenGear rightGear = GEAR_RIGHT;
 
+double start0 = 0;
+double start90 = 90;
+double start_90 = -90;
+
 double Robot::initialX;
 double Robot::initialY;
 double Robot::hopperX;
@@ -36,6 +40,7 @@ double Robot::gearLifterR;
 SendableChooser<Command*> chooserDo;
 SendableChooser<StartPosition*> chooserPos;
 SendableChooser<ChosenGear*> chooserGear;
+SendableChooser<double*> chooserAngle;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -48,13 +53,6 @@ void Robot::RobotInit() {
 
 
 	oi = std::make_unique<OI>();
-
-	// Get the USB camera from CameraServer
-	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
-	// Set the resolution
-	camera.SetResolution(320, 240);
-	camera.SetExposureManual(20);
-	camera.SetBrightness(100);
 
 	vision = std::make_shared<Vision>();
     lifter = std::make_shared<Lifter>();
@@ -75,6 +73,8 @@ void Robot::RobotInit() {
 	chooserPos.AddObject("Middle", &middle);//^^
 	chooserPos.AddObject("Right", &right);//^^
 
+	chooserAngle.AddObject("Start facing forward", &start0);
+	chooserAngle.AddObject("Start with taco forward", &start_90);
 }
 
 /**
@@ -106,6 +106,10 @@ void Robot::AutonomousInit() {
 	ChosenGear* targetGear = chooserGear.GetSelected();
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
 	Command* autonomousDo = chooserDo.GetSelected();
+	double* angle = chooserAngle.GetSelected();
+	if (angle != nullptr) {
+		oi->GetAHRS()->SetAngleAdjustment(*angle);
+	}
 	Robot::initialY = StartingPlaceY;
 	Robot::hopperY = hopperPositionY;
 	Robot::boilerY = boilerPositionY;
