@@ -92,6 +92,9 @@ public:
 	// And as oriented by the robot
 	double GetPIDBackward();
 	double GetPIDRight();
+
+	double GetcurrentPositionX();
+	double GetcurrentPositionY();
 };
 
 #endif  // Tracker_H

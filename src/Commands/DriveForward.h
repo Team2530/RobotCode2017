@@ -6,6 +6,7 @@
 class DriveForward : public Command {
 public:
 	DriveForward();
+	DriveForward(double x, double y);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

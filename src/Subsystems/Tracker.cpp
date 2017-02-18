@@ -19,20 +19,21 @@ Tracker::Tracker() :
 	pidrc(0.1, 0.001, 0.0, &pidrs, &pidro)
 {
 	frontEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
-	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
+	sideEncoder = new frc::Encoder(2,3,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
-	ahrs = new AHRS(SerialPort::kMXP);//check port
+	ahrs = nullptr;
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	frontEncoder->Reset();
 	sideEncoder->Reset();
-	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
 void Tracker::StartTracking(StartPosition position, StartTeam team){
+	ahrs = Robot::oi->GetAHRS();
+	ahrs->Reset();
 	currentPositionX = Robot::tracker->GetOriginalPositionX(position, team);
 	currentPositionY = 35.50;
 	currentAngle = 0;
@@ -41,15 +42,20 @@ void Tracker::StartTracking(StartPosition position, StartTeam team){
 void Tracker::GetPosition(){
 	double distanceX = sideEncoder->GetDistance();
 	double distanceY = frontEncoder->GetDistance();
-	double angle =  ahrs->GetAngle();
-	double rad = angle * M_PI / 180;
-	double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
-	double changeInY = cos(rad)*distanceY - sin(rad) * distanceX;
-	currentPositionX += changeInX;
-	currentPositionY += changeInY;
-	currentAngle = angle;
-	frontEncoder->Reset();
-	sideEncoder->Reset();
+	SmartDashboard::PutNumber("X Encoder",distanceX);
+	SmartDashboard::PutNumber("Y encoder",distanceY);
+
+	if (ahrs) {
+		double angle = ahrs->GetAngle();
+		double rad = angle * M_PI / 180;
+		double changeInX = cos(rad)*distanceX + sin(rad) * distanceY;
+		double changeInY = cos(rad)*distanceY - sin(rad) * distanceX;
+		currentPositionX += changeInX;
+		currentPositionY += changeInY;
+		currentAngle = angle;
+		//frontEncoder->Reset();
+		//sideEncoder->Reset();
+	}
 }
 double Tracker::GetOriginalPositionX(StartPosition position, StartTeam team){
 	double xValue;
@@ -121,3 +127,11 @@ double Tracker::GetPIDRotation() {
 //}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+double Tracker::GetcurrentPositionX() {
+	return currentPositionX;
+}
+
+double Tracker::GetcurrentPositionY() {
+	return currentPositionY;
+}
