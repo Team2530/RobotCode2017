@@ -59,6 +59,9 @@ public:
 	static double boilerX;
 	static double boilerR;
 	static double boilerY;
+	static double gearLifterX;
+	static double gearLifterY;
+	static double gearLifterR;
 
 	void RobotInit() override;
 
@@ -91,7 +94,8 @@ private:
 
 	std::unique_ptr<frc::Command> autonomous;
 	frc::SendableChooser<frc::Command*> chooserDo;
-	frc::SendableChooser<StartPosition> chooserPos;
+	frc::SendableChooser<StartPosition*> chooserPos;
+	frc::SendableChooser<ChosenGear*> chooserGear;
 };
 
 

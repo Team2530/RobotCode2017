@@ -33,8 +33,8 @@ void Tracker::InitDefaultCommand() {
 	ahrs->Reset();
 	SetDefaultCommand(new GetFieldPosition());
 }
-void Tracker::StartTracking(StartPosition position, frc::DriverStation::Alliance team){
-	currentPositionX = Robot::tracker->GetOriginalPositionX(position, team);
+void Tracker::StartTracking(){
+	currentPositionX = Robot::initialX;
 	currentPositionY = 17.25;
 	currentAngle = 0;
 }
@@ -55,9 +55,9 @@ void Tracker::GetPosition(){
 	table->PutNumber("y", currentPositionY);;
 	table->PutNumber("angle", currentAngle);
 }
-double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team){
+/*double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team){
 	double xValue;
-	if (team == frc::DriverStation::Alliance::kRed){
+	if (team == StartPositions::StartTeamkRed){
 		if (position == START_LEFT){
 			xValue = 75.545; //all these are starting coordinates in inches
 		}
@@ -82,9 +82,10 @@ double Tracker::GetOriginalPositionX(StartPosition position, frc::DriverStation:
 	return xValue;
 
 }
-double Tracker::GetHopperPositionX(frc::DriverStation::Alliance team){
+
+double Tracker::GetHopperPositionX(StartTeam team){
 	double xValueHopper;
-	if (team == frc::DriverStation::Alliance::kRed){
+	if (team == StartPositions::StartTeam RED_TEAM){
 		xValueHopper = 51.7957;//note: "actual" 26.6934 but have calc where navx is. assumes theta=45
 	}
 	else{ //frc::DriverStation::Alliance kBlue
@@ -92,9 +93,9 @@ double Tracker::GetHopperPositionX(frc::DriverStation::Alliance team){
 	}
 	return xValueHopper;
 }
-double Tracker::GetBoilerPositionX(frc::DriverStation::Alliance team){
+double Tracker::GetBoilerPositionX(StartTeam team){
 	double xValueBoiler;
-	if (team == frc::DriverStation::Alliance::kRed){
+	if (team == StartPositions::StartTeam RED_TEAM){
 		xValueBoiler = 278.23058; //note: "actual" 303.33288 but have calc where navx is. assumes theta 22.5, 45
 	}
 	else{ //frc::DriverStation::Alliance kBlue
@@ -140,7 +141,7 @@ double Tracker::GetGearPositionR(Objects position){
 		gearPlaceR = -60;
 	}
 	return gearPlaceR;
-}
+}*/
 double Tracker::GetForwardDistance(){
 	return frontEncoder->GetDistance();
 }
@@ -151,7 +152,7 @@ double Tracker::GetSideDistance(){
 void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);
 }
-double Tracker::GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance aTeam){
+/*double Tracker::GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance aTeam){
 	double targetX;
 	if (aTarget == HOPPER){
 		targetX = Robot::tracker->GetHopperPositionX(aTeam);
@@ -175,7 +176,7 @@ double Tracker::GetTargetPositionY(Objects aTarget){
 	else{//if it's a gear thing
 		targetY = Robot::tracker->GetGearPositionY(aTarget);
 	}
-}
+}*/
 
 void Tracker::RotateBy(double deltaAngle) {
 	double angle = currentAngle + deltaAngle;

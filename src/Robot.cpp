@@ -1,5 +1,4 @@
 #include "Robot.h"
-#include "Commands/TrackerInit.h"
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
@@ -7,6 +6,13 @@ std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
+
+StartPosition left = START_LEFT;
+StartPosition middle = START_MIDDLE;
+StartPosition right = START_RIGHT;
+ChosenGear leftGear = GEAR_LEFT;
+ChosenGear middleGear = GEAR_MIDDLE;
+ChosenGear rightGear = GEAR_RIGHT;
 
 double Robot::initialX;
 double Robot::initialY;
@@ -16,9 +22,13 @@ double Robot::hopperY;
 double Robot::boilerX;
 double Robot::boilerR;
 double Robot::boilerY;
+double Robot::gearLifterX;
+double Robot::gearLifterY;
+double Robot::gearLifterR;
 
 SendableChooser<Command*> chooserDo;
-SendableChooser<StartPosition> chooserPos;
+SendableChooser<StartPosition*> chooserPos;
+SendableChooser<ChosenGear*> chooserGear;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -30,23 +40,19 @@ void Robot::RobotInit() {
 	vision = std::make_shared<Vision>();
 
 
-	chooserDo.AddDefault("Do Nothing", new DoNothing()); //starting action
-	/*
-	chooserDo.AddObject("Cross BaseLine", new CrossBaseLine());//^^
-	chooserDo.AddObject("Deliver Left Gear", new DeliverGear(LEFT_GEAR_DELIVERY));//^^
-	chooserDo.AddObject("Deliver Middle Gear", new  DeliverGear(MIDDLE_GEAR_DELIVERY));//^^
-	chooserDO.AddObject("Deliver Right Gear", new DeliverGear(RIGHT_GEAR_DELIVERY));//^^
-	*/
+	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
+	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 
-/*
-	// TODO: THIS DOES NOT WORK kthxbye --NickScheel
-	chooserPos.AddObject("Left", START_LEFT); //starting position
-	chooserPos.AddObject("Middle", START_MIDDLE);//^^
-	chooserPos.AddObject("Right", START_RIGHT);//^^
-*/
+	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to
+	chooserGear.AddObject("Middle Gear", &middleGear);//^^
+	chooserGear.AddObject("Right Gear", &rightGear);//^^
 
 
 
+
+	chooserPos.AddObject("Left", &left); //starting position
+	chooserPos.AddObject("Middle", &middle);//^^
+	chooserPos.AddObject("Right", &right);//^^
 
 }
 
@@ -75,8 +81,10 @@ void Robot::DisabledPeriodic() {
  * to the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
-	StartPosition autonomousPos = START_MIDDLE;// chooserPos.GetSelected();
-	frc::DriverStation::Alliance team = DriverStation::GetInstance().GetAlliance();
+	StartPosition* autonomousPos = chooserPos.GetSelected();
+	ChosenGear* targetGear = chooserGear.GetSelected();
+	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
+	Command* autonomousDo = chooserDo.GetSelected();
 	Robot::initialY = StartingPlaceY;
 	Robot::hopperY = hopperPositionY;
 	Robot::boilerY = boilerPositionY;
@@ -85,7 +93,8 @@ void Robot::AutonomousInit() {
 		Robot::boilerR = blueBoilerPositionR;
 		Robot::hopperX = blueHopperPositionX;
 		Robot::hopperR = blueHopperPositionR;
-		switch (autonomousPos) {
+
+		switch (*autonomousPos) {
 		case START_LEFT:
 			Robot::initialX = startingBlueLeftX;
 			break;
@@ -101,7 +110,7 @@ void Robot::AutonomousInit() {
 		Robot::boilerR = redBoilerPositionR;
 		Robot::hopperX = redHopperPositionX;
 		Robot::hopperR = redHopperPositionR;
-		switch (autonomousPos) {
+		switch (*autonomousPos) {
 		case START_LEFT:
 			Robot::initialX = startingRedLeftX;
 			break;
@@ -113,7 +122,25 @@ void Robot::AutonomousInit() {
 			break;
 		}
 	}
-	Command* autonomousDo = chooserDo.GetSelected();
+	switch (*targetGear){
+	case GEAR_LEFT:
+			Robot::gearLifterX = leftGearPlaceX;
+			Robot::gearLifterY = leftGearPlaceY;
+			Robot::gearLifterR = leftGearPlaceR;
+			break;
+	case GEAR_MIDDLE:
+			Robot::gearLifterX = middleGearPlaceX;
+			Robot::gearLifterY = middleGearPlaceY;
+			Robot::gearLifterR = middleGearPlaceR;
+			break;
+	case GEAR_RIGHT:
+			Robot::gearLifterX = rightGearPlaceX;
+			Robot::gearLifterY = rightGearPlaceY;
+			Robot::gearLifterR = rightGearPlaceR;
+			break;
+	}
+	tracker->StartTracking();
+
 	autonomousDo->Start();
 }
 

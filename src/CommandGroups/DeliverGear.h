@@ -11,10 +11,10 @@
 #include "WPIlib.h"
 #include "DriverStation.h"
 //#include "../Tracker.h"//??need??
-#include "../Commands/TrackerInit.h"
 //#include "GetFieldPosition.h"
 #include "Commands/Command.h"
 #include "Commands/CommandGroupEntry.h"
+#include "../StartPositions.h"
 
 
 

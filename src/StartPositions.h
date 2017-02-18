@@ -14,16 +14,22 @@ enum StartPosition{
 	START_RIGHT
 
 };
-//enum StartTeam{
-	//BLUE_TEAM,
-	//RED_TEAM
-//};
+enum StartTeam{
+	BLUE_TEAM,
+	RED_TEAM
+};
+
+enum ChosenGear{
+	GEAR_LEFT,
+	GEAR_MIDDLE,
+	GEAR_RIGHT
+};
 enum Objects{
 	HOPPER,
 	BOILER,
 	LEFT_GEAR_DELIVERY,
 	MIDDLE_GEAR_DELIVERY,
-	RIGHT_GEARD_ELIVERY
+	RIGHT_GEAR_DELIVERY
 };
 enum ObjectPositions{
 	HOPPERY,
@@ -64,13 +70,13 @@ enum ObjectPositions{
 	static const double leftGearPlaceY = 146.1925;
 	static const double leftGearPlaceR = 60;
 
-	static const double rightGearPlaceX = 221.908;
-	static const double rightGearPlaceY = 146.1925;
-	static const double rightGearPlaceR = -60;
-
 	static const double middleGearPlaceX = 192.0868;
 	static const double middleGearPlaceY = 93.25;
 	static const double middleGearPlaceR = 0;
+
+	static const double rightGearPlaceX = 221.908;
+	static const double rightGearPlaceY = 146.1925;
+	static const double rightGearPlaceR = -60;
 
 
 

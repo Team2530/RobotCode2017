@@ -8,7 +8,9 @@
 #include "Robot.h"
 
 DeliverGear::DeliverGear() {
-	//AddSequential(new GetFieldPosition());
+	//AddSequential(new DriveToPosition(&Robot::gearLifterX, &Robot::gearLifterY));
+	//AddSequential(new OrientRobot(&Robot::gearLifterR));
+	//AddSequential(new MoveBasedOnVision());
 }
 
 

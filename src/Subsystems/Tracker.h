@@ -71,9 +71,10 @@ private:
 public:
 	Tracker();
 	void InitDefaultCommand();
-	void StartTracking(StartPosition position, frc::DriverStation::Alliance team);
+	void StartTracking();
 	void GetPosition();
 	double GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team);
+	void SetTeam(StartTeam team);
 	double GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance team);
 	double GetTargetPositionY(Objects aTarget);
 	double GetHopperPositionX(frc::DriverStation::Alliance team);
