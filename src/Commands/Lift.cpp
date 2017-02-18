@@ -1,35 +1,35 @@
-#include "TrackerInit.h"
-#include "../Robot.h"
+#include "Lift.h"
 
-TrackerInit::TrackerInit(StartPosition position, StartTeam team) {
+Lift::Lift() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	this->position = position;
-	this->team = team;
+	Requires(Robot::lifter.get());
 }
 
 // Called just before this Command runs the first time
-void TrackerInit::Initialize() {
-	Robot::tracker->StartTracking(this->position, this->team);
+void Lift::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void TrackerInit::Execute() {
+void Lift::Execute() {
+	Robot::lifter->Go();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool TrackerInit::IsFinished() {
+bool Lift::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void TrackerInit::End() {
-
+void Lift::End() {
+	Robot::lifter->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void TrackerInit::Interrupted() {
+void Lift::Interrupted() {
+	Robot::lifter->Stop();
 
 }

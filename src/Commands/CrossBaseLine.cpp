@@ -4,6 +4,7 @@
 CrossBaseLine::CrossBaseLine() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+
 	Requires(Robot::drivetrain.get());
 	Requires(Robot::tracker.get());
 }
@@ -15,14 +16,18 @@ void CrossBaseLine::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CrossBaseLine::Execute() {
-	while (Robot::tracker->GetForwardDistance() < 112){
-		Robot::drivetrain->DriveForward();
-	}
+//where 112 = 93.25 + robot distance
+	Robot::drivetrain->DriveForward();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CrossBaseLine::IsFinished() {
-	return false;
+	if (Robot::tracker->GetForwardDistance() < 112){
+		return false;
+	}
+	else{
+		return true;
+	}
 }
 
 // Called once after isFinished returns true

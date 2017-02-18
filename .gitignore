@@ -28,3 +28,9 @@
 *.out
 *.app
 /Debug/
+
+<<<<<<< HEAD
+\.settings/language\.settings\.xml
+=======
+\.cproject
+>>>>>>> OrientRobot

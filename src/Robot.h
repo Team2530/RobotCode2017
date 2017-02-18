@@ -10,6 +10,8 @@
 
 
 #include <memory>
+#include "WPILib.h"
+#include "DriverStation.h"
 
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
@@ -21,19 +23,22 @@
 #include "OI.h"
 
 #include "Commands/MecanumDriveWithJoystick.h"
+#include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
-#include "Commands/Output.h"
 #include "Commands/DoNothing.h"
-#include "Commands/CrossBaseLine.h"
+#include "CommandGroups/DeliverGear.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
 #include "Subsystems/Tracker.h"
+#include "Subsystems/CameraServo.h"
 #include "Subsystems/Vision.h"
+#include "Subsystems/Lifter.h"
 
+#include "StartPositions.h"
 
 
 class Robot: public frc::IterativeRobot {
@@ -45,6 +50,21 @@ public:
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
+	static std::shared_ptr<CameraServo> cameraservo;
+    static std::shared_ptr<Lifter> lifter;
+
+	// Initial robot position for Tracker based on StartPosition chooser
+	static double initialX;
+	static double initialY;
+	static double hopperX;
+	static double hopperR;
+	static double hopperY;
+	static double boilerX;
+	static double boilerR;
+	static double boilerY;
+	static double gearLifterX;
+	static double gearLifterY;
+	static double gearLifterR;
 
 	void RobotInit() override;
 
@@ -75,10 +95,10 @@ public:
 
 private:
 
-	std::unique_ptr<frc::Command> autonomousPos;
-	std::unique_ptr<frc::Command> autonomousDo;
+	std::unique_ptr<frc::Command> autonomous;
 	frc::SendableChooser<frc::Command*> chooserDo;
-	frc::SendableChooser<frc::Command*> chooserPos;
+	frc::SendableChooser<StartPosition*> chooserPos;
+	frc::SendableChooser<ChosenGear*> chooserGear;
 };
 
 

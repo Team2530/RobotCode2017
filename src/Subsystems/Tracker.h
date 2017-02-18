@@ -1,9 +1,10 @@
 #ifndef Tracker_H
 #define Tracker_H
 #include "WPILib.h"
-#include "AHRS.h"
+#include "OI.h"
 #include <Commands/Subsystem.h>
 #include "../StartPositions.h"
+#include "DriverStation.h"
 #include <Encoder.h>
 #include <PIDSource.h>
 #include <PIDOutput.h>
@@ -65,16 +66,25 @@ private:
 	frc::PIDController pidxc;
 	frc::PIDController pidyc;
 	frc::PIDController pidrc;
+	std::shared_ptr<NetworkTable> table;
 
 public:
 	Tracker();
 	void InitDefaultCommand();
-	void StartTracking(StartPosition position, StartTeam team);
+	void StartTracking();
 	void GetPosition();
-	double GetOriginalPositionX(StartPosition position, StartTeam team);
-
+	double GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team);
+	void SetTeam(StartTeam team);
+	double GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance team);
+	double GetTargetPositionY(Objects aTarget);
+	double GetHopperPositionX(frc::DriverStation::Alliance team);
+	double GetBoilerPositionX(frc::DriverStation::Alliance team);
 	double GetForwardDistance();
 	double GetSideDistance();
+
+	double GetGearPositionX(Objects position);
+	double GetGearPositionY(Objects position);
+	double GetGearPositionR(Objects position); // Celeste persisted.
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place
@@ -92,6 +102,11 @@ public:
 	// And as oriented by the robot
 	double GetPIDBackward();
 	double GetPIDRight();
+
+	bool PIDFinished();
+
+	double GetCurrentPositionX();
+	double GetCurrentPositionY();
 };
 
 #endif  // Tracker_H

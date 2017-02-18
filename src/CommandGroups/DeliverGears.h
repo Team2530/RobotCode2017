@@ -9,18 +9,23 @@
 #define SRC_COMMANDGROUPS_DELIVERGEARS_H_
 
 #include "WPIlib.h"
-#include "Commands/Command.h"
-#include "Commands/CommandGroupEntry.h"
-
-//#include "DeliverGears1"
-//#include "DeliverGears2"
-//#include "DeliverGears3"
+#include "../Commands/LEDControl.h"
+#include "../Commands/WaitForVision.h"
+#include "../Commands/PullVisionEstimate.h"
+#include "../Commands/MoveBasedOnVision.h"
+#include "../Commands/FinalApproach.h"
 
 class DeliverGears : public frc::CommandGroup {
-
-	//CommandGroup#AddSequential(DeliverGears1) AddSequential(1);
-	//CommandGroup#AddSequential(DeliverGears2) AddSequential(2);
-	//CommandGroup#AddSequential(DeliverGears3) AddSequential(3);
+	DeliverGears() {
+		AddSequential(new LEDControl(true));
+		AddSequential(new WaitForVision());
+		AddSequential(new PullVisionEstimate());
+		AddSequential(new MoveBasedOnVision());
+		AddSequential(new WaitForVision());
+		AddSequential(new PullVisionEstimate());
+		AddSequential(new MoveBasedOnVision());
+		AddSequential(new FinalApproach());
+	}
 }
 
 

@@ -1,35 +1,31 @@
-#include <Commands/GetFieldPosition.h>
+#include "AimCameratoLift.h"
 #include "Robot.h"
 
-GetFieldPosition::GetFieldPosition(){// : Command("GetFieldPosition")
+AimCameratoLift::AimCameratoLift() {
 	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::tracker.get());
-
+	Requires(Robot::cameraservo.get());
 }
 
 // Called just before this Command runs the first time
-void GetFieldPosition::Initialize() {
+void AimCameratoLift::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetFieldPosition::Execute() {
-	Robot::tracker->GetPosition();
+void AimCameratoLift::Execute() {
+	Robot::cameraservo->AimLift();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool GetFieldPosition::IsFinished() {
+bool AimCameratoLift::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void GetFieldPosition::End() {
-
+void AimCameratoLift::End() {
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void GetFieldPosition::Interrupted() {
-	End();
+void AimCameratoLift::Interrupted() {
 }
