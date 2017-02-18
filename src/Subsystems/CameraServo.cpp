@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 CameraServo::CameraServo() : Subsystem("ExampleSubsystem") {
-servo= new Servo (ControllerConstants :: PWMPort :: kPWM8) ;
+servo= new Servo (ControllerConstants :: PWMPort :: kPWM5) ;
 
 }
 
