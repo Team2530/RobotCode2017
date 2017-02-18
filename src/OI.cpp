@@ -1,5 +1,7 @@
 #include "OI.h"
 
+#include <Commands/SlowLift.h>
+#include <Commands/FastLift.h>
 #include <WPILib.h>
 #include <Commands/IntakeOn.h>
 #include <Commands/IntakeInvert.h>
@@ -45,8 +47,6 @@ OI::OI() {
 	B8 = new frc::JoystickButton(joy,8);
 	B8->WhileHeld(new  IntakeInvert());
 
-	B9 = new frc::JoystickButton(joy, 9);
-	B9->WhileHeld(new Lift());
 	B11 = new frc::JoystickButton(joy, 11);
 	B11->WhenPressed(new MecanumDriveFieldOriented());
 
@@ -63,9 +63,9 @@ OI::OI() {
 	Y = new frc::JoystickButton(Xbox, 4);
 	Y->WhenPressed(new IntakeInvert());
 	LB = new frc::JoystickButton(Xbox, 5);
-	LB->WhileHeld(SlowLifter());
+	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
-	RB->WhileHeld(FastLifter());
+	RB->WhileHeld(new FastLift());
 /*
 	B9 = new frc::JoystickButton(joy,9);
 	//B9->WhileHeld(new  Dump());

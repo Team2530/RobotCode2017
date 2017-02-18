@@ -17,8 +17,12 @@ void Lifter::Stop(){
 
 }
 
-void Lifter::Go(){
-	jaguar->SetSpeed(0.7);
+void Lifter::Fast(){
+	jaguar->SetSpeed(1);
 
+}
+
+void Lifter::Slow(){
+	jaguar->SetSpeed(0.5);
 }
 

@@ -29,7 +29,7 @@ private:
 	JoystickButton *B6;  //OrientRobot90
 	JoystickButton *B7;  //IntakeOn
 	JoystickButton *B8;  //IntakeInvert
-	JoystickButton *B9;  //Dump
+	JoystickButton *B9;  //Unused
 	JoystickButton *B10; //ResetDump
 	JoystickButton *B11; //MecanumDriveFieldOriented
 
@@ -40,8 +40,8 @@ private:
 	JoystickButton *B; // intake off
 	JoystickButton *Y; // intake invert
 	JoystickButton *X; // dump/reset
-	JoystickButton *RB; // control lift
-	JoystickButton *LB; // control lift
+	JoystickButton *RB; // control fast lift
+	JoystickButton *LB; // control slow lift
 
 	AHRS* ahrs;			 //navX MXP
 

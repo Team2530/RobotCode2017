@@ -13,7 +13,8 @@ private:
 public:
 	Lifter();
 	void InitDefaultCommand();
-	void Go();
+	void Fast();
+	void Slow();
 	void Stop();
 
 
