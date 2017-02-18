@@ -5,9 +5,9 @@
 #include "../Commands/MecanumDriveWithJoystick.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
-	frontLeftController = new Spark(kFrontLeftChannel);
+	frontLeftController = new VictorSP(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
-	frontRightController = new Spark(kFrontRightChannel);
+	frontRightController = new VictorSP(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
 
 
@@ -33,16 +33,20 @@ void DriveTrain::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveTrain::Drive(Joystick* stick) {
-	double scale = 0.6-0.4*stick->GetThrottle();
-	robotDrive->MecanumDrive_Cartesian(
-		scale*stick->GetX(), scale*stick->GetY(),
-		scale*stick->GetZ()
-	);
+	//std::printf("Drive (stick=%p) in %s, line %i\n", stick, __FILE__, __LINE__);
+	if (stick) {
+		double scale = 0.6-0.4*stick->GetThrottle();
+		robotDrive->MecanumDrive_Cartesian(
+			scale*stick->GetX(), scale*stick->GetY(),
+			scale*stick->GetZ()
+		);
+	}
 }
 
-void DriveTrain::DriveWithCoordinates(double x, double y, double z){
-	robotDrive->MecanumDrive_Cartesian(x, y, z);
+void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle){
+	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
 }
+
 
 void DriveTrain::Stop() {
 
