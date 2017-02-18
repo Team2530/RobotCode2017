@@ -3,12 +3,12 @@
 LEDControl::LEDControl(bool on) {
 	// Use Requires() here to declare subsystem dependencies
 	value = on;
-	Requires(Robot::vision.get());
+	Requires(Robot::led.get());
 }
 
 // Called just before this Command runs the first time
 void LEDControl::Initialize() {
-	Robot::vision->SetLED(value);
+	Robot::led->Set(value);
 }
 
 // Called repeatedly when this Command is scheduled to run

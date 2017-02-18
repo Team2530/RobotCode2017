@@ -1,34 +1,33 @@
-#include "Robot.h"
-#include "AimCameratoTaco.h"
+#include <Commands/LEDToggle.h>
+#include "../Robot.h"
 
-AimCameratoTaco::AimCameratoTaco() {
+LEDToggle::LEDToggle() {
 	// Use Requires() here to declare subsystem dependencies
-	Requires(Robot::cameraservo.get());
+	Requires(Robot::led.get());
 }
 
 // Called just before this Command runs the first time
-void AimCameratoTaco::Initialize() {
-
+void LEDToggle::Initialize() {
+	Robot::led->Toggle();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AimCameratoTaco::Execute() {
-	Robot::cameraservo->AimTaco();
+void LEDToggle::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AimCameratoTaco::IsFinished() {
-	return false;
+bool LEDToggle::IsFinished() {
+	return true;
 }
 
 // Called once after isFinished returns true
-void AimCameratoTaco::End() {
+void LEDToggle::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AimCameratoTaco::Interrupted() {
+void LEDToggle::Interrupted() {
 
 }

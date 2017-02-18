@@ -64,6 +64,22 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 		scale*stick->GetZ()
 	);
 }
+
+void DriveTrain::DriveRightSideForward(Joystick* stick) {
+	double scale = 0.6-0.4*stick->GetThrottle();
+	robotDrive->MecanumDrive_Cartesian(
+		-scale*stick->GetY(), scale*stick->GetX(),
+		scale*stick->GetZ()
+	);
+}
+
+void DriveTrain::DriveBackSideForward(Joystick* stick) {
+    double scale = 0.6-0.4*stick->GetThrottle();
+    robotDrive->MecanumDrive_Cartesian(
+      -scale*stick->GetX(), -scale*stick->GetY(),
+      scale*stick->GetZ()
+    );
+}
 void DriveTrain::DrivePastBaseLine(){
 
 

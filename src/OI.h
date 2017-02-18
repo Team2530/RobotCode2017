@@ -8,6 +8,7 @@
 
 //#include <Subsystems/AHRS.h>
 #include <AHRS.h>
+#include "Subsystems/ControllerConstants.h"
 
 
 class OI {
@@ -42,6 +43,8 @@ private:
 	JoystickButton *X; // dump/reset
 	JoystickButton *RB; // control fast lift
 	JoystickButton *LB; // control slow lift
+	JoystickButton *Back; // camera face forward
+	JoystickButton *Start; // camera face for taco
 
 	AHRS* ahrs;			 //navX MXP
 

@@ -37,6 +37,7 @@
 #include "Subsystems/CameraServo.h"
 #include "Subsystems/Vision.h"
 #include "Subsystems/Lifter.h"
+#include "Subsystems/LED.h"
 
 #include "StartPositions.h"
 
@@ -52,6 +53,7 @@ public:
 	static std::shared_ptr<Vision> vision;
 	static std::shared_ptr<CameraServo> cameraservo;
     static std::shared_ptr<Lifter> lifter;
+    static std::shared_ptr<LED> led;
 
 	// Initial robot position for Tracker based on StartPosition chooser
 	static double initialX;

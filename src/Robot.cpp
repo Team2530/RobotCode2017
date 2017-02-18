@@ -11,7 +11,8 @@ std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Lifter> Robot::lifter;
-std:: shared_ptr<CameraServo> Robot::cameraservo;
+std::shared_ptr<CameraServo> Robot::cameraservo;
+std::shared_ptr<LED> Robot::led;
 
 StartPosition left = START_LEFT;
 StartPosition middle = START_MIDDLE;
@@ -43,6 +44,7 @@ void Robot::RobotInit() {
 	dumper = std::make_shared<Dumper>();
 	intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
+	led = std::make_shared<LED>();
 
 
 	oi = std::make_unique<OI>();

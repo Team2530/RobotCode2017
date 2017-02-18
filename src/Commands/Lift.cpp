@@ -13,7 +13,7 @@ void Lift::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Lift::Execute() {
-	Robot::lifter->Go();
+	Robot::lifter->Fast();
 
 }
 
