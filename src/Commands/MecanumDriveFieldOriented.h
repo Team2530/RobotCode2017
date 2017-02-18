@@ -7,16 +7,15 @@
 
 class MecanumDriveFieldOriented : public Command {
 public:
-  MecanumDriveFieldOriented();
-  void Initialize();
-  void Execute();
-  bool IsFinished();
-  void End();
-  void Interrupted();
-  double ResetYawAngle();
+	MecanumDriveFieldOriented();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
+	double ResetYawAngle();
 private:
 
 };
 
 #endif  // MecanumDriveFieldOriented_H
-

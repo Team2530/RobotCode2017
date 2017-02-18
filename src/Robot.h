@@ -33,7 +33,9 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/Dumper.h"
 #include "Subsystems/Tracker.h"
+#include "Subsystems/CameraServo.h"
 #include "Subsystems/Vision.h"
+#include "Subsystems/Lifter.h"
 
 #include "StartPositions.h"
 
@@ -47,6 +49,8 @@ public:
 	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
+	static std::shared_ptr<CameraServo> cameraservo;
+    static std::shared_ptr<Lift> lifter;
 
 	// Initial robot position for Tracker based on StartPosition chooser
 	static double initialX;

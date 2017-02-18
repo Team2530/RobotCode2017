@@ -1,11 +1,17 @@
 #include "Robot.h"
 
+
+#include "Commands/AimCameratoTaco.h"
+#include "Commands/AimCameratoLift.h"
+
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
+std::shared_ptr<Lift> Robot::lifter;
+std:: shared_ptr<CameraServo> Robot::cameraservo;
 
 StartPosition left = START_LEFT;
 StartPosition middle = START_MIDDLE;
@@ -32,11 +38,25 @@ SendableChooser<ChosenGear*> chooserGear;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
+	//std::printf("RobotInit start in %s, line %i\n", __FILE__, __LINE__);
 	drivetrain = std::make_shared<DriveTrain>();
-	//dumper = std::make_shared<Dumper>();
-	//intake = std::make_shared<Intake>();
+	dumper = std::make_shared<Dumper>();
+	intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
+
+
+	oi = std::make_unique<OI>();
+
+	// Get the USB camera from CameraServer
+	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
+	// Set the resolution
+	camera.SetResolution(320, 240);
+	camera.SetExposureManual(20);
+	camera.SetBrightness(100);
+
 	vision = std::make_shared<Vision>();
+    Lift = std::make_shared<Lifter>();
+    cameraservo = std::make_shared<CameraServo>();
 
 
 	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action

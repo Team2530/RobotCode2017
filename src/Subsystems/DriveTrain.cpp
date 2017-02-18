@@ -47,6 +47,7 @@ void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
 }
 
+
 void DriveTrain::Stop() {
 
 	robotDrive->MecanumDrive_Cartesian(0,0,0);

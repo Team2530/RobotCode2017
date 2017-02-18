@@ -11,9 +11,9 @@ OrientRobot::OrientRobot(double* TargetAngle) {
 	Requires(Robot::drivetrain.get());
 }
 
+
 // Called just before this Command runs the first time
 void OrientRobot::Initialize() {
-
 
 }
 
@@ -72,6 +72,9 @@ bool OrientRobot::IsFinished() {
 	  }
 	  else {
 	    return false;
+	}
+	else {
+		return false;
 	}
 }
 

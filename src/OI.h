@@ -4,6 +4,7 @@
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
 
+//#include <Subsystems/AHRS.h>
 #include <AHRS.h>
 
 
@@ -37,6 +38,7 @@ private:
 	double testx;
 	double testy;
 
+	double ninetyDegrees = 90.0;
 	double ninetyDegrees = 90.0;
 };
 
