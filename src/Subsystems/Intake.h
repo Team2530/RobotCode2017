@@ -13,7 +13,7 @@
 
 class Intake : public Subsystem {
 private:
-	static constexpr int kIntakeChannel = 5;
+	static constexpr int kIntakeChannel = 4;
 	VictorSP* intakeMotor;
 public:
 	Intake();
