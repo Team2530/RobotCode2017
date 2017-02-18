@@ -6,8 +6,8 @@
 
 class Dumper : public Subsystem {
 private:
-	static constexpr int kHatchController = 0; //SET TO ACTUAL
-	static constexpr int kDumperController = 0; //SET TO ACTUAL
+	static constexpr int kHatchController = 6; //SET TO ACTUAL
+	static constexpr int kDumperController = 6; //SET TO ACTUAL
 
 	//Victor SP stuff in case hardware decideds to change things again
 	//VictorSP* hatchController;
