@@ -1,3 +1,4 @@
+#include "Robot.h"
 #include "AimCameratoTaco.h"
 
 AimCameratoTaco::AimCameratoTaco() {
@@ -12,6 +13,7 @@ void AimCameratoTaco::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AimCameratoTaco::Execute() {
+	Robot::cameraservo->AimTaco();
 
 }
 

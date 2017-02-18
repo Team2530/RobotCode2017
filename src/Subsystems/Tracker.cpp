@@ -223,3 +223,9 @@ double Tracker::GetPIDRight() {
 	double rad = currentAngle * M_PI / 180;
 	return cos(rad) * pidx + sin(rad) * pidy;
 }
+double Tracker::GetCurrentPositionX(){
+	return currentPositionX;
+}
+double Tracker::GetCurrentPositionY(){
+	return currentPositionY;
+}

@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 #include "WPILib.h"
 
-Lifter::Lifter() : Subsystem("ExampleSubsystem") {
+Lifter::Lifter() : Subsystem("LifterSubsystem") {
 	jaguar = new Jaguar (kliftermotor);
 
 }

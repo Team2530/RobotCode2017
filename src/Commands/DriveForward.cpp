@@ -6,8 +6,8 @@ DriveForward::DriveForward():Command("DriveForward") {
 	Requires(Robot::drivetrain.get());;
 }
 DriveForward::DriveForward(double x, double y) {
-	double currentPositionx = Robot::tracker->GetcurrentPositionX();
-	double currentPositiony = Robot::tracker->GetcurrentPositionY();
+	double currentPositionx = Robot::tracker->GetCurrentPositionX();
+	double currentPositiony = Robot::tracker->GetCurrentPositionY();
 
 	double deltaxValue = x - currentPositionx;
 	double deltayValue = y - currentPositiony;

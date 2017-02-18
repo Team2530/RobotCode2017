@@ -15,8 +15,8 @@ anglepointer = angle;
 // Called just before this Command runs the first time
 void CalculateTargetAngle::Initialize() {
 
-	double currentPositionX = Robot::tracker->GetcurrentPositionX();
-	double currentPositionY = Robot::tracker->GetcurrentPositionY();
+	double currentPositionX = Robot::tracker->GetCurrentPositionX();
+	double currentPositionY = Robot::tracker->GetCurrentPositionY();
 
 	double TargetAngle = 0; //get real angle
 

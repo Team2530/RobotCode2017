@@ -23,6 +23,7 @@
 #include "OI.h"
 
 #include "Commands/MecanumDriveWithJoystick.h"
+#include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
@@ -50,7 +51,7 @@ public:
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
 	static std::shared_ptr<CameraServo> cameraservo;
-    static std::shared_ptr<Lift> lifter;
+    static std::shared_ptr<Lifter> lifter;
 
 	// Initial robot position for Tracker based on StartPosition chooser
 	static double initialX;

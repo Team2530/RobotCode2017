@@ -73,9 +73,6 @@ bool OrientRobot::IsFinished() {
 	  else {
 	    return false;
 	}
-	else {
-		return false;
-	}
 }
 
 

@@ -1,7 +1,7 @@
 #include "CameraServo.h"
 #include "../RobotMap.h"
-
-CameraServo::CameraServo() : Subsystem("ExampleSubsystem") {
+#include "ControllerConstants.h"
+CameraServo::CameraServo() : Subsystem("CameraServoSubsystem") {
 servo= new Servo (ControllerConstants :: PWMPort :: kPWM5) ;
 
 }

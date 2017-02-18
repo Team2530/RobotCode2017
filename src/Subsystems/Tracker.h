@@ -105,8 +105,8 @@ public:
 
 	bool PIDFinished();
 
-	double GetcurrentPositionX();
-	double GetcurrentPositionY();
+	double GetCurrentPositionX();
+	double GetCurrentPositionY();
 };
 
 #endif  // Tracker_H

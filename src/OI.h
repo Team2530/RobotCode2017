@@ -2,6 +2,7 @@
 #define OI_H
 
 #include <Joystick.h>
+#include "WPILib.h"
 #include <Buttons/JoystickButton.h>
 
 //#include <Subsystems/AHRS.h>
@@ -38,7 +39,6 @@ private:
 	double testx;
 	double testy;
 
-	double ninetyDegrees = 90.0;
 	double ninetyDegrees = 90.0;
 };
 

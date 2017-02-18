@@ -12,6 +12,7 @@
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
 #include <Commands/LEDControl.h>
+#include <Commands/Lift.h>
 
 #include <Commands/DriveLeftSideForward.h>
 #include <Commands/MecanumDriveFieldOriented.h>
