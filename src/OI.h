@@ -2,6 +2,7 @@
 #define OI_H
 
 #include <Joystick.h>
+#include <XboxController.h>
 #include "WPILib.h"
 #include <Buttons/JoystickButton.h>
 
@@ -33,6 +34,14 @@ private:
 	JoystickButton *B11; //MecanumDriveFieldOriented
 
 	JoystickButton *B12; //Unused
+
+	XboxController *Xbox;
+	JoystickButton *A; // intake on
+	JoystickButton *B; // intake off
+	JoystickButton *Y; // intake invert
+	JoystickButton *X; // dump/reset
+	JoystickButton *RB; // control lift
+	JoystickButton *LB; // control lift
 
 	AHRS* ahrs;			 //navX MXP
 

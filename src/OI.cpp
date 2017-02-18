@@ -12,14 +12,13 @@
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
 #include <Commands/LEDControl.h>
-#include <Commands/Lift.h>
-
 #include <Commands/DriveLeftSideForward.h>
 #include <Commands/MecanumDriveFieldOriented.h>
 
 #include <Commands/DriveToPosition.h>
 
 #include <Commands/MecanumDriveFieldOriented.h>
+#include <Commands/SlowLift.h>
 
 OI::OI() {
 	// Process operator interface input here.
@@ -46,14 +45,27 @@ OI::OI() {
 	B8 = new frc::JoystickButton(joy,8);
 	B8->WhileHeld(new  IntakeInvert());
 
-	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->Reset();
-	B6 = new frc::JoystickButton(joy, 6);
-	B6->WhenPressed(new OrientRobot(&ninetyDegrees));
 	B9 = new frc::JoystickButton(joy, 9);
-	B9->WhenPressed(new Lift());
+	B9->WhileHeld(new Lift());
 	B11 = new frc::JoystickButton(joy, 11);
 	B11->WhenPressed(new MecanumDriveFieldOriented());
+
+
+	ahrs = new AHRS(SPI::Port::kMXP);
+	ahrs->Reset();
+
+	Xbox = new frc::XboxController(1);
+	A = new frc::JoystickButton(Xbox, 1);
+	A->WhileHeld(new IntakeOn());
+	B = new frc::JoystickButton(Xbox, 2);
+	//B->WhenPressed(new IntakeOff());
+	X = new frc::JoystickButton(Xbox, 3);
+	Y = new frc::JoystickButton(Xbox, 4);
+	Y->WhenPressed(new IntakeInvert());
+	LB = new frc::JoystickButton(Xbox, 5);
+	LB->WhileHeld(SlowLifter());
+	RB = new frc::JoystickButton(Xbox, 6);
+	RB->WhileHeld(FastLifter());
 /*
 	B9 = new frc::JoystickButton(joy,9);
 	//B9->WhileHeld(new  Dump());
