@@ -1,14 +1,19 @@
 #include "Lifter.h"
 #include "../RobotMap.h"
-
+#include "WPILib.h"
+#include "AHRS.h"
 Lifter::Lifter() : Subsystem("ExampleSubsystem") {
-jaguar=new Jaguar (kliftermotor=5);
+	jaguar=new Jaguar (kliftermotor=5);
+	Requires(Robot::drivetrain->Drive)
+
 }
 
 void Lifter::InitDefaultCommand() {
 
-	// SetDefaultCommand(new MySpecialCommand());
+
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void Lifter::Stop(){
+
+}
+
