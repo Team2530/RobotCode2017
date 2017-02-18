@@ -49,7 +49,7 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
 	    DriveWithCoordinates(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), -90
+	  	      scale*stick->GetZ(), 90
 	    );
     }
 }
@@ -59,7 +59,7 @@ void DriveTrain::DriveRightSideForward(Joystick* stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
 	    DriveWithCoordinates(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), 90
+	  	      scale*stick->GetZ(), -90
 	    );
     }
 }
