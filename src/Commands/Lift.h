@@ -3,7 +3,7 @@
 
 #include <Commands/Command.h>
 
-class Lift : public Commands {
+class Lift : public Command {
 public:
 	Lift();
 	void Initialize();

@@ -49,6 +49,8 @@ OI::OI() {
 	ahrs->Reset();
 	B6 = new frc::JoystickButton(joy, 6);
 	B6->WhenPressed(new OrientRobot(&ninetyDegrees));
+	B9 = new frc::JoystickButton(joy, 9);
+	B9->WhenPressed(new Lift());
 	B11 = new frc::JoystickButton(joy, 11);
 	B11->WhenPressed(new MecanumDriveFieldOriented());
 /*
