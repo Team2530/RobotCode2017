@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
+#include "Tracker.h"
 
 class DriveTrain : public Subsystem {
 private:
@@ -17,9 +18,9 @@ private:
 
 	static constexpr int kJoystickChannel = 0;
 
-	Spark* frontLeftController;
+	VictorSP* frontLeftController;
 	VictorSP* rearLeftController;
-	Spark* frontRightController;
+	VictorSP* frontRightController;
 	VictorSP* rearRightController;
 
 
@@ -30,11 +31,12 @@ private:
 public:
 	DriveTrain();
 	void Drive(Joystick* stick);
+	void Track(Tracker* tracker);
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();
 
-	void DriveWithCoordinates(double x, double y, double z);
+	void DriveWithCoordinates(double x, double y, double z, double Angle);
 
 	void DriveLeftSideForward(Joystick* stick);
 	void DrivePastBaseLine();

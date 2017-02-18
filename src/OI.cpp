@@ -11,32 +11,47 @@
 #include <Commands/IntakeInvert.h>
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
+#include <Commands/LEDControl.h>
 
 #include <Commands/DriveLeftSideForward.h>
 
+#include <Commands/DriveToPosition.h>
+
+#include <Commands/MecanumDriveFieldOriented.h>
 
 OI::OI() {
 	// Process operator interface input here.
 	joy = new Joystick(0);
 
+	B1 = new frc::JoystickButton(joy,1);
+	B1->WhenPressed(new LEDControl(true));
+	B1->WhenReleased(new LEDControl(false));
+
+	B2 = new frc::JoystickButton(joy, 2);
+	B2->WhileHeld(new  DriveToPosition(&testx,&testy));
+	testx=0;
+	testy=50;
+
 	B3 = new frc::JoystickButton(joy,3);
 	B3->WhileHeld(new  DriveForward());
 	B4 = new frc::JoystickButton(joy,4);
-	B4->WhileHeld(new  DriveLeftSideForward());
-	B7 = new frc::JoystickButton(joy,7);
-	B7->WhileHeld(new  IntakeOn());
-	B8 = new frc::JoystickButton(joy,8);
-	B8->WhileHeld(new  IntakeInvert());
+	B4->WhileHeld(new  DriveLeftSideForward()); //Taco side acts as front
 
-	ahrs= new AHRS(SerialPort::kMXP);
 	B6 = new frc::JoystickButton(joy, 6);
-	B6->WhenPressed(new OrientRobot(90));
-
+	B6->WhenPressed(new OrientRobot(&ninetyDegrees));
+	B7 = new frc::JoystickButton(joy,7);
+	//B7->WhileHeld(new  IntakeOn());
+	B8 = new frc::JoystickButton(joy,8);
+	//B8->WhileHeld(new  IntakeInvert());
 	B9 = new frc::JoystickButton(joy,9);
 	//B9->WhileHeld(new  Dump());
 	B10 = new frc::JoystickButton(joy,10);
 //	B10->WhileHeld(new  ResetDump());
+	B11 = new frc::JoystickButton(joy, 11);
+	B11->WhenPressed(new MecanumDriveFieldOriented());
 
+	ahrs = new AHRS(SerialPort::kMXP);
+	ahrs->Reset();
 }
 
 Joystick* OI::GetJoystick() {

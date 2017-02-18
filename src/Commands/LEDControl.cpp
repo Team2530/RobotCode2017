@@ -1,36 +1,33 @@
-#include <Commands/Output.h>
-#include "Robot.h"
+#include "LEDControl.h"
 
-Output::Output(): Command("Output") {
+LEDControl::LEDControl(bool on) {
 	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::dumper.get());
+	value = on;
+	Requires(Robot::vision.get());
 }
 
 // Called just before this Command runs the first time
-void Output::Initialize() {
-
+void LEDControl::Initialize() {
+	Robot::vision->SetLED(value);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Output::Execute() {
-	Robot::dumper->Dump();
+void LEDControl::Execute() {
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Output::IsFinished() {
-	//return Robot::dumper->FinishedDumping();// no finished dumping
+bool LEDControl::IsFinished() {
 	return true;
 }
 
 // Called once after isFinished returns true
-void Output::End() {
-	Robot::dumper->Stop();
+void LEDControl::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Output::Interrupted() {
-	End();
+void LEDControl::Interrupted() {
+
 }

@@ -102,6 +102,8 @@ public:
 	// And as oriented by the robot
 	double GetPIDBackward();
 	double GetPIDRight();
+
+	bool PIDFinished();
 };
 
 #endif  // Tracker_H

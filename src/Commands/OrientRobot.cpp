@@ -1,11 +1,14 @@
 #include "OrientRobot.h"
 #include "math.h"
 #include "Robot.h"
-OrientRobot::OrientRobot(double TargetAngle) {
+#include <AHRS.h>
+
+OrientRobot::OrientRobot(double* TargetAngle) {
 	Angle = TargetAngle;
 
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get()
+	Requires(Robot::drivetrain.get());
 }
 
 // Called just before this Command runs the first time
@@ -16,27 +19,32 @@ void OrientRobot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OrientRobot::Execute() {
-	double CurrentAngle = (Robot::oi->GetAHRS()->GetYaw());
-	double turningValue = Angle - CurrentAngle;
+	double CurrentAngle = (Robot::oi->GetAHRS()->GetAngle());
+	SmartDashboard::PutNumber("CurrentAngle",CurrentAngle);
+	double turningValue = *Angle - CurrentAngle;
 	turningValue = TurnAngleDetermination(turningValue);
 	turningValue = TurningSpeedDetermination(turningValue);
-	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue);
-
-
-
+	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue, 0.0);
 
 }
 
 double OrientRobot::TurningSpeedDetermination(double OffsetAngle){
-	OffsetAngle /= 180;
-	if(OffsetAngle >= 5 || OffsetAngle <= -5){
-		OffsetAngle *= 0.25;
-	}
+	SmartDashboard::PutNumber("OffsetAngle",OffsetAngle);
+	  OffsetAngle /= 180.0;
+	  double MinimumPower;
+	  double PowerSlope = 0.8;
+	  double TurningSpeed;
+	  if (OffsetAngle < 0){
+	    MinimumPower = -0.2;
+}
+	  else {
+	      MinimumPower = 0.2;
+	    }
+	    TurningSpeed = (PowerSlope * OffsetAngle) + MinimumPower;
 
-	else if(OffsetAngle >= 8 || OffsetAngle <= -3){
-		OffsetAngle *= 0.4;
-	}
-	return OffsetAngle;
+	    SmartDashboard::PutNumber("TurningSpeed",TurningSpeed);
+
+	    return TurningSpeed;
 }
 
 
@@ -52,9 +60,18 @@ double OrientRobot::TurnAngleDetermination(double OffsetAngle){
 
 // Make this return true when this Command no longer needs to run execute()
 bool OrientRobot::IsFinished() {
-	double CurrentAngle = (Robot::oi->GetAHRS()->GetYaw());
-	if(Angle == CurrentAngle){
-	return false;
+	 double CurrentAngle = (Robot::oi->GetAHRS()->GetAngle());
+	  double HowFarOff;
+	  if (*Angle < CurrentAngle)
+	    HowFarOff = CurrentAngle - *Angle;
+	  else
+	    HowFarOff = *Angle - CurrentAngle;
+
+	  if(HowFarOff < 3.0){
+	    return true;
+	  }
+	  else {
+	    return false;
 	}
 }
 
