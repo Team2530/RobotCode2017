@@ -7,8 +7,6 @@
 #include <Buttons/JoystickButton.h>
 #include "Subsystems/ControllerConstants.h"
 #include <AHRS.h>
-#include "Subsystems/ControllerConstants.h"
-
 
 class OI {
 public:
@@ -36,7 +34,7 @@ private:
 	JoystickButton *A; // intake on
 	JoystickButton *B; // LED Toggle
 	JoystickButton *Y; // intake invert
-	JoystickButton *X; // intake off
+	JoystickButton *X; // dump and dump reset
 	JoystickButton *RB; // control fast lift
 	JoystickButton *LB; // control slow lift
 	JoystickButton *Back; // camera face forward

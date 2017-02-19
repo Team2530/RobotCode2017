@@ -15,12 +15,11 @@
 
 #include <Commands/IntakeOn.h>
 #include <Commands/LEDToggle.h>
-#include <Commands/IntakeOn.h>
-#include <Commands/IntakeInvert.h>
-
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
-
+#include <Commands/IntakeInvert.h>
+#include <Commands/SlowLift.h>
+#include <Commands/FastLift.h>
 #include <Commands/AimCameratoLift.h>
 #include <Commands/AimCameratoTaco.h>
 
@@ -60,13 +59,14 @@ OI::OI() {
 	B = new frc::JoystickButton(Xbox, 2);
 	B->WhenPressed(new LEDToggle());
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhenPressed(new IntakeOff());
+	X->WhenPressed(new Dump());
+	X->WhenReleased(new ResetDump());
 	Y = new frc::JoystickButton(Xbox, 4);
 	Y->ToggleWhenPressed(new IntakeInvert());
 	LB = new frc::JoystickButton(Xbox, 5);
-	LB->WhileHeld(new SlowLift());
+	LB->WhenPressed(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
-	RB->WhileHeld(new FastLift());
+	RB->WhenPressed(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new AimCameratoLift());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);

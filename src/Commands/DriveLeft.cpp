@@ -31,3 +31,4 @@ void DriveLeft::End() {
 // subsystems is scheduled to run
 void DriveLeft::Interrupted() {
   Robot::drivetrain->Stop();
+}

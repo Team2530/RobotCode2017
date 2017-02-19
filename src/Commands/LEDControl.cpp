@@ -3,11 +3,7 @@
 LEDControl::LEDControl(bool on) {
 	// Use Requires() here to declare subsystem dependencies
 	value = on;
-<<<<<<< Updated upstream
 	Requires(Robot::led.get());
-=======
-	//B->WhenPressed(new IntakeOff());
->>>>>>> Stashed changes
 }
 
 // Called just before this Command runs the first time
