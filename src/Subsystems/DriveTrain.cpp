@@ -3,6 +3,7 @@
 #include "ControllerConstants.h"
 
 #include "../Commands/MecanumDriveWithJoystick.h"
+#include "../Commands/MecanumDriveFieldOriented.h"
 
 #include "../Commands/MecanumDriveFieldOriented.h"
 

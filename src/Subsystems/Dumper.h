@@ -6,7 +6,6 @@
 
 class Dumper : public Subsystem {
 private:
-	static constexpr int kHatchController = 6; //SET TO ACTUAL
 	static constexpr int kDumperController = 6; //SET TO ACTUAL
 
 	//Victor SP stuff in case hardware decideds to change things again
@@ -19,18 +18,7 @@ private:
 
 	frc::Jaguar* dumperController;
 
-
-	DigitalInput* hatchBottom;
-	DigitalInput* hatchTop;
-	DigitalInput* dumperBottom;
-	DigitalInput* dumperTop;
-	
-	Encoder* frontEncoder;
-	Encoder* sideEncoder;
-	
-
-	double kHatchSpeedCap = 0.2; //SET TO ACTUAL
-	double kDumperSpeedCap = 0.7; //SET TO ACTUAL
+	double kDumperSpeedCap = -0.5; //SET TO ACTUAL
 
 public:
 	Dumper();

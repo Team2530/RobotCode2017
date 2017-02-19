@@ -18,47 +18,10 @@ void Dumper::InitDefaultCommand() {
 	//SetDefaultCommand(new Output());
 }
 void Dumper::Dump(){
-
-	dumperDouble->Set(DoubleSolenoid::Value::kForward);
-	hatchDouble->Set(DoubleSolenoid::Value::kForward);
-
-	/*if (hatchBottom->Get()){
-		hatchController->Set(kHatchSpeedCap);
-	}
-	else{
-		hatchController->Set(0);
-	}
-	if (dumperTop->Get()){
-		dumperController->Set(kDumperSpeedCap);
-	}
-	else{
-		dumperController->Set(0);
-	}
-	//open hatch
-	//dump content
-*/
+	dumperController->Set(kDumperSpeedCap);
 }
 void Dumper::ResetDump(){
-
-	dumperDouble->Set(DoubleSolenoid::Value::kReverse);
-	hatchDouble->Set(DoubleSolenoid::Value::kReverse);
-
-	/*if (hatchTop->Get()){
-		hatchController->Set(-kHatchSpeedCap);
-	}
-	else{
-		hatchController->Set(0);
-	}
-	if (dumperBottom->Get()){
-		dumperController->Set(-kDumperSpeedCap);
-	}
-	else{
-		dumperController->Set(0);
-	}
-	//close hatch
-	//lower dumper
-
-*/
+	dumperController->Set(-kDumperSpeedCap);
 }
 /*bool Dumper::FinishedDumping(){
 
