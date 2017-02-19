@@ -24,7 +24,7 @@ private:
 	VictorSP* rearRightController;
 
 	// Robot drive system
-	RobotDrive* robotDrive;
+	frc::RobotDrive* robotDrive;
 public:
 	DriveTrain();
 	void Drive(Joystick* stick);
