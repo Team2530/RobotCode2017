@@ -16,7 +16,7 @@ private:
 	//DigitalInput* dumperBottom;
 	//DigitalInput* dumperTop;
 
-	Jaguar* dumperController;
+	frc::Jaguar* dumperController;
 
 	double kDumperSpeedCap = -0.5; //SET TO ACTUAL
 

@@ -39,6 +39,7 @@ private:
 	JoystickButton *LB; // control slow lift
 	JoystickButton *Back; // camera face forward
 	JoystickButton *Start; // camera face for taco
+	JoystickButton *RS;
 
 	AHRS* ahrs;			 //navX MXP
 
