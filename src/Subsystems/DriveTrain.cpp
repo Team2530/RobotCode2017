@@ -4,6 +4,8 @@
 
 #include "../Commands/MecanumDriveWithJoystick.h"
 
+#include "../Commands/MecanumDriveFieldOriented.h"
+
 #include <math.h>
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {

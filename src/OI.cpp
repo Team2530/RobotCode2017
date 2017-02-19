@@ -5,10 +5,12 @@
 //JOYSTICK
 #include <Commands/LEDControl.h>				//do not include the same file multiple times
 #include <Commands/DriveToPosition.h>
-#include <Commands/MecanumDriveFieldOriented.h>
-#include <Commands/DriveLeftSideForward.h>
 #include <Commands/DriveLeft.h>
+#include <Commands/DriveLeftSideForward.h>
+#include <Commands/DriveRightSideForward.h>
 #include <Commands/DriveBackSideForward.h>
+
+#include <Commands/MecanumDriveWithJoystick.h>
 
 #include <Commands/DriveForward.h>
 #include <Commands/OrientRobot.h>
@@ -30,20 +32,22 @@ OI::OI() {
 	B1 = new frc::JoystickButton(joy,1);
 	B1->WhenPressed(new LEDControl(true));
 	B1->WhenReleased(new LEDControl(false));
-
 	B2 = new frc::JoystickButton(joy, 2);
 	B2->WhileHeld(new DriveToPosition(&testx,&testy));
 	testx=0;
 	testy=100;
 
-	B3 = new frc::JoystickButton(joy, 3);
-	B3->WhileHeld(new MecanumDriveWithJoystick());
+	B3 = new frc::JoystickButton(joy,3);
+	B3->WhileHeld(new DriveLeft());
 	B4 = new frc::JoystickButton(joy,4);
 	B4->WhileHeld(new DriveLeftSideForward()); //Taco side acts as front
 	B5 = new frc::JoystickButton(joy,5);
 	B5->WhileHeld(new DriveRightSideForward()); //Dumper side acts as front
 	B6 = new frc::JoystickButton(joy,6);
 	B6->WhileHeld(new DriveBackSideForward());
+
+	B9 = new frc::JoystickButton(joy, 9);
+	B9->WhileHeld(new MecanumDriveWithJoystick());
 
 	B11 = new frc::JoystickButton(joy,11);
 	B11->WhileHeld(new DriveForward());
