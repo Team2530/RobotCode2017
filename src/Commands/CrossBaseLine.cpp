@@ -17,12 +17,12 @@ void CrossBaseLine::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void CrossBaseLine::Execute() {
 //where 112 = 93.25 + robot distance
-	Robot::drivetrain->DriveForward();
+	Robot::drivetrain->DriveWithCoordinates(-1,0,0,0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CrossBaseLine::IsFinished() {
-	if (Robot::tracker->GetForwardDistance() < 112){
+	if (Robot::tracker->GetCurrentPositionX() < 112 && Robot::tracker->GetCurrentPositionY()<112){
 		return false;
 	}
 	else{

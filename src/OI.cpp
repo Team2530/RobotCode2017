@@ -9,11 +9,14 @@
 #include <Commands/DriveLeftSideForward.h>
 #include <Commands/DriveLeft.h>
 #include <Commands/DriveBackSideForward.h>
+#include <Commands/DriveRightSideForward.h>
 
 #include <Commands/DriveForward.h>
 #include <Commands/OrientRobot.h>
 
 #include <Commands/IntakeOn.h>
+
+#include <Commands/Lift.h>
 #include <Commands/LEDToggle.h>
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
@@ -63,9 +66,10 @@ OI::OI() {
 	Y = new frc::JoystickButton(Xbox, 4);
 	Y->ToggleWhenPressed(new IntakeInvert());
 	LB = new frc::JoystickButton(Xbox, 5);
-	LB->WhenPressed(new SlowLift());
+	LB->WhileHeld(new SlowLift());
+	//LB->WhileHeld(new ResetDump());
 	RB = new frc::JoystickButton(Xbox, 6);
-	RB->WhenPressed(new FastLift());
+	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new AimCameratoLift());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
