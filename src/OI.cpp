@@ -9,6 +9,7 @@
 #include <Commands/DriveLeftSideForward.h>
 #include <Commands/DriveRightSideForward.h>
 #include <Commands/DriveBackSideForward.h>
+#include <Commands/DriveRightSideForward.h>
 
 #include <Commands/MecanumDriveWithJoystick.h>
 
@@ -16,6 +17,8 @@
 #include <Commands/OrientRobot.h>
 
 #include <Commands/IntakeOn.h>
+
+#include <Commands/Lift.h>
 #include <Commands/LEDToggle.h>
 #include <Commands/Dump.h>
 #include <Commands/ResetDump.h>
