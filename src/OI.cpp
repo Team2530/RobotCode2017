@@ -37,16 +37,16 @@ OI::OI() {
 	testy=100;
 
 	B3 = new frc::JoystickButton(joy, 3);
-	B3->WhileHeld(new MecanumDriveFieldOriented());
+	B3->WhileHeld(new MecanumDriveWithJoystick());
 	B4 = new frc::JoystickButton(joy,4);
-	B4->WhileHeld(new  DriveLeftSideForward()); //Taco side acts as front
+	B4->WhileHeld(new DriveBackSideForward()); //Taco side acts as front
 	B5 = new frc::JoystickButton(joy,5);
-	B5->WhileHeld(new  DriveLeft());
+	B5->WhileHeld(new DriveRightSideForward());
 	B6 = new frc::JoystickButton(joy,6);
-	B6->WhileHeld(new DriveBackSideForward());
+	B6->WhileHeld(new DriveLeftSideForward());
 
 	B11 = new frc::JoystickButton(joy,11);
-	B11->WhileHeld(new  DriveForward());
+	B11->WhileHeld(new DriveForward());
 	B12 = new frc::JoystickButton(joy, 12);
 	B12->WhenPressed(new OrientRobot(&ninetyDegrees));
 
@@ -59,8 +59,7 @@ OI::OI() {
 	B = new frc::JoystickButton(Xbox, 2);
 	B->WhenPressed(new LEDToggle());
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhenPressed(new Dump());
-	X->WhenReleased(new ResetDump());
+	X->WhileHeld(new Dump());
 	Y = new frc::JoystickButton(Xbox, 4);
 	Y->ToggleWhenPressed(new IntakeInvert());
 	LB = new frc::JoystickButton(Xbox, 5);

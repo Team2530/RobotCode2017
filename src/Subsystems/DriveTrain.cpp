@@ -3,6 +3,7 @@
 #include "ControllerConstants.h"
 
 #include "../Commands/MecanumDriveWithJoystick.h"
+#include "../Commands/MecanumDriveFieldOriented.h"
 
 #include <math.h>
 
@@ -29,7 +30,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
 
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new MecanumDriveWithJoystick());
+	SetDefaultCommand(new MecanumDriveFieldOriented());
 }
 
 // Put methods for controlling this subsystem
