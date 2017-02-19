@@ -44,6 +44,11 @@ void DriveTrain::Drive(Joystick* stick) {
     }
 }
 
+void DriveTrain::DriveLeft() {
+	robotDrive->MecanumDrive_Cartesian(-0.5,0,0);
+
+}
+
 void DriveTrain::DriveLeftSideForward(Joystick* stick) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
@@ -53,6 +58,8 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 	    );
     }
 }
+
+
 
 void DriveTrain::DriveRightSideForward(Joystick* stick) {
     if (stick) {
