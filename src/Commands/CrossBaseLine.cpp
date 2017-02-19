@@ -22,7 +22,7 @@ void CrossBaseLine::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool CrossBaseLine::IsFinished() {
-	if (Robot::tracker->GetCurrentPositionX() < 112 && Robot::tracker->GetCurrentPositionY()<112){
+	if (abs(Robot::tracker->GetCurrentPositionX()-Robot::initialX) < 112 && Robot::tracker->GetCurrentPositionY()<112){
 		return false;
 	}
 	else{

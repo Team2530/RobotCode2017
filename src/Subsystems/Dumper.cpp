@@ -18,10 +18,10 @@ void Dumper::InitDefaultCommand() {
 	//SetDefaultCommand(new Output());
 }
 void Dumper::Dump(){
-	dumperController->Set(kDumperSpeedCap);
+	dumperController->Set(-1);
 }
 void Dumper::ResetDump(){
-	dumperController->Set(-kDumperSpeedCap);
+	dumperController->Set(0.30);
 }
 /*bool Dumper::FinishedDumping(){
 

@@ -16,9 +16,11 @@ void MecanumDriveFieldOriented::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void MecanumDriveFieldOriented::Execute() {
 	AHRS* ahrs = Robot::oi->GetAHRS();
-	Joystick &stick = *Robot::oi->GetJoystick();
-	Robot::drivetrain->DriveWithCoordinates(stick.GetX(), stick.GetY(),
-			stick.GetZ(),ahrs->GetAngle());
+	Joystick* stick = Robot::oi->GetJoystick();
+    double scale = 0.6-0.4*stick->GetThrottle();
+	Robot::drivetrain->DriveWithCoordinates(
+	  	      scale*stick->GetX(), scale*stick->GetY(),
+	  	      scale*stick->GetZ(), ahrs->GetAngle());
 }
 
 // Make this return true when this Command no longer needs to run execute()
