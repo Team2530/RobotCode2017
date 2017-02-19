@@ -101,14 +101,11 @@ void Robot::DisabledPeriodic() {
  * chooser code above (like the commented example) or additional comparisons
  * to the if-else structure below with additional strings & commands.
  */
-Command* autonomousDo;
-
 void Robot::AutonomousInit() {
 	StartPosition* autonomousPos = chooserPos.GetSelected();
 	ChosenGear* targetGear = chooserGear.GetSelected();
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
-	//autonomousDo = chooserDo.GetSelected();
-	autonomousDo = new CrossBaseLine();
+	Command* autonomousDo = new CrossBaseLine();//chooserDo.GetSelected();
 	double* angle = chooserAngle.GetSelected();
 	if (angle != nullptr) {
 		oi->GetAHRS()->SetAngleAdjustment(*angle);
@@ -126,11 +123,11 @@ void Robot::AutonomousInit() {
 		case START_LEFT:
 			Robot::initialX = startingBlueLeftX;
 			break;
-		case START_RIGHT:
-			Robot::initialX = startingBlueRightX;
-			break;
 		case START_MIDDLE:
 			Robot::initialX = startingBlueMiddleX;
+			break;
+		case START_RIGHT:
+			Robot::initialX = startingBlueRightX;
 			break;
 		}
 	} else {
@@ -173,7 +170,6 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
-	if (autonomousDo != nullptr) autonomousDo->Cancel();
 	frc::Scheduler::GetInstance()->Run();
 }
 
