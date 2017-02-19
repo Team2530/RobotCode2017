@@ -17,8 +17,7 @@ private:
 	//DigitalInput* dumperBottom;
 	//DigitalInput* dumperTop;
 
-	DoubleSolenoid* hatchDouble;
-	DoubleSolenoid* dumperDouble;
+	frc::Jaguar* dumperController;
 
 
 	DigitalInput* hatchBottom;
