@@ -1,5 +1,6 @@
 #include "CrossBaseLine.h"
 #include "Robot.h"
+#include "math.h"
 
 CrossBaseLine::CrossBaseLine() {
 	// Use Requires() here to declare subsystem dependencies
@@ -17,12 +18,12 @@ void CrossBaseLine::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void CrossBaseLine::Execute() {
 //where 112 = 93.25 + robot distance
-	Robot::drivetrain->DriveWithCoordinates(-1,0,0,0);
+	Robot::drivetrain->DriveWithCoordinates(Robot::tracker->GetCurrentPositionX(),92.75,0,0);//rough coordinates of baseline
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CrossBaseLine::IsFinished() {
-	if (Robot::tracker->GetCurrentPositionX() < 112 && Robot::tracker->GetCurrentPositionY()<112){
+	if (abs(Robot::tracker->GetCurrentPositionX()-Robot::initialX) < 112 && Robot::tracker->GetCurrentPositionY()<112){
 		return false;
 	}
 	else{
