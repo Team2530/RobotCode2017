@@ -18,9 +18,9 @@ private:
 	JoystickButton *B1;  //LED Control
 	JoystickButton *B2;  //DriveToPosition Test
 	JoystickButton *B3;  //DriveLeft
-	JoystickButton *B4;  //DriveLeftSideForward
+	JoystickButton *B4;  //DriveBackSideForward
 	JoystickButton *B5;  //DriveRightSideForward
-	JoystickButton *B6;  //DriveBackSideForward
+	JoystickButton *B6;  //DriveLeftSideForward
 
 	JoystickButton *B7;  //Unused
 	JoystickButton *B8;  //Unused
@@ -33,15 +33,18 @@ private:
 	JoystickButton *B12; //OrientRobotNinetyDegrees
 
 	XboxController *Xbox;
-	JoystickButton *A; // intake on
-	JoystickButton *B; // LED Toggle
-	JoystickButton *Y; // intake invert
-	JoystickButton *X; // dump and dump reset
-	JoystickButton *RB; // control fast lift
-	JoystickButton *LB; // control slow lift
-	JoystickButton *Back; // camera face forward
-	JoystickButton *Start; // camera face for taco
-	JoystickButton *RS;
+	JoystickButton *A; 	 // intake on
+	JoystickButton *B;   // LED
+	JoystickButton *Y;   // intake invert
+	JoystickButton *X;   // dump
+	JoystickButton *RB;  // fast lift
+	JoystickButton *LB;  // slow lift
+	JoystickButton *Back;// camera faces rope
+	JoystickButton *Start;// camera faces peg
+
+	JoystickButton *LS;  //Unused
+
+	JoystickButton *RS;  //Reset Dump
 
 	AHRS* ahrs;			 //navX MXP
 
