@@ -13,22 +13,20 @@ CrossBaseLine::CrossBaseLine() {
 // Called just before this Command runs the first time
 void CrossBaseLine::Initialize() {
 
+	Robot::tracker->MoveToAbs(Robot::tracker->GetCurrentPositionX(),92.75);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CrossBaseLine::Execute() {
 //where 112 = 93.25 + robot distance
-	Robot::drivetrain->DriveWithCoordinates(Robot::tracker->GetCurrentPositionX(),92.75,0,0);//rough coordinates of baseline
+	Robot::tracker->GetPosition();
+	Robot::drivetrain->Track(Robot::tracker.get());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CrossBaseLine::IsFinished() {
-	if (abs(Robot::tracker->GetCurrentPositionX()-Robot::initialX) < 112 && Robot::tracker->GetCurrentPositionY()<112){
-		return false;
-	}
-	else{
-		return true;
-	}
+
+	return Robot::tracker->PIDFinished();
 }
 
 // Called once after isFinished returns true
