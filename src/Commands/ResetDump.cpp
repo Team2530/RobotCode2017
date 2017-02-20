@@ -20,7 +20,7 @@ void ResetDump::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ResetDump::IsFinished() {
-	return false;
+	return Robot::dumper->isDumperAtBottom();
 }
 
 // Called once after isFinished returns true

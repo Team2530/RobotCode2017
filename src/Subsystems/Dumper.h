@@ -17,6 +17,8 @@ private:
 	//DigitalInput* dumperTop;
 
 	frc::Jaguar* dumperController;
+	DigitalInput *lowlimitswitch;
+	DigitalInput *highlimitswitch;
 
 	double kDumperSpeedCap = -0.5; //SET TO ACTUAL
 
@@ -28,6 +30,8 @@ public:
 	/*void FinishedDumping;
 	void FinishedReseting;*/
 	void Stop();
+	bool isDumperAtTop();
+	bool isDumperAtBottom();
 };
 
 #endif  // Dumper_H

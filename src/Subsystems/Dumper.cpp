@@ -7,6 +7,8 @@
 //    things may need to change in order for it to work for pneumatics.
 Dumper::Dumper() : Subsystem("DumperSubsystem") {
 	dumperController = new frc::Jaguar(kDumperController);
+	lowlimitswitch =new DigitalInput (ControllerConstants ::DIOPort:: kDIO4);
+	highlimitswitch =new DigitalInput (ControllerConstants :: DIOPort ::kDIO5);
 }
 
 void Dumper::InitDefaultCommand() {
@@ -16,6 +18,13 @@ void Dumper::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	//SetDefaultCommand(new Output());
+}
+bool Dumper::isDumperAtTop(){
+return !highlimitswitch->Get();
+
+}
+bool Dumper::isDumperAtBottom(){
+return !lowlimitswitch->Get();
 }
 void Dumper::Dump(){
 	dumperController->Set(-1);
