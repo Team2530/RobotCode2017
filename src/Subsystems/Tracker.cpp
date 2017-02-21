@@ -10,13 +10,13 @@ Tracker::Tracker() :
 	pidrs(&this->currentAngle),
 	pidro(&this->pidr),
 	pidpo(&this->power),
-	pidpc(0.01, 0.0001, 0.0, this, &pidpo),
-	pidrc(0.01, 0.0001, 0.0, &pidrs, &pidro)
+	pidpc(0.05, 0.000, 0.0, this, &pidpo),
+	pidrc(0.05, 0.000, 0.0, &pidrs, &pidro)
 {
-	frontEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
-	sideEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
+	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
+	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
-	sideEncoder->SetDistancePerPulse(0.012566/2); //^^
+	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
 	pidpc.SetTolerance(1.0); // inches
 	pidpc.SetSetpoint(0);
 	pidrc.SetTolerance(5.0); // degrees
@@ -31,8 +31,10 @@ void Tracker::InitDefaultCommand() {
 	SetDefaultCommand(new GetFieldPosition());
 }
 void Tracker::StartTracking(){
-	currentPositionX = Robot::initialX;
-	currentPositionY = 17.25;
+	//currentPositionX = Robot::initialX;
+	//currentPositionY = 17.25;
+	currentPositionX = 0;
+	currentPositionY = 0;
 	currentAngle = 0;
 }
 
@@ -76,7 +78,7 @@ void Tracker::MoveToAbs(double x, double y) {
 	this->goalPositionX = x;
 	this->goalPositionY = y;
 	pidrc.SetSetpoint(currentAngle); // make sure we stay aligned while moving
-	//pidrc.Enable();
+	pidrc.Enable();
 	pidpc.Enable();
 }
 
@@ -106,7 +108,7 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dy, dx) * 180 / M_PI;
-	double backward = -power;
+	double backward = power;
 	if (backward > 0.4) backward = 0.4;
 	if (backward < -0.4) backward = -0.4;
 	double rot = pidr;

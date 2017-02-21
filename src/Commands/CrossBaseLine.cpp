@@ -13,7 +13,8 @@ CrossBaseLine::CrossBaseLine() {
 // Called just before this Command runs the first time
 void CrossBaseLine::Initialize() {
 	Robot::tracker->PIDReset();
-	Robot::tracker->MoveToAbs(Robot::tracker->GetCurrentPositionX(),37.75);
+	Robot::tracker->MoveToRel(0, 20);
+	//Robot::tracker->RotateBy(180);
 }
 
 // Called repeatedly when this Command is scheduled to run

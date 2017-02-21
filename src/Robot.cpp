@@ -103,6 +103,7 @@ void Robot::DisabledPeriodic() {
  * to the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
+	oi->GetAHRS()->Reset();
 	StartPosition* autonomousPos = &middle; // chooserPos.GetSelected();
 	ChosenGear* targetGear = &middleGear; // chooserGear.GetSelected();
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
