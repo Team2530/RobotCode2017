@@ -15,8 +15,8 @@ Tracker::Tracker() :
 {
 	frontEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
-	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
-	sideEncoder->SetDistancePerPulse(0.012566); //^^
+	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
+	sideEncoder->SetDistancePerPulse(0.012566/2); //^^
 	pidpc.SetTolerance(1.0); // inches
 	pidpc.SetSetpoint(0);
 	pidrc.SetTolerance(5.0); // degrees
