@@ -33,13 +33,12 @@ public:
 	void InitDefaultCommand();
 	void DriveForward();
 
-	void DriveWithCoordinates(double x, double y, double z, double Angle);
+	void DriveCartesian(double x, double y, double z, double Angle);
 
 	void DriveLeft();
 	void DriveLeftSideForward(Joystick* stick);
 	void DriveRightSideForward(Joystick* stick);
 	void DriveBackSideForward(Joystick* stick);
-	void DrivePastBaseLine();
 
 };
 

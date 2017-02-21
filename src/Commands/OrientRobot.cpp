@@ -24,7 +24,7 @@ void OrientRobot::Execute() {
 	double turningValue = *Angle - CurrentAngle;
 	turningValue = TurnAngleDetermination(turningValue);
 	turningValue = TurningSpeedDetermination(turningValue);
-	Robot::drivetrain->DriveWithCoordinates(0.0 ,0.0 ,turningValue, 0.0);
+	Robot::drivetrain->DriveCartesian(0.0 ,0.0 ,turningValue, 0.0);
 
 }
 

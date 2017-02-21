@@ -197,9 +197,9 @@ void Tracker::MoveToAbs(double x, double y) {
 	pidxc.SetSetpoint(x);
 	pidyc.SetSetpoint(y);
 	pidrc.SetSetpoint(currentAngle); // make sure we stay aligned while moving
-	//pidxc.Enable();
+	pidxc.Enable();
 	pidyc.Enable();
-	//pidrc.Enable();
+	pidrc.Enable();
 }
 
 double Tracker::GetPIDX() {
@@ -215,7 +215,7 @@ double Tracker::GetPIDRotation() {
 }
 
 bool Tracker::PIDFinished() {
-	return pidxc.OnTarget() && pidyc.OnTarget() && pidrc.OnTarget();
+	return /*pidxc.OnTarget() && */pidyc.OnTarget()/* && pidrc.OnTarget()*/;
 }
 
 void Tracker::PIDReset() {

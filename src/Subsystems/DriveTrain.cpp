@@ -40,7 +40,7 @@ void DriveTrain::InitDefaultCommand() {
 void DriveTrain::Drive(Joystick* stick) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
-	    DriveWithCoordinates(
+	    DriveCartesian(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
 	  	      scale*stick->GetZ(), 0
 	    );
@@ -55,7 +55,7 @@ void DriveTrain::DriveLeft() {
 void DriveTrain::DriveLeftSideForward(Joystick* stick) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
-	    DriveWithCoordinates(
+	    DriveCartesian(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
 	  	      scale*stick->GetZ(), 90
 	    );
@@ -67,7 +67,7 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 void DriveTrain::DriveRightSideForward(Joystick* stick) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
-	    DriveWithCoordinates(
+	    DriveCartesian(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
 	  	      scale*stick->GetZ(), -90
 	    );
@@ -77,7 +77,7 @@ void DriveTrain::DriveRightSideForward(Joystick* stick) {
 void DriveTrain::DriveBackSideForward(Joystick* stick) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
-	    DriveWithCoordinates(
+	    DriveCartesian(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
 	  	      scale*stick->GetZ(), 180
 	    );
@@ -95,7 +95,7 @@ double deadband(double value) {
 	return 0;
 }
 
-void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle) {
+void DriveTrain::DriveCartesian(double x, double y, double z, double Angle) {
 	z = z*std::abs(z);
 	robotDrive->MecanumDrive_Cartesian(deadband(x), deadband(y), deadband(z), Angle);
 }
@@ -110,15 +110,21 @@ void DriveTrain::DriveForward() {
 	robotDrive->MecanumDrive_Cartesian(0,-0.5,0);
 }
 
-void DriveTrain::DrivePastBaseLine(){
-
-
-}
-
 void DriveTrain::Track(Tracker* tracker) {
+
+	double x = tracker->GetPIDRight();
+	double y = tracker->GetPIDBackward();
+	double z = tracker->GetPIDRotation();
+
+	if (x > 1.0) x = 1.0;
+	if (y > 1.0) y = 1.0;
+	if (z > 1.0) z = 1.0;
+	if (x < -1.0) x = -1.0;
+	if (y < -1.0) y = -1.0;
+	if (z < -1.0) z = -1.0;
+
 	robotDrive->MecanumDrive_Cartesian(
-		tracker->GetPIDBackward(),
-		tracker->GetPIDRight(),
-		tracker->GetPIDRotation()
-	);
+		0.4 * x,
+		0.4 * y,
+		0.4 * z);
 }

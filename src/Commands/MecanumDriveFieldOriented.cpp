@@ -18,7 +18,7 @@ void MecanumDriveFieldOriented::Execute() {
 	AHRS* ahrs = Robot::oi->GetAHRS();
 	Joystick* stick = Robot::oi->GetJoystick();
     double scale = 0.6-0.4*stick->GetThrottle();
-	Robot::drivetrain->DriveWithCoordinates(
+	Robot::drivetrain->DriveCartesian(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
 	  	      scale*stick->GetZ(), ahrs->GetAngle());
 }
