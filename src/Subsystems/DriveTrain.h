@@ -39,7 +39,7 @@ public:
 	void DriveLeftSideForward(Joystick* stick);
 	void DriveRightSideForward(Joystick* stick);
 	void DriveBackSideForward(Joystick* stick);
-	void DrivePastBaseLine();
+//	void DrivePastBaseLine();
 
 };
 
