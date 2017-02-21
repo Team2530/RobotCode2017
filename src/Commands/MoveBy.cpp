@@ -1,40 +1,37 @@
-#include "DriveToPosition.h"
-
+#include "MoveBy.h"
 #include "../Robot.h"
 
-#include "../Subsystems/Tracker.h"
-
-DriveToPosition::DriveToPosition(double *x, double *y) {
+MoveBy::MoveBy(double x, double y) {
 	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::tracker.get());
 	Requires(Robot::drivetrain.get());
-	xposition = x;
-	yposition = y;
+	goalX = x;
+	goalY = y;
 }
 
 // Called just before this Command runs the first time
-void DriveToPosition::Initialize() {
-	Robot::tracker->MoveToAbs(*xposition, *yposition);
+void MoveBy::Initialize() {
+	Robot::tracker->PIDReset();
+	Robot::tracker->MoveToRel(goalX, goalY);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveToPosition::Execute() {
+void MoveBy::Execute() {
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveToPosition::IsFinished() {
+bool MoveBy::IsFinished() {
 	return Robot::tracker->PIDFinished();
 }
 
 // Called once after isFinished returns true
-void DriveToPosition::End() {
-
+void MoveBy::End() {
+	Robot::drivetrain->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveToPosition::Interrupted() {
-
+void MoveBy::Interrupted() {
+	Robot::drivetrain->Stop();
 }

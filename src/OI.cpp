@@ -26,6 +26,10 @@
 #include <Commands/AimCameratoTaco.h>
 
 #include <Commands/ResetDump.h>
+#include <Commands/GoTo.h>
+#include <Commands/ResetTracker.h>
+#include <Commands/MoveBy.h>
+#include <Commands/RotateTo.h>
 
 OI::OI() {
 	// Process operator interface input here.
@@ -61,23 +65,23 @@ OI::OI() {
 
 	Xbox = new frc::XboxController(1);
 	A = new frc::JoystickButton(Xbox, 1);
-	A->ToggleWhenPressed(new IntakeOn());
+	A->WhileHeld(new MoveBy(0, -10));
 	B = new frc::JoystickButton(Xbox, 2);
-	B->WhenPressed(new LEDToggle());
+	B->WhileHeld(new MoveBy(10, 0));
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhileHeld(new Dump());
+	X->WhileHeld(new MoveBy(-10, 0));
 	Y = new frc::JoystickButton(Xbox, 4);
-	Y->ToggleWhenPressed(new IntakeInvert());
+	Y->WhileHeld(new MoveBy(0, 10));
 	LB = new frc::JoystickButton(Xbox, 5);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
 	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
-	Back->WhileHeld(new AimCameratoLift());
+	Back->WhenPressed(new ResetTracker());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new AimCameratoTaco());
+	Start->WhileHeld(new GoTo(0,0));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
-	RS->WhileHeld(new ResetDump());
+	RS->WhileHeld(new RotateTo(0));
 }
 
 Joystick* OI::GetJoystick() {
