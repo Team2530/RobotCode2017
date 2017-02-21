@@ -10,7 +10,7 @@
 #include <PIDOutput.h>
 #include <PIDController.h>
 
-class DriveTrain;
+#include "DriveTrain.h"
 
 #include <math.h>
 
@@ -57,22 +57,14 @@ private:
 	double currentPositionY; // Forward
 	double currentAngle; // angle in degrees, right is positive??
 
-	double pidx;
-	double pidy;
 	double pidr;
 	double power;
 
-	PIDDoubleOutput pidpo;
-	PIDDoubleSource pidxs;
-	PIDDoubleSource pidys;
 	PIDDoubleSource pidrs;
-	PIDDoubleOutput pidxo;
-	PIDDoubleOutput pidyo;
 	PIDDoubleOutput pidro;
+	PIDDoubleOutput pidpo;
 
 	frc::PIDController pidpc;
-	frc::PIDController pidxc;
-	frc::PIDController pidyc;
 	frc::PIDController pidrc;
 	std::shared_ptr<NetworkTable> table;
 
@@ -81,18 +73,6 @@ public:
 	void InitDefaultCommand();
 	void StartTracking();
 	void GetPosition();
-	double GetOriginalPositionX(StartPosition position, frc::DriverStation::Alliance team);
-	void SetTeam(StartTeam team);
-	double GetTargetPositionX(Objects aTarget, frc::DriverStation::Alliance team);
-	double GetTargetPositionY(Objects aTarget);
-	double GetHopperPositionX(frc::DriverStation::Alliance team);
-	double GetBoilerPositionX(frc::DriverStation::Alliance team);
-	double GetForwardDistance();
-	double GetSideDistance();
-
-	double GetGearPositionX(Objects position);
-	double GetGearPositionY(Objects position);
-	double GetGearPositionR(Objects position); // Celeste persisted.
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place
@@ -103,13 +83,7 @@ public:
 	void MoveToAbs(double x, double y);
 
 	// Read PID controller output
-	double GetPIDX();
-	double GetPIDY();
 	double GetPIDRotation();
-
-	// And as oriented by the robot
-	double GetPIDBackward();
-	double GetPIDRight();
 
 	bool PIDFinished();
 	void PIDReset();
