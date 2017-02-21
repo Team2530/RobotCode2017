@@ -87,6 +87,7 @@ double Tracker::GetPIDRotation() {
 }
 
 double Tracker::GetDistance() {
+	GetPosition();
 	double dx = this->goalPositionX - this->currentPositionX;
 	double dy = this->goalPositionY - this->currentPositionY;
 	return hypot(dx,dy);
@@ -107,7 +108,7 @@ void Tracker::PIDReset() {
 void Tracker::Drive(DriveTrain* drivetrain) {
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
-	double goalAngle = atan2(dy, dx) * 180 / M_PI;
+	double goalAngle = atan2(dx, dy) * 180 / M_PI;
 	double backward = power;
 	if (backward > 0.4) backward = 0.4;
 	if (backward < -0.4) backward = -0.4;
