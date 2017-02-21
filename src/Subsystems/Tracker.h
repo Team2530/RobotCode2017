@@ -39,16 +39,10 @@ private:
 
 class Tracker : public frc::Subsystem, frc::PIDSource {
 private:
-
-	double* angle;
 	frc::Encoder* frontEncoder;
 	frc::Encoder* sideEncoder;
 	AHRS* ahrs;
-	double xValue;//can be set depending where are on map
-	double yValue;//^^
 
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 	// These represent where we are on the field (X, Y)
 	// and where we are facing.
 	double goalPositionX;
@@ -57,14 +51,22 @@ private:
 	double currentPositionY; // Forward
 	double currentAngle; // angle in degrees, right is positive??
 
+	// Outputs from PID Controllers
 	double pidr;
 	double power;
 
-	PIDDoubleSource pidrs;
-	PIDDoubleOutput pidro;
-	PIDDoubleOutput pidpo;
+	// PID helper classes for the PID Controllers
+	// (The other source is this class itself
+	// since it needs to calculate the distance)
+	PIDDoubleSource pidrs; // &this->currentAngle
+	PIDDoubleOutput pidro; // &this->pidr
+	PIDDoubleOutput pidpo; // &this->power
 
+	// Power PID Controller, goes from this class's
+	// distance calculation to the power member
 	frc::PIDController pidpc;
+	// Rotation PID Controller, using pidrs and pidro
+	// to go from currentAngle to pidr
 	frc::PIDController pidrc;
 	std::shared_ptr<NetworkTable> table;
 
@@ -85,14 +87,18 @@ public:
 	// Read PID controller output
 	double GetPIDRotation();
 
+	// Check if the robot is close to its goal
 	bool PIDFinished();
+	// Reset the PID Controllers
 	void PIDReset();
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();
-	double GetDistance();
-	double PIDGet();
+	double GetDistance(); // gets distance between current and goal positions
+	double PIDGet(); // alias for GetDistance() for the PID feeding into power
 
+	// Call with Robot::drivetrain.get()
+	// To move wheels towards goal position or rotation
 	void Drive(DriveTrain* drivetrain);
 };
 

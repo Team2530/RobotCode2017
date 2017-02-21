@@ -10,8 +10,8 @@ Tracker::Tracker() :
 	pidrs(&this->currentAngle),
 	pidro(&this->pidr),
 	pidpo(&this->power),
-	pidpc(0.1, 0.001, 0.0, this, &pidpo),
-	pidrc(0.1, 0.001, 0.0, &pidrs, &pidro)
+	pidpc(0.01, 0.0001, 0.0, this, &pidpo),
+	pidrc(0.01, 0.0001, 0.0, &pidrs, &pidro)
 {
 	frontEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
@@ -19,7 +19,7 @@ Tracker::Tracker() :
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
 	pidpc.SetTolerance(1.0); // inches
 	pidpc.SetSetpoint(0);
-	pidrc.SetTolerance(1.0); // degrees
+	pidrc.SetTolerance(5.0); // degrees
 	ahrs = new AHRS(SerialPort::kMXP);//check port
 	table = NetworkTable::GetTable("robotPosition");
 }
@@ -67,6 +67,9 @@ void Tracker::RotateBy(double deltaAngle) {
 }
 
 void Tracker::MoveToRel(double forward, double right) {
+	double x = currentPositionX + right;
+	double y = currentPositionY + forward;
+	MoveToAbs(x, y);
 }
 
 void Tracker::MoveToAbs(double x, double y) {
@@ -106,8 +109,11 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double backward = -power;
 	if (backward > 0.4) backward = 0.4;
 	if (backward < -0.4) backward = -0.4;
+	double rot = pidr;
+	if (rot > 0.3) rot = 0.3;
+	if (rot < -0.3) rot = -0.3;
 	drivetrain->DriveWithCoordinates(
-		0, backward, pidr,
+		0, backward, rot,
 		currentAngle - goalAngle
 	);
 }
