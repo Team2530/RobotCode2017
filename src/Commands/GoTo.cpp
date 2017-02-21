@@ -17,6 +17,7 @@ void GoTo::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GoTo::Execute() {
+	Robot::tracker->GetPosition();
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 

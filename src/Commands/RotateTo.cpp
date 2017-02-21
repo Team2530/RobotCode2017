@@ -16,6 +16,7 @@ void RotateTo::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RotateTo::Execute() {
+	Robot::tracker->GetPosition();
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 

@@ -15,11 +15,13 @@ DriveToPosition::DriveToPosition(double *x, double *y) {
 
 // Called just before this Command runs the first time
 void DriveToPosition::Initialize() {
+	Robot::tracker->PIDReset();
 	Robot::tracker->MoveToAbs(*xposition, *yposition);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveToPosition::Execute() {
+	Robot::tracker->GetPosition();
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 

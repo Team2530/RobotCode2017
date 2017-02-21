@@ -17,6 +17,7 @@ void MoveBy::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MoveBy::Execute() {
+	Robot::tracker->GetPosition();
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 
