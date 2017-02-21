@@ -100,14 +100,14 @@ void Tracker::PIDReset() {
 }
 
 void Tracker::Drive(DriveTrain* drivetrain) {
-	double dx = this->goalPositionX - this->currentPositionX;
-	double dy = this->goalPositionY - this->currentPositionY;
+	double dx = goalPositionX - currentPositionX;
+	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dy, dx) * 180 / M_PI;
-	double power = this->power;
-	if (power > 0.4) power = 0.4;
-	if (power < -0.4) power = -0.4;
+	double backward = -power;
+	if (backward > 0.4) backward = 0.4;
+	if (backward < -0.4) backward = -0.4;
 	drivetrain->DriveWithCoordinates(
-		0, power, this->pidr,
+		0, backward, pidr,
 		currentAngle - goalAngle
 	);
 }
