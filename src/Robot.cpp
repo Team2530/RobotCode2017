@@ -37,12 +37,6 @@ double Robot::gearLifterX;
 double Robot::gearLifterY;
 double Robot::gearLifterR;
 
-/*
-SendableChooser<Command*> chooserDo;
-SendableChooser<StartPosition*> chooserPos;
-SendableChooser<ChosenGear*> chooserGear;
-SendableChooser<double*> chooserAngle;
-*/
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
 	//std::printf("RobotInit start in %s, line %i\n", __FILE__, __LINE__);
@@ -59,7 +53,6 @@ void Robot::RobotInit() {
     lifter = std::make_shared<Lifter>();
     cameraservo = std::make_shared<CameraServo>();
 
-/*
 	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 
@@ -75,7 +68,7 @@ void Robot::RobotInit() {
 	chooserPos.AddObject("Right", &right);//^^
 
 	chooserAngle.AddObject("Start facing forward", &start0);
-	chooserAngle.AddObject("Start with taco forward", &start_90); */
+	chooserAngle.AddObject("Start with taco forward", &start_90);
 }
 
 /**
