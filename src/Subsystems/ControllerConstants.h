@@ -20,10 +20,11 @@ public:
 		kYbutton=4,
 		kLBbutton=5,
 		kRBbutton=6,
-		kLSbutton=9,
-		kRSbutton=10,
 		kBackbutton=7,
 		kStartbutton=8,
+		kLSbutton=9,
+		kRSbutton=10,
+
 	};
 	// raw values for axes
 	enum xBoxAxisMap{
@@ -84,10 +85,6 @@ public:
 		kUSB5=5,
 	};
 
-
-
 };
-
-
 
 #endif /* SRC_SUBSYSTEMS_CONTROLLERCONSTANTS_H_ */
