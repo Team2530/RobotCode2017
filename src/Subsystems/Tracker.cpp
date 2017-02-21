@@ -246,8 +246,11 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double dx = this->goalPositionX - this->currentPositionX;
 	double dy = this->goalPositionY - this->currentPositionY;
 	double goalAngle = atan2(dy, dx) * 180 / M_PI;
+	double power = this->power;
+	if (power > 0.4) power = 0.4;
+	if (power < -0.4) power = -0.4;
 	drivetrain->DriveWithCoordinates(
-		0, this->power, this->pidr,
+		0, power, this->pidr,
 		currentAngle - goalAngle
 	);
 }
