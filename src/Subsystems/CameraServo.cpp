@@ -10,10 +10,10 @@ void CameraServo::InitDefaultCommand() {
 
 }
 void CameraServo:: AimTaco () {
-	servo-> SetAngle (0);
+	servo-> SetAngle (10);
 }
 void CameraServo:: AimLift (){
-	servo-> SetAngle (90);
+	servo-> SetAngle (120);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

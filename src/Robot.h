@@ -98,9 +98,12 @@ public:
 private:
 
 	std::unique_ptr<frc::Command> autonomous;
+	/*
 	frc::SendableChooser<frc::Command*> chooserDo;
 	frc::SendableChooser<StartPosition*> chooserPos;
 	frc::SendableChooser<ChosenGear*> chooserGear;
+	frc::SendableChooser<double*> chooserAngle;
+	*/
 };
 
 

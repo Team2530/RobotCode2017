@@ -16,7 +16,7 @@ private:
 	//DigitalInput* dumperBottom;
 	//DigitalInput* dumperTop;
 
-	frc::Jaguar* dumperController;
+	frc::VictorSP* dumperController;
 	DigitalInput *lowlimitswitch;
 	DigitalInput *highlimitswitch;
 

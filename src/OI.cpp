@@ -74,9 +74,9 @@ OI::OI() {
 	RB = new frc::JoystickButton(Xbox, 6);
 	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
-	Back->WhenPressed(new AimCameratoLift());
+	Back->WhileHeld(new AimCameratoLift());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhenPressed(new AimCameratoTaco());
+	Start->WhileHeld(new AimCameratoTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
 }

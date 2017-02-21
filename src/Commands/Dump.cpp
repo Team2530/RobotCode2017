@@ -15,7 +15,8 @@ void Dump::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Dump::Execute() {
-	Robot::dumper->Dump();
+	if (!IsFinished())
+		Robot::dumper->Dump();
 }
 
 // Make this return true when this Command no longer needs to run execute()

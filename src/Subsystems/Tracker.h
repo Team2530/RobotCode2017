@@ -104,6 +104,7 @@ public:
 	double GetPIDRight();
 
 	bool PIDFinished();
+	void PIDReset();
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();

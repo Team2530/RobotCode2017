@@ -1,13 +1,13 @@
 #ifndef Lifter_H
 #define Lifter_H
 #include <Commands/Subsystem.h>
-#include <Jaguar.h>
+#include <VictorSP.h>
 
 
 class Lifter : public Subsystem {
 private:
 	int kliftermotor = 7;
-	Jaguar *jaguar;
+	VictorSP *lifterMotor;
 
 
 public:
