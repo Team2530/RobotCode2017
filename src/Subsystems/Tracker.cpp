@@ -4,16 +4,17 @@
 
 
 #include "../Robot.h"
-#include "math.h"
 
 Tracker::Tracker() :
 	Subsystem("TrackerSubsystem"),
+	pidpo(&this->power),
 	pidxs(&this->currentPositionX),
 	pidys(&this->currentPositionY),
 	pidrs(&this->currentAngle),
 	pidxo(&this->pidx),
 	pidyo(&this->pidy),
 	pidro(&this->pidr),
+	pidpc(0.1, 0.001, 0.0, this, &pidpo),
 	pidxc(0.1, 0.001, 0.0, &pidxs, &pidxo),
 	pidyc(0.1, 0.001, 0.0, &pidys, &pidyo),
 	pidrc(0.1, 0.001, 0.0, &pidrs, &pidro)
@@ -22,6 +23,8 @@ Tracker::Tracker() :
 	sideEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(0.012566); //^^
+	pidpc.SetTolerance(1.0); // inches
+	pidpc.SetSetpoint(0);
 	pidxc.SetTolerance(1.0); // inches
 	pidyc.SetTolerance(1.0); // inches
 	pidrc.SetTolerance(1.0); // degrees
@@ -198,8 +201,9 @@ void Tracker::MoveToAbs(double x, double y) {
 	pidyc.SetSetpoint(y);
 	pidrc.SetSetpoint(currentAngle); // make sure we stay aligned while moving
 	//pidxc.Enable();
-	pidyc.Enable();
+	//pidyc.Enable();
 	//pidrc.Enable();
+	pidpc.Enable();
 }
 
 double Tracker::GetPIDX() {
@@ -214,11 +218,21 @@ double Tracker::GetPIDRotation() {
 	return pidr;
 }
 
+double Tracker::GetDistance() {
+	double dx = this->goalPositionX - this->currentPositionX;
+	double dy = this->goalPositionY - this->currentPositionY;
+	return hypot(dx,dy);
+}
+double Tracker::PIDGet() {
+	return GetDistance();
+}
+
 bool Tracker::PIDFinished() {
 	return pidxc.OnTarget() && pidyc.OnTarget() && pidrc.OnTarget();
 }
 
 void Tracker::PIDReset() {
+	pidpc.Reset();
 	pidxc.Reset();
 	pidyc.Reset();
 	pidrc.Reset();
@@ -226,6 +240,16 @@ void Tracker::PIDReset() {
 double Tracker::GetPIDBackward() {
 	double rad = currentAngle * M_PI / 180;
 	return -sin(rad) * pidx - cos(rad) * pidy;
+}
+
+void Tracker::Drive(DriveTrain* drivetrain) {
+	double dx = this->goalPositionX - this->currentPositionX;
+	double dy = this->goalPositionY - this->currentPositionY;
+	double goalAngle = atan2(dy, dx) * 180 / M_PI;
+	drivetrain->DriveWithCoordinates(
+		0, this->power, this->pidr,
+		currentAngle - goalAngle
+	);
 }
 
 double Tracker::GetPIDRight() {

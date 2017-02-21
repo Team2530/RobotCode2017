@@ -10,7 +10,10 @@
 #include <PIDOutput.h>
 #include <PIDController.h>
 
-class Tracker;
+class DriveTrain;
+
+#include <math.h>
+
 class PIDDoubleSource : public frc::PIDSource {
 public:
 	PIDDoubleSource(double* source) {
@@ -34,7 +37,7 @@ private:
 	double* src;
 };
 
-class Tracker : public frc::Subsystem {
+class Tracker : public frc::Subsystem, frc::PIDSource {
 private:
 
 	double* angle;
@@ -48,6 +51,8 @@ private:
 	// for methods that implement subsystem capabilities
 	// These represent where we are on the field (X, Y)
 	// and where we are facing.
+	double goalPositionX;
+	double goalPositionY;
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
 	double currentAngle; // angle in degrees, right is positive??
@@ -55,7 +60,9 @@ private:
 	double pidx;
 	double pidy;
 	double pidr;
+	double power;
 
+	PIDDoubleOutput pidpo;
 	PIDDoubleSource pidxs;
 	PIDDoubleSource pidys;
 	PIDDoubleSource pidrs;
@@ -63,6 +70,7 @@ private:
 	PIDDoubleOutput pidyo;
 	PIDDoubleOutput pidro;
 
+	frc::PIDController pidpc;
 	frc::PIDController pidxc;
 	frc::PIDController pidyc;
 	frc::PIDController pidrc;
@@ -108,6 +116,10 @@ public:
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();
+	double GetDistance();
+	double PIDGet();
+
+	void Drive(DriveTrain* drivetrain);
 };
 
 #endif  // Tracker_H

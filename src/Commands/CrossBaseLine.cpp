@@ -20,7 +20,7 @@ void CrossBaseLine::Initialize() {
 void CrossBaseLine::Execute() {
 //where 112 = 93.25 + robot distance
 	Robot::tracker->GetPosition();
-	Robot::drivetrain->Track(Robot::tracker.get());
+	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 
 // Make this return true when this Command no longer needs to run execute()
