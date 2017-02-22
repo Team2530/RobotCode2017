@@ -126,17 +126,18 @@ void Tracker::PIDDisable() {
 }
 
 void Tracker::UpdatePIDFromTable() {
-	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP());
-	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD());
-	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP());
-	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD());
+	double scale = 50;
+	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP()*scale)/scale;
+	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD()*scale)/scale;
+	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP()*scale)/scale;
+	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD()*scale)/scale;
 	pidpc.SetPID(Pdist, pidpc.GetI(), Ddist);
 	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
 }
 
 void Tracker::Drive(DriveTrain* drivetrain) {
 	const double MAX_POW = 1;
-	const double MAX_ROT = 0.5;
+	const double MAX_ROT = 0.75;
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dx, dy) * 180 / M_PI;
