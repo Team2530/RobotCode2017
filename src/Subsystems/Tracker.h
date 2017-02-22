@@ -83,6 +83,8 @@ public:
 	// Move while keeping heading
 	void MoveToRel(double forward, double right);
 	void MoveToAbs(double x, double y);
+	// Set both position and rotation
+	void Set(double x, double y, double angle);
 
 	// Read PID controller output
 	double GetPIDRotation();
@@ -91,6 +93,8 @@ public:
 	bool PIDFinished();
 	// Reset the PID Controllers
 	void PIDReset();
+	// Disable the PID loop when done
+	void PIDDisable();
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();

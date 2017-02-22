@@ -36,6 +36,10 @@ void Tracker::StartTracking(){
 	currentPositionX = 0;
 	currentPositionY = 0;
 	currentAngle = 0;
+	if (ahrs == nullptr) {
+		ahrs = Robot::oi->GetAHRS();
+	}
+	ahrs->Reset();
 }
 
 void Tracker::GetPosition(){
@@ -44,6 +48,8 @@ void Tracker::GetPosition(){
 	}
 	double distanceX = sideEncoder->GetDistance();
 	double distanceY = frontEncoder->GetDistance();
+	frontEncoder->Reset();
+	sideEncoder->Reset();
 	double angle =  ahrs->GetAngle();
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
@@ -51,23 +57,17 @@ void Tracker::GetPosition(){
 	currentPositionX += changeInX;
 	currentPositionY += changeInY;
 	currentAngle = angle;
-	frontEncoder->Reset();
-	sideEncoder->Reset();
 	table->PutNumber("x", currentPositionX);;
 	table->PutNumber("y", currentPositionY);;
 	table->PutNumber("angle", currentAngle);
 }
 
-void Tracker::RotateTo(double angle) {
-	pidrc.SetSetpoint(angle);
-	goalPositionX = currentPositionX;
-	goalPositionY = currentPositionY;
-	pidrc.Enable();
-	pidpc.Enable();
-}
 void Tracker::RotateBy(double deltaAngle) {
 	double angle = currentAngle + deltaAngle;
 	RotateTo(angle);
+}
+void Tracker::RotateTo(double angle) {
+	Set(currentPositionX, currentPositionY, angle);
 }
 
 void Tracker::MoveToRel(double forward, double right) {
@@ -75,11 +75,14 @@ void Tracker::MoveToRel(double forward, double right) {
 	double y = currentPositionY + forward;
 	MoveToAbs(x, y);
 }
-
 void Tracker::MoveToAbs(double x, double y) {
+	Set(x, y, currentAngle);
+}
+
+void Tracker::Set(double x, double y, double angle) {
 	this->goalPositionX = x;
 	this->goalPositionY = y;
-	pidrc.SetSetpoint(currentAngle); // make sure we stay aligned while moving
+	pidrc.SetSetpoint(angle);
 	pidrc.Enable();
 	pidpc.Enable();
 }
@@ -105,6 +108,11 @@ bool Tracker::PIDFinished() {
 void Tracker::PIDReset() {
 	pidpc.Reset();
 	pidrc.Reset();
+}
+
+void Tracker::PIDDisable() {
+	pidpc.Disable();
+	pidrc.Disable();
 }
 
 void Tracker::Drive(DriveTrain* drivetrain) {
