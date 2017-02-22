@@ -62,6 +62,8 @@ void Tracker::RotateTo(double angle) {
 	pidrc.SetSetpoint(angle);
 	goalPositionX = currentPositionX;
 	goalPositionY = currentPositionY;
+	pidrc.Enable();
+	pidpc.Enable();
 }
 void Tracker::RotateBy(double deltaAngle) {
 	double angle = currentAngle + deltaAngle;
