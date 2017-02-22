@@ -69,6 +69,8 @@ private:
 	// to go from currentAngle to pidr
 	frc::PIDController pidrc;
 	std::shared_ptr<NetworkTable> table;
+	std::shared_ptr<NetworkTable> SDtable;
+	std::shared_ptr<ITable> DBtable;
 
 public:
 	Tracker();
@@ -81,7 +83,7 @@ public:
 	void RotateTo(double angle);
 	void RotateBy(double deltaAngle);
 	// Move while keeping heading
-	void MoveToRel(double forward, double right);
+	void MoveToRel(double dx, double dy);
 	void MoveToAbs(double x, double y);
 	// Set both position and rotation
 	void Set(double x, double y, double angle);
@@ -100,6 +102,8 @@ public:
 	double GetCurrentPositionY();
 	double GetDistance(); // gets distance between current and goal positions
 	double PIDGet(); // alias for GetDistance() for the PID feeding into power
+
+	void UpdatePIDFromTable();
 
 	// Call with Robot::drivetrain.get()
 	// To move wheels towards goal position or rotation

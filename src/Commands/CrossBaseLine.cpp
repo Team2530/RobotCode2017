@@ -33,12 +33,12 @@ bool CrossBaseLine::IsFinished() {
 // Called once after isFinished returns true
 void CrossBaseLine::End() {
 
-	Robot::tracker->PIDReset();
+	Robot::tracker->PIDDisable();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void CrossBaseLine::Interrupted() {
 
-	Robot::tracker->PIDReset();
+	Robot::tracker->PIDDisable();
 }

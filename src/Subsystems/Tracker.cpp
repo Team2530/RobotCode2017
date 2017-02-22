@@ -10,18 +10,27 @@ Tracker::Tracker() :
 	pidrs(&this->currentAngle),
 	pidro(&this->pidr),
 	pidpo(&this->power),
-	pidpc(0.05, 0.000, 0.0, this, &pidpo),
-	pidrc(0.05, 0.000, 0.0, &pidrs, &pidro)
+	pidpc(0.01, 0.000, 0.0, this, &pidpo),
+	pidrc(0.01, 0.000, 0.0, &pidrs, &pidro)
 {
 	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
-	pidpc.SetTolerance(1.0); // inches
+
+	pidpc.SetAbsoluteTolerance(1.0); // inches
 	pidpc.SetSetpoint(0);
-	pidrc.SetTolerance(5.0); // degrees
+	pidpc.SetOutputRange(0, 1);
+
+	pidrc.SetInputRange(0, 360);
+	pidrc.SetAbsoluteTolerance(5.0); // degrees
+	pidrc.SetContinuous();
+	pidrc.SetOutputRange(-1, 1);
+
 	ahrs = new AHRS(SerialPort::kMXP);//check port
 	table = NetworkTable::GetTable("robotPosition");
+	SDtable = NetworkTable::GetTable("SmartDashboard");
+	DBtable = SDtable->GetSubTable("DB");
 }
 void Tracker::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
@@ -50,7 +59,7 @@ void Tracker::GetPosition(){
 	double distanceY = frontEncoder->GetDistance();
 	frontEncoder->Reset();
 	sideEncoder->Reset();
-	double angle =  ahrs->GetAngle();
+	double angle =  ahrs->GetYaw();
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
@@ -70,9 +79,9 @@ void Tracker::RotateTo(double angle) {
 	Set(currentPositionX, currentPositionY, angle);
 }
 
-void Tracker::MoveToRel(double forward, double right) {
-	double x = currentPositionX + right;
-	double y = currentPositionY + forward;
+void Tracker::MoveToRel(double dx, double dy) {
+	double x = currentPositionX + dx;
+	double y = currentPositionY + dy;
 	MoveToAbs(x, y);
 }
 void Tracker::MoveToAbs(double x, double y) {
@@ -80,6 +89,7 @@ void Tracker::MoveToAbs(double x, double y) {
 }
 
 void Tracker::Set(double x, double y, double angle) {
+	UpdatePIDFromTable();
 	this->goalPositionX = x;
 	this->goalPositionY = y;
 	pidrc.SetSetpoint(angle);
@@ -115,16 +125,27 @@ void Tracker::PIDDisable() {
 	pidrc.Disable();
 }
 
+void Tracker::UpdatePIDFromTable() {
+	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP());
+	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD());
+	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP());
+	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD());
+	pidpc.SetPID(Pdist, pidpc.GetI(), Ddist);
+	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
+}
+
 void Tracker::Drive(DriveTrain* drivetrain) {
+	const double MAX_POW = 1;
+	const double MAX_ROT = 0.5;
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dx, dy) * 180 / M_PI;
 	double backward = power;
-	if (backward > 0.4) backward = 0.4;
-	if (backward < -0.4) backward = -0.4;
+	if (backward > MAX_POW) backward = MAX_POW;
+	if (backward < -MAX_POW) backward = -MAX_POW;
 	double rot = pidr;
-	if (rot > 0.3) rot = 0.3;
-	if (rot < -0.3) rot = -0.3;
+	if (rot > MAX_ROT) rot = MAX_ROT;
+	if (rot < -MAX_ROT) rot = -MAX_ROT;
 	drivetrain->DriveWithCoordinates(
 		0, backward, rot,
 		currentAngle - goalAngle
