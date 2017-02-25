@@ -4,6 +4,8 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 
+using namespace frc;
+
 class DriveTrain : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
@@ -17,9 +19,9 @@ private:
 
 	static constexpr int kJoystickChannel = 0;
 
-	VictorSP* frontLeftController;
+	Spark* frontLeftController;
 	VictorSP* rearLeftController;
-	VictorSP* frontRightController;
+	Spark* frontRightController;
 	VictorSP* rearRightController;
 
 	// Robot drive system

@@ -8,9 +8,9 @@
 #include <math.h>
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
-	frontLeftController = new VictorSP(kFrontLeftChannel);
+	frontLeftController = new Spark(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
-	frontRightController = new VictorSP(kFrontRightChannel);
+	frontRightController = new Spark(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
 
 
