@@ -39,29 +39,29 @@ OI::OI() {
 	B1->WhenPressed(new LEDControl(true));
 	B1->WhenReleased(new LEDControl(false));
 	B2 = new frc::JoystickButton(joy, 2);
-	B2->WhileHeld(new DriveToPosition(&testx,&testy));
-	testx=0;											//currently testing these coordinates
-	testy=100;
+	B2->WhileHeld(new DriveLeft());
 
-	B3 = new frc::JoystickButton(joy, 3);      //Drives towards the peg when positioned with it
-	B3->WhileHeld(new DriveLeft());
-	B4 = new frc::JoystickButton(joy,4);	   //Lifter side acts as front
+	B3 = new frc::JoystickButton(joy, 3);
+	B3->WhileHeld(new MecanumDriveWithJoystick());
+	B4 = new frc::JoystickButton(joy,4);
 	B4->WhileHeld(new DriveBackSideForward());
-	B5 = new frc::JoystickButton(joy,5);	   //Dumper side acts as front
+	B5 = new frc::JoystickButton(joy,5);
 	B5->WhileHeld(new DriveRightSideForward());
-	B6 = new frc::JoystickButton(joy,6);	   //Taco side acts as front
+	B6 = new frc::JoystickButton(joy,6);
 	B6->WhileHeld(new DriveLeftSideForward());
 
 	B9 = new frc::JoystickButton(joy, 9);
-	B9->WhileHeld(new MecanumDriveWithJoystick());
+	B9->WhileHeld(new DriveToPosition(&testx,&testy));
+	testx=0;											//currently testing these coordinates
+	testy=100;
 
 	B11 = new frc::JoystickButton(joy,11);
 	B11->WhileHeld(new DriveForward());
 	B12 = new frc::JoystickButton(joy, 12);
 	B12->WhenPressed(new OrientRobot(&ninetyDegrees));
 
-	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->Reset();
+	//ahrs = new AHRS(SPI::Port::kMXP);
+	//ahrs->Reset();
 
 	Xbox = new frc::XboxController(1);
 	A = new frc::JoystickButton(Xbox, 1);
