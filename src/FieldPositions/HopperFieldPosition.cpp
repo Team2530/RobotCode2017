@@ -10,13 +10,13 @@
 HopperFieldPosition::HopperFieldPosition() {
 }
 double HopperFieldPosition::GetX(){
-	return Robot::boilerX;
+	return Robot::hopperX;
 }
 double HopperFieldPosition::GetY(){
-	return Robot::boilerY;
+	return Robot::hopperY;
 }
 double HopperFieldPosition::GetR(){
-	return Robot::boilerR;
+	return Robot::hopperR;
 }
 
 
