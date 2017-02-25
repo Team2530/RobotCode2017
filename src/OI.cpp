@@ -4,13 +4,13 @@
 
 //JOYSTICK
 #include <Commands/LEDControl.h>				//Please do not include the same file multiple times!
-#include <Commands/DriveToPosition.h>
 #include <Commands/DriveLeft.h>
+#include <Commands/MecanumDriveWithJoystick.h>
 #include <Commands/DriveBackSideForward.h>
 #include <Commands/DriveRightSideForward.h>
 #include <Commands/DriveLeftSideForward.h>
 
-#include <Commands/MecanumDriveWithJoystick.h>
+#include <Commands/DriveToPosition.h>
 
 #include <Commands/DriveForward.h>
 #include <Commands/OrientRobot.h>
@@ -26,7 +26,6 @@
 #include <Commands/AimCameratoTaco.h>
 
 #include <Commands/ResetDump.h>
-#include <Commands/GoTo.h>
 #include <Commands/ResetTracker.h>
 #include <Commands/MoveBy.h>
 #include <Commands/RotateTo.h>
@@ -38,16 +37,15 @@ OI::OI() {
 	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
 	B1->WhenPressed(new LEDControl(true));
 	B1->WhenReleased(new LEDControl(false));
-	B2 = new frc::JoystickButton(joy, 2);
+	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
 	B2->WhileHeld(new DriveLeft());
-
 	B3 = new frc::JoystickButton(joy, 3);
 	B3->WhileHeld(new MecanumDriveWithJoystick());
-	B4 = new frc::JoystickButton(joy,4);
+	B4 = new frc::JoystickButton(joy,4);				//Has the lifter side act as the front!
 	B4->WhileHeld(new DriveBackSideForward());
-	B5 = new frc::JoystickButton(joy,5);
+	B5 = new frc::JoystickButton(joy,5);				//Has the dumper side act as the front!
 	B5->WhileHeld(new DriveRightSideForward());
-	B6 = new frc::JoystickButton(joy,6);
+	B6 = new frc::JoystickButton(joy,6);				//Has the taco side act as the front!
 	B6->WhileHeld(new DriveLeftSideForward());
 
 	B9 = new frc::JoystickButton(joy, 9);
@@ -79,7 +77,7 @@ OI::OI() {
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new ResetTracker());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new GoTo(0,0));
+	Start->WhileHeld(new DriveToPosition(0,0));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new RotateTo(0));
 }

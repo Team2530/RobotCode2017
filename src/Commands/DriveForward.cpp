@@ -11,8 +11,6 @@ DriveForward::DriveForward(double x, double y) {
 
 	double deltaxValue = x - currentPositionx;
 	double deltayValue = y - currentPositiony;
-
-	double TargetDistance = sqrt((deltaxValue - currentPositionx) * (deltaxValue - currentPositionx) + (deltayValue - currentPositiony) * (deltayValue - currentPositiony));
 }
 
 // Called just before this Command runs the first time

@@ -16,8 +16,8 @@ public:
 private:
 	Joystick* joy;
 	JoystickButton *B1;  //LED Control
-	JoystickButton *B2;  //DriveToPosition Test
-	JoystickButton *B3;  //DriveLeft
+	JoystickButton *B2;  //DriveLeft
+	JoystickButton *B3;  //MecanumDriveWithJoystick
 	JoystickButton *B4;  //DriveBackSideForward
 	JoystickButton *B5;  //DriveRightSideForward
 	JoystickButton *B6;  //DriveLeftSideForward
@@ -25,7 +25,7 @@ private:
 	JoystickButton *B7;  //Unused
 	JoystickButton *B8;  //Unused
 
-	JoystickButton *B9;  //MecanumDriveWithJoystick
+	JoystickButton *B9;  //DriveToPosition Test
 
 	JoystickButton *B10; //Unused
 
