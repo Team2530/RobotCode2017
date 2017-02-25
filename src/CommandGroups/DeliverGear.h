@@ -1,5 +1,5 @@
 /*
- * DeliverGears.h
+ * DeliverGear.h
  *
  *  Created on: Feb 13, 2017
  *      Author: Admin
@@ -16,15 +16,8 @@
 #include "Commands/CommandGroupEntry.h"
 #include "../StartPositions.h"
 
-
-
 class DeliverGear : public frc::CommandGroup {
 	DeliverGear();
 };
-
-
-
-
-
 
 #endif /* SRC_COMMANDGROUPS_DELIVERGEAR_H_ */

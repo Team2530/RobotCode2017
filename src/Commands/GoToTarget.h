@@ -9,14 +9,15 @@
 #define SRC_COMMANDS_GOTOTARGET_H_
 
 #include "CalculateTargetAngle.h"
-#include "DriveForward.h"
+#include "DriveToPosition.h"
 
 #include <Commands/CommandGroup.h>
 
 class GoToTarget : public CommandGroup {
 public:
-	GoToTarget(double *angle, double *x,double *y);
-
+	GoToTarget(double *x,double *y);
+private:
+	double angle;
 };
 
 #endif /* SRC_COMMANDS_GOTOTARGET_H_ */
