@@ -19,7 +19,8 @@
 
 
 class DeliverGear : public frc::CommandGroup {
-	DeliverGear();
+	public:
+		DeliverGear();
 };
 
 

@@ -13,7 +13,7 @@
 #include "../Commands/RotateTo.h"
 #include "../Commands/MoveBasedOnVision.h"
 
-DeliverGear::DeliverGear() {
+DeliverGear::DeliverGear(){
 	double angle = Robot::gearLifterR;
 	double rad = angle * M_PI / 180;
 	double goalX = Robot::gearLifterX;

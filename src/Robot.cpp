@@ -55,20 +55,23 @@ void Robot::RobotInit() {
 
 	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
+	chooserDo.AddObject("Deliver Gear", new DeliverGear());
+	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
 	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to
-	chooserGear.AddObject("Middle Gear", &middleGear);//^^
+	chooserGear.AddDefault("Middle Gear", &middleGear);//^^
 	chooserGear.AddObject("Right Gear", &rightGear);//^^
 
 
 
 
 	chooserPos.AddObject("Left", &left); //starting position
-	chooserPos.AddObject("Middle", &middle);//^^
+	chooserPos.AddDefault("Middle", &middle);//^^
 	chooserPos.AddObject("Right", &right);//^^
 
-	chooserAngle.AddObject("Start facing forward", &start0);
+	chooserAngle.AddDefault("Start facing forward", &start0);
 	chooserAngle.AddObject("Start with taco forward", &start_90);
+	SmartDashboard::PutData("Starting orientation", &chooserAngle);
 }
 
 /**
