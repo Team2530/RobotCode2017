@@ -12,10 +12,12 @@ MoveBasedOnVision::MoveBasedOnVision() {
 // Called just before this Command runs the first time
 void MoveBasedOnVision::Initialize() {
 	Robot::vision->Update();
+	// Try to compensate for the camera offset to approach with the gear centered
+	double camera_offset = 6; // TODO: 6 inches??
 	double distance = Robot::vision->GetDistance() - 3*12;
-	double displacement = Robot::vision->GetDisplacement();
-	// Move until the camera is (hopefully) centered, about 3 feet away
-	Robot::tracker->MoveToRel(distance, displacement);
+	double displacement = Robot::vision->GetDisplacement() - camera_offset;
+	// Move until the takko is (hopefully) centered, about 3 feet away
+	Robot::tracker->MoveRF(displacement, distance);
 }
 
 // Called repeatedly when this Command is scheduled to run

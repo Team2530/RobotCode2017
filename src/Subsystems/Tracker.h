@@ -85,6 +85,8 @@ public:
 	// Move while keeping heading
 	void MoveToRel(double dx, double dy);
 	void MoveToAbs(double x, double y);
+	// Move right/forward relative to robot orientation
+	void MoveRF(double right, double forward);
 	// Set both position and rotation
 	void Set(double x, double y, double angle);
 

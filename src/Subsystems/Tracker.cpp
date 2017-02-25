@@ -79,6 +79,12 @@ void Tracker::RotateTo(double angle) {
 	Set(currentPositionX, currentPositionY, angle);
 }
 
+void Tracker::MoveRF(double right, double forward) {
+	double rad = currentAngle * M_PI / 180;
+	double dx =  right*cos(rad) + forward*sin(rad);
+	double dy = -right*sin(rad) + forward*cos(rad);
+	MoveToRel(dx, dy);
+}
 void Tracker::MoveToRel(double dx, double dy) {
 	double x = currentPositionX + dx;
 	double y = currentPositionY + dy;
