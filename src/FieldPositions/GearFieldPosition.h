@@ -4,7 +4,7 @@
  *  Created on: Feb 25, 2017
  *      Author: celeste173
  */
-#include "FieldPosition.h";
+#include "FieldPosition.h"
 #ifndef SRC_FIELDPOSITIONS_GEARFIELDPOSITION_H_
 #define SRC_FIELDPOSITIONS_GEARFIELDPOSITION_H_
 

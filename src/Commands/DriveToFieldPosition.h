@@ -1,6 +1,6 @@
 #ifndef DriveToFieldPosition_H
 #define DriveToFieldPosition_H
-#include "FieldPosition.h"
+#include "FieldPositions/FieldPosition.h"
 #include "Commands/Command.h"
 
 class DriveToFieldPosition : public Command {

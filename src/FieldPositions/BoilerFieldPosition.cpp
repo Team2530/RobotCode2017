@@ -4,7 +4,7 @@
  *  Created on: Feb 25, 2017
  *      Author: celeste173
  */
-
+#include "Robot.h"
 #include <FieldPositions/BoilerFieldPosition.h>
 
 BoilerFieldPosition::BoilerFieldPosition() {

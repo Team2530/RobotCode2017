@@ -1,7 +1,7 @@
 #include "DriveToFieldPosition.h"
 #include "Robot.h"
-#include "Tracker.h"
-
+#include "Subsystems/Tracker.h"
+#include "FieldPositions/FieldPosition.h"
 DriveToFieldPosition::DriveToFieldPosition(FieldPosition *FP) {
 	FieldP = FP;
 	Requires(Robot::tracker.get());
@@ -10,7 +10,7 @@ DriveToFieldPosition::DriveToFieldPosition(FieldPosition *FP) {
 
 // Called just before this Command runs the first time
 void DriveToFieldPosition::Initialize() {
-	Robot::tracker->Set(FieldP->GetX(), FieldP->GetY(), FieldP->GetR());
+	Robot::tracker->Set(FieldP->getX(), FieldP->getY(), FieldP->getR());
 }
 
 // Called repeatedly when this Command is scheduled to run

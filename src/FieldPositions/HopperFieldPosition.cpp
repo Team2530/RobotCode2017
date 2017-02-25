@@ -4,7 +4,7 @@
  *  Created on: Feb 25, 2017
  *      Author: celeste173
  */
-
+#include "Robot.h"
 #include <FieldPositions/HopperFieldPosition.h>
 
 HopperFieldPosition::HopperFieldPosition() {
