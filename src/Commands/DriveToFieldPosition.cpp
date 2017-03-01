@@ -1,5 +1,5 @@
 #include "DriveToFieldPosition.h"
-#include "Robot.h"
+#include "../Robot.h"
 #include "Subsystems/Tracker.h"
 #include "FieldPositions/FieldPosition.h"
 DriveToFieldPosition::DriveToFieldPosition(FieldPosition *FP) {
@@ -15,14 +15,13 @@ void DriveToFieldPosition::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveToFieldPosition::Execute() {
-
+	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveToFieldPosition::IsFinished() {
-	return false;
+	return Robot::tracker->PIDFinished();
 }
-
 // Called once after isFinished returns true
 void DriveToFieldPosition::End() {
 
