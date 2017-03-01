@@ -23,9 +23,11 @@ DeliverGear::DeliverGear(){
 	double yposition = Robot::gearLifterY;
 	Absolute* approach = new Absolute(xposition, yposition, angle);
 	// line up 3 ft away from the gear lift
-	approach->Update(new RobotRelative(0, -3*12));
-	AddSequential(new DriveToFieldPosition(new FieldPositionToRotateTo(90+rad))); // align takko with gear lift
-	//rad might need to be fixed
+	// update rotation by 90 degrees to put takko forward
+	approach->Update(new RobotRelative(0, -3*12, 90));
 	AddSequential(new DriveToPosition(approach));
 	AddSequential(new MoveBasedOnVision());
+	// The vision is supposed to line up 3 feet away: drive forward that amount
+	// Reserve 16-17 inches between the center of the robot and the lift
+	AddSequential(new DriveToPosition(new RobotRelative(0, 3*12 - 17)));
 }

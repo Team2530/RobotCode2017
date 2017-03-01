@@ -2,10 +2,13 @@
 #define MecanumDriveWithJoystick_H
 
 #include <Commands/Command.h>
+#include "../Orientation.h"
 
 class MecanumDriveWithJoystick : public Command {
+private:
+	Orientation orientation;
 public:
-	MecanumDriveWithJoystick();
+	MecanumDriveWithJoystick(Orientation orient=INTAKE_FORWARD);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

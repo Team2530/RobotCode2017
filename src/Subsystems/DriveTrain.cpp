@@ -35,12 +35,12 @@ void DriveTrain::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void DriveTrain::Drive(Joystick* stick) {
+void DriveTrain::Drive(Joystick* stick, Orientation orientation) {
     if (stick) {
 	    double scale = 0.6-0.4*stick->GetThrottle();
 	    DriveWithCoordinates(
 	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), 0
+	  	      scale*stick->GetZ(), orientation
 	    );
     }
 }
