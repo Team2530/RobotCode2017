@@ -28,7 +28,7 @@ void Absolute::UpdatePositionAbs(double* x, double* y, double* r) {
 	}
 }
 
-void Absolute::Update(RobotRelative updater) {
-	updater.UpdatePositionAbs(&positionx, &positiony, &rotation);
+void Absolute::Update(Position* updater) {
+	updater->UpdatePositionAbs(&positionx, &positiony, &rotation);
 }
 

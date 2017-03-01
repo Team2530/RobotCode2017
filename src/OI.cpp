@@ -27,8 +27,13 @@
 
 #include <Commands/ResetDump.h>
 #include <Commands/ResetTracker.h>
-#include <Commands/MoveBy.h>
+#include <Commands/DriveToPosition.h>
 #include <Commands/RotateTo.h>
+
+#include <Positions/Absolute.h>
+#include <Positions/AbsoluteAngle.h>
+#include <Positions/FieldRelative.h>
+#include <Positions/RobotRelative.h>
 
 OI::OI() {
 	// Process operator interface input here.
@@ -49,9 +54,7 @@ OI::OI() {
 	B6->WhileHeld(new DriveLeftSideForward());
 
 	B9 = new frc::JoystickButton(joy, 9);
-	B9->WhileHeld(new DriveToPosition(&testx,&testy));
-	testx=0;											//currently testing these coordinates
-	testy=100;
+	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 
 	B11 = new frc::JoystickButton(joy,11);
 	B11->WhileHeld(new DriveForward());
@@ -63,13 +66,13 @@ OI::OI() {
 
 	Xbox = new frc::XboxController(1);
 	A = new frc::JoystickButton(Xbox, 1);
-	A->WhileHeld(new MoveBy(0, -10));
+	A->WhileHeld(new DriveToPosition(new RobotRelative(0, -10)));
 	B = new frc::JoystickButton(Xbox, 2);
-	B->WhileHeld(new MoveBy(10, 0));
+	B->WhileHeld(new DriveToPosition(new RobotRelative(10, 0)));
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhileHeld(new MoveBy(-10, 0));
+	X->WhileHeld(new DriveToPosition(new RobotRelative(-10, 0)));
 	Y = new frc::JoystickButton(Xbox, 4);
-	Y->WhileHeld(new MoveBy(0, 10));
+	Y->WhileHeld(new DriveToPosition(new RobotRelative(0, 10)));
 	LB = new frc::JoystickButton(Xbox, 5);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
@@ -77,9 +80,9 @@ OI::OI() {
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new ResetTracker());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new DriveToPosition(0,0));
+	Start->WhileHeld(new DriveToPosition(new Absolute(0,0)));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
-	RS->WhileHeld(new RotateTo(0));
+	RS->WhileHeld(new DriveToPosition(new AbsoluteAngle(0)));
 }
 
 Joystick* OI::GetJoystick() {

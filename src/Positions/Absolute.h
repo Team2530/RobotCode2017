@@ -20,7 +20,7 @@ public:
 	Absolute(double x, double y);
 	Absolute(double x, double y, double r);
 	void UpdatePositionAbs(double* x, double* y, double* r) override;
-	void Update(RobotRelative updater);
+	void Update(Position* updater);
 };
 
 #endif /* SRC_POSITIONS_ABSOLUTE_H_ */

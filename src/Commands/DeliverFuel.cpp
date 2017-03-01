@@ -2,18 +2,12 @@
 
 #include "Dump.h"
 #include "Robot.h"
-#include "DriveToPosition.h"
+#include "DriveToFieldPosition.h"
 #include "OrientRobot.h"
 #include "StartPositions.h"
+#include "../FieldPositions/BoilerFieldPosition.h"
 
 DeliverFuel::DeliverFuel() {
-	double *x = &Robot::boilerX;
-	double *y = &Robot::boilerY;
-	double *r = &Robot::boilerR;
-	AddSequential(new DriveToPosition(x, y));
-	AddSequential(new OrientRobot(r));
-	AddSequential(new Dump);
-
-
-
+	AddSequential(new DriveToFieldPosition(new BoilerFieldPosition()));
+	AddSequential(new Dump());
 }

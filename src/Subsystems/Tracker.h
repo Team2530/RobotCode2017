@@ -14,6 +14,8 @@
 
 #include <math.h>
 
+#include "../Positions/Position.h"
+
 class PIDDoubleSource : public frc::PIDSource {
 public:
 	PIDDoubleSource(double* source) {
@@ -89,6 +91,9 @@ public:
 	void MoveRF(double right, double forward);
 	// Set both position and rotation
 	void Set(double x, double y, double angle);
+	// Set based on a position that receives the current position
+	// to update to the goal position.
+	void MoveToPos(Position* pos);
 
 	// Read PID controller output
 	double GetPIDRotation();

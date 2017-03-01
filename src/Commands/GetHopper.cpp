@@ -1,17 +1,11 @@
 #include "GetHopper.h"
 #include "Robot.h"
-#include "DriveToPosition.h"
+#include "DriveToFieldPosition.h"
 #include "OrientRobot.h"
 #include "IntakeOn.h"
+#include "../FieldPositions/HopperFieldPosition.h"
+
 GetHopper::GetHopper() {
-	double *x = &Robot::hopperX;
-	double *y = &Robot::hopperY;
-	double *r = &Robot::hopperR;
-	AddSequential(new DriveToPosition(x, y));
-	AddSequential(new OrientRobot(r));
-	AddSequential(new IntakeOn);
-
-
-
-
+	AddSequential(new DriveToFieldPosition(new HopperFieldPosition()));
+	AddSequential(new IntakeOn());
 }

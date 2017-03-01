@@ -10,7 +10,7 @@
 
 class Position {
 public:
-	virtual void UpdatePositionAbs(double* x, double* y, double* r);
+	virtual void UpdatePositionAbs(double* x, double* y, double* r) = 0;
 };
 
 

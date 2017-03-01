@@ -9,9 +9,9 @@
 #define SRC_FIELDPOSITIONS_FIELDPOSITION_H_
 class FieldPosition{
 public:
-	virtual double getX() = 0;
-	virtual double getY() = 0;
-	virtual double getR() = 0;
+	virtual double GetX() = 0;
+	virtual double GetY() = 0;
+	virtual double GetR() = 0;
 };
 
 

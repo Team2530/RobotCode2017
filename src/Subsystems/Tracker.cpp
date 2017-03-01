@@ -94,6 +94,7 @@ void Tracker::MoveToAbs(double x, double y) {
 	Set(x, y, currentAngle);
 }
 
+
 void Tracker::Set(double x, double y, double angle) {
 	UpdatePIDFromTable();
 	this->goalPositionX = x;
@@ -101,6 +102,14 @@ void Tracker::Set(double x, double y, double angle) {
 	pidrc.SetSetpoint(angle);
 	pidrc.Enable();
 	pidpc.Enable();
+}
+
+void Tracker::MoveToPos(Position* pos) {
+	double x = this->currentPositionX;
+	double y = this->currentPositionY;
+	double angle = this->currentAngle;
+	pos->UpdatePositionAbs(&x, &y, &angle);
+	Set(x, y, angle);
 }
 
 double Tracker::GetPIDRotation() {

@@ -2,17 +2,18 @@
 #define DriveToPosition_H
 
 #include <Commands/Command.h>
+#include "../Positions/Position.h"
 
 class DriveToPosition : public frc::Command {
 public:
-	DriveToPosition(double *x, double *y);
+	DriveToPosition(Position* pos);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
-double *xposition;
-double *yposition;
+private:
+	Position* pos;
 };
 
 #endif  // DriveToPosition_H

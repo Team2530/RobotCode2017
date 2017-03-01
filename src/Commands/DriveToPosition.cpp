@@ -4,19 +4,18 @@
 
 #include "../Subsystems/Tracker.h"
 
-DriveToPosition::DriveToPosition(double *x, double *y) {
+DriveToPosition::DriveToPosition(Position* p) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::tracker.get());
 	Requires(Robot::drivetrain.get());
-	xposition = x;
-	yposition = y;
+	pos = p;
 }
 
 // Called just before this Command runs the first time
 void DriveToPosition::Initialize() {
 	Robot::tracker->PIDReset();
-	Robot::tracker->MoveToAbs(*xposition, *yposition);
+	Robot::tracker->MoveToPos(pos);
 }
 
 // Called repeatedly when this Command is scheduled to run

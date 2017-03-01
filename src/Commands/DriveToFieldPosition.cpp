@@ -10,7 +10,7 @@ DriveToFieldPosition::DriveToFieldPosition(FieldPosition *FP) {
 
 // Called just before this Command runs the first time
 void DriveToFieldPosition::Initialize() {
-	Robot::tracker->Set(FieldP->getX(), FieldP->getY(), FieldP->getR());
+	Robot::tracker->Set(FieldP->GetX(), FieldP->GetY(), FieldP->GetR());
 }
 
 // Called repeatedly when this Command is scheduled to run

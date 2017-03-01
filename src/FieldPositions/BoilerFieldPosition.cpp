@@ -6,7 +6,7 @@
  */
 #include "Robot.h"
 #include <FieldPositions/BoilerFieldPosition.h>
-#include "Robot.h"
+
 BoilerFieldPosition::BoilerFieldPosition() {
 }
 double BoilerFieldPosition::GetX(){
