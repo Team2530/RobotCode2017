@@ -13,7 +13,6 @@
 #include <Commands/DriveToPosition.h>
 
 #include <Commands/DriveForward.h>
-#include <Commands/OrientRobot.h>
 
 //Xbox
 #include <Commands/IntakeOn.h>
@@ -59,7 +58,7 @@ OI::OI() {
 	B11 = new frc::JoystickButton(joy,11);
 	B11->WhileHeld(new DriveForward());
 	B12 = new frc::JoystickButton(joy, 12);
-	B12->WhenPressed(new OrientRobot(&ninetyDegrees));
+	//B12->WhenPressed(new OrientRobot(&ninetyDegrees));
 
 	//ahrs = new AHRS(SPI::Port::kMXP);
 	//ahrs->Reset();
