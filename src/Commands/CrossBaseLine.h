@@ -4,7 +4,7 @@
 #include <Commands/Command.h>
 #include "../StartPositions.h"
 #include "DriverStation.h"
-
+// replace with FieldLocation
 class CrossBaseLine : public Command {
 public:
 	CrossBaseLine();
