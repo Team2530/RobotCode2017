@@ -28,7 +28,7 @@
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
 #include "Commands/DoNothing.h"
-#include "CommandGroups/DeliverGear.h"
+#include "Commands/DeliverGear.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"

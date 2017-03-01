@@ -9,11 +9,12 @@
 
 #include <math.h>
 
+#include "../Commands/DriveToFieldPosition.h"
 #include "../Commands/DriveToPosition.h"
-#include "../Commands/RotateTo.h"
 #include "../Commands/MoveBasedOnVision.h"
 #include "../Positions/Absolute.h"
 #include "../Positions/RobotRelative.h"
+#include "../FieldPositions/FieldPositionToRotateTo.h"
 
 DeliverGear::DeliverGear(){
 	double angle = Robot::gearLifterR;
@@ -23,7 +24,8 @@ DeliverGear::DeliverGear(){
 	Absolute* approach = new Absolute(xposition, yposition, angle);
 	// line up 3 ft away from the gear lift
 	approach->Update(new RobotRelative(0, -3*12));
-	AddSequential(new RotateTo(90+rad)); // align takko with gear lift
+	AddSequential(new DriveToFieldPosition(new FieldPositionToRotateTo(90+rad))); // align takko with gear lift
+	//rad might need to be fixed
 	AddSequential(new DriveToPosition(approach));
 	AddSequential(new MoveBasedOnVision());
 }
