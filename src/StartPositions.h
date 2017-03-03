@@ -79,6 +79,10 @@ enum ObjectPositions{
 	static const double rightGearPlaceY = 146.1925;
 	static const double rightGearPlaceR = -60+90;
 
+	static const double middleBaseLineX = 160;//rough approximation based on left gear delivery thing
+	static const double middleBaseLineY = StartingPlaceY + 93.5;
+	static const double middleBaseLineR = leftGearPlaceR;
+
 
 
 

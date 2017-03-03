@@ -67,6 +67,9 @@ public:
 	static double gearLifterX;
 	static double gearLifterY;
 	static double gearLifterR;
+	static double positionBaseLineX;
+	static double positionBaseLineY;
+	static double positionBaseLineR;
 
 	void RobotInit() override;
 
