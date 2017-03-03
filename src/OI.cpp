@@ -62,6 +62,8 @@ OI::OI() {
 	//ahrs->Reset();
 
 	Xbox = new frc::XboxController(1);
+	// Button configuration for testing PID controllers and such
+	/**/
 	A = new frc::JoystickButton(Xbox, 1);
 	A->WhileHeld(new DriveToPosition(new RobotRelative(0, -10)));
 	B = new frc::JoystickButton(Xbox, 2);
@@ -80,6 +82,27 @@ OI::OI() {
 	Start->WhileHeld(new DriveToPosition(new Absolute(0,0)));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new DriveToPosition(new AbsoluteAngle(0)));
+	/*/
+	// Button configuration for competition driving
+	A = new frc::JoystickButton(Xbox, 1);
+	A->ToggleWhenPressed(new IntakeOn());
+	B = new frc::JoystickButton(Xbox, 2);
+	B->WhenPressed(new LEDToggle());
+	X = new frc::JoystickButton(Xbox, 3);
+	X->WhileHeld(new Dump());
+	Y = new frc::JoystickButton(Xbox, 4);
+	Y->ToggleWhenPressed(new IntakeInvert());
+	LB = new frc::JoystickButton(Xbox, 5);
+	LB->WhileHeld(new SlowLift());
+	RB = new frc::JoystickButton(Xbox, 6);
+	RB->WhileHeld(new FastLift());
+	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
+	Back->WhileHeld(new AimCameratoLift());
+	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
+	Start->WhileHeld(new AimCameratoTaco());
+	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
+	RS->WhileHeld(new ResetDump());
+	/**/
 }
 
 Joystick* OI::GetJoystick() {

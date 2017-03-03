@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
+#include "../Orientation.h"
 
 using namespace frc;
 
@@ -28,7 +29,7 @@ private:
 	frc::RobotDrive* robotDrive;
 public:
 	DriveTrain();
-	void Drive(Joystick* stick);
+	void Drive(Joystick* stick, Orientation orientation = INTAKE_FORWARD);
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();

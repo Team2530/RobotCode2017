@@ -66,17 +66,18 @@ enum ObjectPositions{
 	static const double boilerPositionY = 70.562761;
 
 	//gear positions
+	// Add 90 degrees to position the Takko side forward
 	static const double leftGearPlaceX = 162.2656;
 	static const double leftGearPlaceY = 146.1925;
-	static const double leftGearPlaceR = 60;
+	static const double leftGearPlaceR = 60+90;
 
 	static const double middleGearPlaceX = 192.0868;
 	static const double middleGearPlaceY = 93.25;
-	static const double middleGearPlaceR = 0;
+	static const double middleGearPlaceR = 0+90;
 
 	static const double rightGearPlaceX = 221.908;
 	static const double rightGearPlaceY = 146.1925;
-	static const double rightGearPlaceR = -60;
+	static const double rightGearPlaceR = -60+90;
 
 
 

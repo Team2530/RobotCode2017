@@ -2,6 +2,8 @@
 
 #include "../Robot.h"
 
+#include "../Positions/RobotRelative.h"
+
 MoveBasedOnVision::MoveBasedOnVision() {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::tracker.get());
@@ -17,7 +19,7 @@ void MoveBasedOnVision::Initialize() {
 	double distance = Robot::vision->GetDistance() - 3*12;
 	double displacement = Robot::vision->GetDisplacement() - camera_offset;
 	// Move until the takko is (hopefully) centered, about 3 feet away
-	Robot::tracker->MoveRF(displacement, distance);
+	Robot::tracker->MoveToPos(new RobotRelative(displacement, distance));
 }
 
 // Called repeatedly when this Command is scheduled to run

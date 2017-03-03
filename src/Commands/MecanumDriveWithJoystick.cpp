@@ -2,9 +2,10 @@
 
 #include "Robot.h"
 
-MecanumDriveWithJoystick::MecanumDriveWithJoystick() : Command("MecanumDriveWithJoystick") {
+MecanumDriveWithJoystick::MecanumDriveWithJoystick(Orientation orient) : Command("MecanumDriveWithJoystick") {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::drivetrain.get());
+	orientation = orient;
 }
 
 // Called just before this Command runs the first time
@@ -13,7 +14,7 @@ void MecanumDriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MecanumDriveWithJoystick::Execute() {
-	Robot::drivetrain->Drive(Robot::oi->GetJoystick());
+	Robot::drivetrain->Drive(Robot::oi->GetJoystick(), orientation);
 }
 
 // Make this return true when this Command no longer needs to run execute()
