@@ -18,7 +18,7 @@
 
 DeliverGear::DeliverGear(){
 	double angle = Robot::gearLifterR;
-	double rad = angle * M_PI / 180;
+	//double rad = angle * M_PI / 180;
 	double xposition = Robot::gearLifterX;
 	double yposition = Robot::gearLifterY;
 	Absolute* approach = new Absolute(xposition, yposition, angle);

@@ -6,13 +6,20 @@
  */
 
 #include <FieldPositions/CrossBaseLineFieldPostion.h>
+#include  "Robot.h"
 
 CrossBaseLineFieldPostion::CrossBaseLineFieldPostion() {
 	// TODO Auto-generated constructor stub
 
 }
 
-CrossBaseLineFieldPostion::~CrossBaseLineFieldPostion() {
-	// TODO Auto-generated destructor stub
+double CrossBaseLineFieldPostion::GetX(){
+	return Robot::positionBaseLineX;
+}
+double CrossBaseLineFieldPostion::GetY(){
+	return Robot::positionBaseLineY;
+}
+double CrossBaseLineFieldPostion::GetR(){
+	return Robot::positionBaseLineR;
 }
 

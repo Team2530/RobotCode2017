@@ -12,8 +12,10 @@
 
 class CrossBaseLineFieldPostion: public FieldPosition {
 public:
+	virtual double GetX();
+	virtual double GetY();
+	virtual double GetR();
 	CrossBaseLineFieldPostion();
-	virtual ~CrossBaseLineFieldPostion();
 };
 
 #endif /* SRC_FIELDPOSITIONS_CROSSBASELINEFIELDPOSTION_H_ */
