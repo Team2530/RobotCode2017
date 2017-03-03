@@ -36,6 +36,9 @@ double Robot::boilerY;
 double Robot::gearLifterX;
 double Robot::gearLifterY;
 double Robot::gearLifterR;
+double Robot::positionBaseLineX;
+double Robot::positionBaseLineY;
+double Robot::positionBaseLineR;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -136,12 +139,21 @@ void Robot::AutonomousInit() {
 		switch (*autonomousPos) {
 		case START_LEFT:
 			Robot::initialX = startingRedLeftX;
+			Robot::positionBaseLineX = initialX;
+			Robot::positionBaseLineY = initialY + 93.5;
+			Robot::positionBaseLineR = 0;
 			break;
 		case START_RIGHT:
 			Robot::initialX = startingRedRightX;
+			Robot::positionBaseLineX =  initialX;
+			Robot::positionBaseLineY =  initialY + 93.5;
+			Robot::positionBaseLineR =  0;
 			break;
 		case START_MIDDLE:
 			Robot::initialX = startingRedMiddleX;
+			Robot::positionBaseLineX = middleBaseLineX;
+			Robot::positionBaseLineY = middleBaseLineY;
+			Robot::positionBaseLineR = middleBaseLineR;
 			break;
 		}
 	}

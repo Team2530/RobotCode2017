@@ -3,6 +3,9 @@
 
 #include <Commands/Command.h>
 
+// This command is the default command of the Tracker.
+// It reads the encoders and gyro to track the field position.
+
 
 class GetFieldPosition : public Command {
 public:

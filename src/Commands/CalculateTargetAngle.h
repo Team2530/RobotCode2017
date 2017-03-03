@@ -3,6 +3,7 @@
 
 #include "Commands/Command.h"
 // replace with FieldLocation
+
 class CalculateTargetAngle : public Command {
 public:
 	CalculateTargetAngle(double *x, double *y, double *angle);
