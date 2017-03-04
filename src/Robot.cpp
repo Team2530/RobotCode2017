@@ -106,11 +106,11 @@ void Robot::AutonomousInit() {
 	StartPosition* autonomousPos = &middle; // chooserPos.GetSelected();
 	ChosenGear* targetGear = &middleGear; // chooserGear.GetSelected();
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
-	Command* autonomousDo = new CrossBaseLine();//chooserDo.GetSelected();
-	//double* angle = chooserAngle.GetSelected();
-	//if (angle != nullptr) {
-	//	oi->GetAHRS()->SetAngleAdjustment(*angle);
-//	}
+	Command* autonomousDo = chooserDo.GetSelected();
+	double* angle = chooserAngle.GetSelected();
+	if (angle != nullptr) {
+		oi->GetAHRS()->SetAngleAdjustment(*angle);
+	}
 	Robot::initialY = StartingPlaceY;
 	Robot::hopperY = hopperPositionY;
 	Robot::boilerY = boilerPositionY;

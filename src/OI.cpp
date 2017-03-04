@@ -58,8 +58,8 @@ OI::OI() {
 	B12 = new frc::JoystickButton(joy, 12);
 	//B12->WhenPressed(new OrientRobot(&ninetyDegrees));
 
-	//ahrs = new AHRS(SPI::Port::kMXP);
-	//ahrs->Reset();
+	ahrs = new AHRS(SPI::Port::kMXP);
+	ahrs->Reset();
 
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such
@@ -102,7 +102,7 @@ OI::OI() {
 	Start->WhileHeld(new AimCameratoTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
-	/*/
+	/**/
 }
 
 Joystick* OI::GetJoystick() {
