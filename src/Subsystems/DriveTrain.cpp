@@ -108,7 +108,11 @@ double deadband(double value) {
 
 void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle) {
 	z = z*std::abs(z);
-	robotDrive->MecanumDrive_Cartesian(deadband(x), deadband(y), deadband(z), Angle);
+	DirectDrive(deadband(x), deadband(y), deadband(z), Angle);
+}
+
+void DriveTrain::DirectDrive(double x, double y, double z, double Angle) {
+	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
 }
 
 

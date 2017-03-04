@@ -38,6 +38,7 @@ public:
 	void SetRobot(RobotChoice thisRobot);
 
 	void DriveWithCoordinates(double x, double y, double z, double Angle);
+	void DirectDrive(double x, double y, double z, double Angle);
 
 	void DriveLeft();
 	void DriveLeftSideForward(Joystick* stick);

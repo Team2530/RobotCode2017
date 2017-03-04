@@ -46,9 +46,9 @@ OI::OI() {
 	B4 = new frc::JoystickButton(joy,4);				//Has the lifter side act as the front!
 	B4->WhileHeld(new DriveBackSideForward());
 	B5 = new frc::JoystickButton(joy,5);				//Has the dumper side act as the front!
-	B5->WhileHeld(new DriveRightSideForward());
+	B5->WhileHeld(new DriveLeftSideForward());
 	B6 = new frc::JoystickButton(joy,6);				//Has the taco side act as the front!
-	B6->WhileHeld(new DriveLeftSideForward());
+	B6->WhileHeld(new DriveRightSideForward());
 
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
@@ -81,7 +81,7 @@ OI::OI() {
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
 	Start->WhileHeld(new DriveToPosition(new Absolute(0,0)));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
-	RS->WhileHeld(new DriveToPosition(new AbsoluteAngle(0)));
+	RS->WhenPressed(new DriveToPosition(new AbsoluteAngle(0)));
 	/*/
 	// Button configuration for competition driving
 	A = new frc::JoystickButton(Xbox, 1);
