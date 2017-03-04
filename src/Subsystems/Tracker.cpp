@@ -23,7 +23,7 @@ Tracker::Tracker() :
 	pidpc.SetOutputRange(0, 1);
 
 	pidrc.SetInputRange(0, 360);
-	pidrc.SetAbsoluteTolerance(5.0); // degrees
+	pidrc.SetAbsoluteTolerance(2.0); // degrees
 	pidrc.SetContinuous();
 	pidrc.SetOutputRange(-1, 1);
 
@@ -162,7 +162,8 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double rot = pidr;
 	if (rot > MAX_ROT) rot = MAX_ROT;
 	if (rot < -MAX_ROT) rot = -MAX_ROT;
-	drivetrain->DriveWithCoordinates(
+	std::printf("Rotation command: %d\n", rot);
+	drivetrain->DirectDrive(
 		0, backward, rot,
 		currentAngle - goalAngle
 	);
