@@ -162,7 +162,7 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double rot = pidr;
 	if (rot > MAX_ROT) rot = MAX_ROT;
 	if (rot < -MAX_ROT) rot = -MAX_ROT;
-	std::printf("Rotation command: %d\n", rot);
+	std::printf("Rotation command: %f\n", rot);
 	drivetrain->DirectDrive(
 		0, backward, rot,
 		currentAngle - goalAngle
