@@ -60,7 +60,7 @@ void Robot::RobotInit() {
 
 	oi = std::make_unique<OI>();
 
-	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
+	chooserDo.AddDefault("Cross BaseLine", new DriveToFieldPosition(new CrossBaseLineFieldPosition())); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
@@ -80,7 +80,7 @@ void Robot::RobotInit() {
 
 	chooserBot.AddDefault("Miracle Max", &max);
 	chooserBot.AddObject("Zomberdinck", &zomber);
-	SmartDashboard::PutData("Starting orientation", &chooserBot);
+	SmartDashboard::PutData("Starting robot", &chooserBot);
 }
 
 /**

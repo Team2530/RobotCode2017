@@ -5,21 +5,21 @@
  *      Author: Admin
  */
 
-#include <FieldPositions/CrossBaseLineFieldPostion.h>
+#include <FieldPositions/CrossBaseLineFieldPosition.h>
 #include  "Robot.h"
 
-CrossBaseLineFieldPostion::CrossBaseLineFieldPostion() {
+CrossBaseLineFieldPosition::CrossBaseLineFieldPosition() {
 	// TODO Auto-generated constructor stub
 
 }
 
-double CrossBaseLineFieldPostion::GetX(){
+double CrossBaseLineFieldPosition::GetX(){
 	return Robot::positionBaseLineX;
 }
-double CrossBaseLineFieldPostion::GetY(){
+double CrossBaseLineFieldPosition::GetY(){
 	return Robot::positionBaseLineY;
 }
-double CrossBaseLineFieldPostion::GetR(){
+double CrossBaseLineFieldPosition::GetR(){
 	return Robot::positionBaseLineR;
 }
 
