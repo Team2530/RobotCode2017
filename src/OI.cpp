@@ -102,7 +102,7 @@ OI::OI() {
 	Start->WhileHeld(new AimCameratoTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
-	/**/
+	*/
 }
 
 Joystick* OI::GetJoystick() {
