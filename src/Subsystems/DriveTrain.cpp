@@ -33,10 +33,14 @@ void DriveTrain::SetRobot(RobotChoice thisRobot) {
 
 	if (thisRobot == MIRACLE_MAX) {
 
-		// Invert the left side motors
+		// Invert motors for max
 		robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
+		robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 
-		// You may need to change or remove this to match your robot
+	} else if (thisRobot == ZOMBERDINCK) {
+
+		// Invert the left side motors for zomberdinck
+		robotDrive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 		robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	}
 }

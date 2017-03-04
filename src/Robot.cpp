@@ -68,11 +68,12 @@ void Robot::RobotInit() {
 	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to
 	chooserGear.AddDefault("Middle Gear", &middleGear);//^^
 	chooserGear.AddObject("Right Gear", &rightGear);//^^
-
+	SmartDashboard::PutData("Choose Gear", &chooserGear);
 
 	chooserPos.AddObject("Left", &left); //starting position
 	chooserPos.AddDefault("Middle", &middle);//^^
 	chooserPos.AddObject("Right", &right);//^^
+	SmartDashboard::PutData("Start Position", &chooserPos);
 
 	chooserAngle.AddDefault("Start facing forward", &start0);
 	chooserAngle.AddObject("Start with taco forward", &start_90);
@@ -80,7 +81,7 @@ void Robot::RobotInit() {
 
 	chooserBot.AddDefault("Miracle Max", &max);
 	chooserBot.AddObject("Zomberdinck", &zomber);
-	SmartDashboard::PutData("Starting orientation", &chooserBot);
+	SmartDashboard::PutData("This Robot", &chooserBot);
 }
 
 /**
@@ -211,6 +212,8 @@ void Robot::TeleopInit() {
 	if (chooserBot.GetSelected() != nullptr)
 		thisRobot = *chooserBot.GetSelected();
 
+
+	SmartDashboard::PutNumber("This  Robot", static_cast<char>(thisRobot));
 	drivetrain->SetRobot(thisRobot);
 }
 
