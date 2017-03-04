@@ -70,6 +70,8 @@ public:
 	static double positionBaseLineX;
 	static double positionBaseLineY;
 	static double positionBaseLineR;
+	static 	RobotChoice thisRobot;
+
 
 	void RobotInit() override;
 
@@ -105,6 +107,8 @@ private:
 	frc::SendableChooser<StartPosition*> chooserPos;
 	frc::SendableChooser<ChosenGear*> chooserGear;
 	frc::SendableChooser<double*> chooserAngle;
+	frc::SendableChooser<RobotChoice*> chooserBot;
+
 };
 
 

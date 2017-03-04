@@ -39,6 +39,10 @@ double Robot::gearLifterR;
 double Robot::positionBaseLineX;
 double Robot::positionBaseLineY;
 double Robot::positionBaseLineR;
+RobotChoice Robot::thisRobot = ZOMBERDINCK;
+
+RobotChoice max = MIRACLE_MAX;
+RobotChoice zomber = ZOMBERDINCK;
 
 void Robot::RobotInit() {
 	// Wait until here to initialize systems that depend on WPILib
@@ -49,12 +53,12 @@ void Robot::RobotInit() {
 	tracker = std::make_shared<Tracker>();
 	led = std::make_shared<LED>();
 
-
-	oi = std::make_unique<OI>();
-
 	vision = std::make_shared<Vision>();
     lifter = std::make_shared<Lifter>();
+
     cameraservo = std::make_shared<CameraServo>();
+
+	oi = std::make_unique<OI>();
 
 	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
@@ -66,8 +70,6 @@ void Robot::RobotInit() {
 	chooserGear.AddObject("Right Gear", &rightGear);//^^
 
 
-
-
 	chooserPos.AddObject("Left", &left); //starting position
 	chooserPos.AddDefault("Middle", &middle);//^^
 	chooserPos.AddObject("Right", &right);//^^
@@ -75,6 +77,10 @@ void Robot::RobotInit() {
 	chooserAngle.AddDefault("Start facing forward", &start0);
 	chooserAngle.AddObject("Start with taco forward", &start_90);
 	SmartDashboard::PutData("Starting orientation", &chooserAngle);
+
+	chooserBot.AddDefault("Miracle Max", &max);
+	chooserBot.AddObject("Zomberdinck", &zomber);
+	SmartDashboard::PutData("Starting orientation", &chooserBot);
 }
 
 /**
@@ -102,15 +108,25 @@ void Robot::DisabledPeriodic() {
  * to the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
-	oi->GetAHRS()->Reset();
-	StartPosition* autonomousPos = &middle; // chooserPos.GetSelected();
-	ChosenGear* targetGear = &middleGear; // chooserGear.GetSelected();
+
+	if (oi->GetAHRS() != nullptr)
+		oi->GetAHRS()->Reset();
+	StartPosition* autonomousPos = chooserPos.GetSelected();
+	ChosenGear* targetGear = chooserGear.GetSelected();
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
-	Command* autonomousDo = new CrossBaseLine();//chooserDo.GetSelected();
-	//double* angle = chooserAngle.GetSelected();
-	//if (angle != nullptr) {
-	//	oi->GetAHRS()->SetAngleAdjustment(*angle);
-//	}
+	Command* autonomousDo = chooserDo.GetSelected();
+	double* angle = chooserAngle.GetSelected();
+
+	if (chooserBot.GetSelected() != nullptr)
+		thisRobot = *chooserBot.GetSelected();
+
+	drivetrain->SetRobot(thisRobot);
+
+	if (angle != nullptr && oi->GetAHRS() != nullptr) {
+
+		oi->GetAHRS()->SetAngleAdjustment(*angle);
+	}
+
 	Robot::initialY = StartingPlaceY;
 	Robot::hopperY = hopperPositionY;
 	Robot::boilerY = boilerPositionY;
@@ -192,6 +208,10 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 	}*/
 	//??autonomous->End();
+	if (chooserBot.GetSelected() != nullptr)
+		thisRobot = *chooserBot.GetSelected();
+
+	drivetrain->SetRobot(thisRobot);
 }
 
 void Robot::TeleopPeriodic() {

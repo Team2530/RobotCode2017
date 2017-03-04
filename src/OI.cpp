@@ -60,6 +60,7 @@ OI::OI() {
 
 	//ahrs = new AHRS(SPI::Port::kMXP);
 	//ahrs->Reset();
+	ahrs = nullptr;
 
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such

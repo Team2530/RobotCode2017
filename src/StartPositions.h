@@ -39,6 +39,12 @@ enum ObjectPositions{
 	BOILERX,
 	BOILERR,
 };
+
+enum RobotChoice {
+	MIRACLE_MAX,
+	ZOMBERDINCK
+};
+
 //all X,Y are in inches. all R are in radians
 	//almost 100% positive starting position accounts for length of robot
 	static const double StartingPlaceY = 17.25; //y coordinate of starting place roughly,

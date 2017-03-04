@@ -8,9 +8,10 @@
 #include <math.h>
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
-	frontLeftController = new Spark(kFrontLeftChannel);
+
+	frontLeftController = new VictorSP(kFrontLeftChannel);
 	rearLeftController = new VictorSP(kRearLeftChannel);
-	frontRightController = new Spark(kFrontRightChannel);
+	frontRightController = new VictorSP(kFrontRightChannel);
 	rearRightController = new VictorSP(kRearRightChannel);
 
 
@@ -21,17 +22,25 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrainSubsystem") {
 	);
 	robotDrive->SetExpiration(0.1);
 
-	// Invert the left side motors
-	robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
-
-	// You may need to change or remove this to match your robot
-	robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 }
 
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	SetDefaultCommand(new MecanumDriveFieldOriented());
 }
+
+void DriveTrain::SetRobot(RobotChoice thisRobot) {
+
+	if (thisRobot == MIRACLE_MAX) {
+
+		// Invert the left side motors
+		robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
+
+		// You may need to change or remove this to match your robot
+		robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+	}
+}
+
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

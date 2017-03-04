@@ -27,7 +27,7 @@ Tracker::Tracker() :
 	pidrc.SetContinuous();
 	pidrc.SetOutputRange(-1, 1);
 
-	ahrs = new AHRS(SerialPort::kMXP);//check port
+	ahrs = nullptr; // new AHRS(SerialPort::kMXP);//check port
 	table = NetworkTable::GetTable("robotPosition");
 	SDtable = NetworkTable::GetTable("SmartDashboard");
 	DBtable = SDtable->GetSubTable("DB");
@@ -48,7 +48,7 @@ void Tracker::StartTracking(){
 	if (ahrs == nullptr) {
 		ahrs = Robot::oi->GetAHRS();
 	}
-	ahrs->Reset();
+	if (ahrs != nullptr) ahrs->Reset();
 }
 
 void Tracker::GetPosition(){
@@ -59,7 +59,7 @@ void Tracker::GetPosition(){
 	double distanceY = frontEncoder->GetDistance();
 	frontEncoder->Reset();
 	sideEncoder->Reset();
-	double angle =  ahrs->GetYaw();
+	double angle =  ahrs != nullptr ? ahrs->GetYaw() : 0.0;
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;

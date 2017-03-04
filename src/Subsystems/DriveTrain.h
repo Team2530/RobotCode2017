@@ -4,6 +4,7 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include "../Orientation.h"
+#include "StartPositions.h"
 
 using namespace frc;
 
@@ -20,9 +21,9 @@ private:
 
 	static constexpr int kJoystickChannel = 0;
 
-	Spark* frontLeftController;
+	VictorSP* frontLeftController;
 	VictorSP* rearLeftController;
-	Spark* frontRightController;
+	VictorSP* frontRightController;
 	VictorSP* rearRightController;
 
 	// Robot drive system
@@ -33,6 +34,8 @@ public:
 	void Stop();
 	void InitDefaultCommand();
 	void DriveForward();
+
+	void SetRobot(RobotChoice thisRobot);
 
 	void DriveWithCoordinates(double x, double y, double z, double Angle);
 
