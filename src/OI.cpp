@@ -7,8 +7,8 @@
 #include <Commands/DriveLeft.h>
 #include <Commands/MecanumDriveWithJoystick.h>
 #include <Commands/DriveBackSideForward.h>
-#include <Commands/DriveRightSideForward.h>
 #include <Commands/DriveLeftSideForward.h>
+#include <Commands/DriveRightSideForward.h>
 
 #include <Commands/DriveToPosition.h>
 
@@ -24,13 +24,13 @@
 
 #include <Commands/ResetDump.h>
 #include <Commands/ResetTracker.h>
+
 #include <Commands/DriveToPosition.h>
-
-
+#include <Positions/RobotRelative.h>
 #include <Positions/Absolute.h>
 #include <Positions/AbsoluteAngle.h>
+
 #include <Positions/FieldRelative.h>
-#include <Positions/RobotRelative.h>
 
 OI::OI() {
 	// Process operator interface input here.
@@ -45,18 +45,13 @@ OI::OI() {
 	B3->WhileHeld(new MecanumDriveWithJoystick());
 	B4 = new frc::JoystickButton(joy,4);				//Has the lifter side act as the front!
 	B4->WhileHeld(new DriveBackSideForward());
-	B5 = new frc::JoystickButton(joy,5);				//Has the dumper side act as the front!
+	B5 = new frc::JoystickButton(joy,5);				//Has the taco side act as the front!
 	B5->WhileHeld(new DriveLeftSideForward());
-	B6 = new frc::JoystickButton(joy,6);				//Has the taco side act as the front!
+	B6 = new frc::JoystickButton(joy,6);				//Has the dumper side act as the front!
 	B6->WhileHeld(new DriveRightSideForward());
 
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
-
-	B11 = new frc::JoystickButton(joy,11);
-	//B11->WhileHeld(new DriveForward());
-	B12 = new frc::JoystickButton(joy, 12);
-	//B12->WhenPressed(new OrientRobot(&ninetyDegrees));
 
 	ahrs = new AHRS(SPI::Port::kMXP);
 	ahrs->Reset();

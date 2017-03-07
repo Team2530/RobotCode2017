@@ -19,8 +19,8 @@ private:
 	JoystickButton *B2;  //DriveLeft
 	JoystickButton *B3;  //MecanumDriveWithJoystick
 	JoystickButton *B4;  //DriveBackSideForward
-	JoystickButton *B5;  //DriveRightSideForward
-	JoystickButton *B6;  //DriveLeftSideForward
+	JoystickButton *B5;  //DriveLeftSideForward
+	JoystickButton *B6;  //DriveRighttSideForward
 
 	JoystickButton *B7;  //Unused
 	JoystickButton *B8;  //Unused
@@ -28,9 +28,8 @@ private:
 	JoystickButton *B9;  //DriveToPosition Test
 
 	JoystickButton *B10; //Unused
-
-	JoystickButton *B11; //DriveForward
-	JoystickButton *B12; //OrientRobotNinetyDegrees
+	JoystickButton *B11; //Unused
+	JoystickButton *B12; //Unused
 
 	XboxController *Xbox;
 	JoystickButton *A; 	 // intake on

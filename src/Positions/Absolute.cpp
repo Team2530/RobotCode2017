@@ -19,6 +19,13 @@ Absolute::Absolute(double x, double y, double r) {
 	haverotation = true;
 	rotation = r;
 }
+Absolute::Absolute(FieldPosition* src) {
+	positionx = src->GetX();
+	positiony = src->GetY();
+	haverotation = true;
+	rotation = src->GetR();
+}
+
 
 void Absolute::UpdatePositionAbs(double* x, double* y, double* r) {
 	*x = positionx;
@@ -31,4 +38,3 @@ void Absolute::UpdatePositionAbs(double* x, double* y, double* r) {
 void Absolute::Update(Position* updater) {
 	updater->UpdatePositionAbs(&positionx, &positiony, &rotation);
 }
-

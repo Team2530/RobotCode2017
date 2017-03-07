@@ -2,7 +2,6 @@
 #include "../RobotMap.h"
 #include "ControllerConstants.h"
 
-#include "../Commands/MecanumDriveWithJoystick.h"
 #include "../Commands/MecanumDriveFieldOriented.h"
 
 #include <math.h>
@@ -120,12 +119,3 @@ void DriveTrain::Stop() {
 
 	robotDrive->MecanumDrive_Cartesian(0,0,0);
 }
-void DriveTrain::DriveForward() {
-
-	robotDrive->MecanumDrive_Cartesian(0,-0.5,0);
-}
-
-//void DriveTrain::DrivePastBaseLine(){
-
-
-//}

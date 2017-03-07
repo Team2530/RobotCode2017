@@ -30,22 +30,18 @@ private:
 	frc::RobotDrive* robotDrive;
 public:
 	DriveTrain();
-	void Drive(Joystick* stick, Orientation orientation = INTAKE_FORWARD);
-	void Stop();
 	void InitDefaultCommand();
-	void DriveForward();
-
 	void SetRobot(RobotChoice thisRobot);
-
-	void DriveWithCoordinates(double x, double y, double z, double Angle);
-	void DirectDrive(double x, double y, double z, double Angle);
-
+	void Drive(Joystick* stick, Orientation orientation = INTAKE_FORWARD);
 	void DriveLeft();
 	void DriveLeftSideForward(Joystick* stick);
 	void DriveRightSideForward(Joystick* stick);
 	void DriveBackSideForward(Joystick* stick);
-	void DrivePastBaseLine();
 
+	void DriveWithCoordinates(double x, double y, double z, double Angle);
+	void DirectDrive(double x, double y, double z, double Angle);
+
+	void Stop();
 };
 
 #endif  // DriveTrain_H

@@ -1,4 +1,4 @@
-#ifndef DriveToFieldPositionTest_H
+#ifndef DriveToFieldPositionTest_H					//This file is unnecessary! Use DriveToFieldPosition.h instead!
 #define DriveToFieldPositionTest_H
 #include "FieldPositions/FieldPosition.h"
 #include "Commands/Command.h"
