@@ -1,7 +1,7 @@
 #ifndef RotateToFP_H
 #define RotateToFP_H
 
-#include "../CommandBase.h"
+#include <Commands/Command.h>
 
 class RotateToFP : public Command {
 public:

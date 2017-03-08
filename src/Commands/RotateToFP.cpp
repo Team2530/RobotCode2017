@@ -1,7 +1,9 @@
 #include "RotateToFP.h"
 
+#include "../Robot.h"
+
 RotateToFP::RotateToFP() {
-	FieldP = FP;
+	//FieldP = FP;
 		Requires(Robot::tracker.get());
 		Requires(Robot::drivetrain.get());
 	// eg. Requires(Robot::chassis.get());
@@ -10,9 +12,9 @@ RotateToFP::RotateToFP() {
 // Called just before this Command runs the first time
 void RotateToFP::Initialize() {
 	Robot::tracker->PIDReset();
-	Robot::tracker->Set(Robot::tracker->GetCurrentPositionX(),
+	/*Robot::tracker->Set(Robot::tracker->GetCurrentPositionX(),
 			            Robot::tracker-> GetCurrentPositionY(),
-			            Robot::tracker->GetCurrentPositionR());
+			            Robot::tracker->GetCurrentAngle());*/
 }
 
 // Called repeatedly when this Command is scheduled to run

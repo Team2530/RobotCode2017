@@ -14,9 +14,9 @@ class RelativeFieldPosition: public FieldPosition {
 public:
 
 	RelativeFieldPosition(double x, double y, double angle);
-	virtual double getX();
-	virtual double getY();
-	virtual double getR();
+	virtual double getX() = 0;
+	virtual double getY() = 0;
+	virtual double getR() = 0;
 
 	double changeInX;
 	double changeInY;
