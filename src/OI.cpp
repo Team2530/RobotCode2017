@@ -74,7 +74,7 @@ OI::OI() {
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new ResetTracker());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new DriveToPosition(new Absolute(0,0)));
+	Start->WhenPressed(new DriveToPosition(new Absolute(0,0)));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhenPressed(new DriveToPosition(new AbsoluteAngle(0)));
 	/*/

@@ -10,20 +10,20 @@ Tracker::Tracker() :
 	pidrs(&this->currentAngle),
 	pidro(&this->pidr),
 	pidpo(&this->power),
-	pidpc(0.01, 0.000, 0.0, this, &pidpo),
-	pidrc(0.01, 0.000, 0.0, &pidrs, &pidro)
+	pidpc(0.04, 0.000, 0.12, this, &pidpo),
+	pidrc(0.02, 0.000, 0.04, &pidrs, &pidro)
 {
 	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
 
-	pidpc.SetAbsoluteTolerance(1.0); // inches
+	pidpc.SetAbsoluteTolerance(4.0); // inches
 	pidpc.SetSetpoint(0);
-	pidpc.SetOutputRange(0, 1);
+	//pidpc.SetOutputRange(0, 1);
 
 	pidrc.SetInputRange(0, 360);
-	pidrc.SetAbsoluteTolerance(2.0); // degrees
+	pidrc.SetAbsoluteTolerance(2); // degrees
 	pidrc.SetContinuous();
 	pidrc.SetOutputRange(-1, 1);
 
@@ -120,7 +120,9 @@ double Tracker::GetDistance() {
 	GetPosition();
 	double dx = this->goalPositionX - this->currentPositionX;
 	double dy = this->goalPositionY - this->currentPositionY;
-	return hypot(dx,dy);
+	double distance = hypot(dx,dy);
+	//std::printf("Distance: %f\n", distance);
+	return distance;
 }
 double Tracker::PIDGet() {
 	return GetDistance();
@@ -151,8 +153,8 @@ void Tracker::UpdatePIDFromTable() {
 }
 
 void Tracker::Drive(DriveTrain* drivetrain) {
-	const double MAX_POW = 1;
-	const double MAX_ROT = 0.75;
+	const double MAX_POW = 0.25;
+	const double MAX_ROT = 0.5;
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dx, dy) * 180 / M_PI;
@@ -162,7 +164,7 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double rot = pidr;
 	if (rot > MAX_ROT) rot = MAX_ROT;
 	if (rot < -MAX_ROT) rot = -MAX_ROT;
-	std::printf("Rotation command: %f\n", rot);
+	//std::printf("Drive command: %f\n", backward);
 	drivetrain->DirectDrive(
 		0, backward, rot,
 		currentAngle - goalAngle

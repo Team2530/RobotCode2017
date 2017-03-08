@@ -33,6 +33,7 @@ public:
 		src = source;
 	}
 	void PIDWrite(double output) {
+		//std::printf("PIDWrite %f (@%p)\n", output, src);
 		*src = output;
 	}
 private:
