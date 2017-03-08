@@ -63,6 +63,7 @@ void Robot::RobotInit() {
 	chooserDo.AddDefault("Cross BaseLine", new DriveToFieldPosition(new CrossBaseLineFieldPosition())); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
+	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
 	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to

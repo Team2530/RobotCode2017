@@ -30,6 +30,7 @@
 #include "Commands/DoNothing.h"
 #include "Commands/DeliverGear.h"
 #include "Commands/DriveToFieldPosition.h"
+#include "Commands/PerimeterMovement.h"
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Intake.h"
