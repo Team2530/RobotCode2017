@@ -96,7 +96,7 @@ void Tracker::MoveToAbs(double x, double y) {
 
 
 void Tracker::Set(double x, double y, double angle) {
-	UpdatePIDFromTable();
+	//UpdatePIDFromTable();
 	this->goalPositionX = x;
 	this->goalPositionY = y;
 	pidrc.SetSetpoint(angle);
