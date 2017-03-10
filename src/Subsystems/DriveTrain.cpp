@@ -107,29 +107,30 @@ double GetThrottleMultiplier (double CurrentThrottle) {
 	const double MinThrottle = 0.3 ;
 	return  -((1-MinThrottle)/2)*CurrentThrottle+((1-MinThrottle)/2)+MinThrottle;
 }
-double GetScaledPower (double unscaledPower, double ThrottleMultiplier, double db) {
-	const double MinPower = 0.2;
-	double absPower = std::fabs (unscaledPower);
+double GetScaledPower (double unscaledPower, double ThrottleMultiplier, double db, double MinPower) {
+	double absPower = std::fabs(unscaledPower);
 	if (absPower < db) return 0;
 	double scaledPower = (ThrottleMultiplier-MinPower)*absPower+MinPower;
-    double s = std::signbit(unscaledPower);
-    return s*scaledPower;
+    double finalPower = std::copysign(scaledPower, unscaledPower);
+    return finalPower;
 }
 void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle) {
+	const double MinPower = 0.2;
 
 	double tm = GetThrottleMultiplier (Throttle);
 
-	x=GetScaledPower(x,tm,db);
-	y=GetScaledPower(x,tm,db);
-	z=GetScaledPower(x,1.0,db);
+	x=GetScaledPower(x,tm,db,MinPower);
+	y=GetScaledPower(y,tm,db,MinPower);
+	z=GetScaledPower(z,tm,db,0.05);
 	robotDrive->MecanumDrive_Cartesian(x,y,z,Angle);
 }
 
 void DriveTrain::DirectDrive(double x, double y, double z, double Angle) {
-	double db = 0.001;
-	    x=GetScaledPower(x,1.0,db);
-		y=GetScaledPower(x,1.0,db);
-		z=GetScaledPower(x,1.0,db);
+	const double db = 0.001;
+	const double MinPower = 0.2;
+	x=GetScaledPower(x,1.0,db,MinPower);
+	y=GetScaledPower(y,1.0,db,MinPower);
+	z=GetScaledPower(z,1.0,db,0.05);
 	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
 }
 

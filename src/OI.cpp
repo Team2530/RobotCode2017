@@ -59,14 +59,15 @@ OI::OI() {
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such
 	/**/
+	const double testdistance = 20;
 	A = new frc::JoystickButton(Xbox, 1);
-	A->WhileHeld(new DriveToPosition(new RobotRelative(0, -10)));
+	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance)));
 	B = new frc::JoystickButton(Xbox, 2);
-	B->WhileHeld(new DriveToPosition(new RobotRelative(10, 0)));
+	B->WhenPressed(new DriveToPosition(new RobotRelative(testdistance, 0)));
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhileHeld(new DriveToPosition(new RobotRelative(-10, 0)));
+	X->WhenPressed(new DriveToPosition(new RobotRelative(-testdistance, 0)));
 	Y = new frc::JoystickButton(Xbox, 4);
-	Y->WhileHeld(new DriveToPosition(new RobotRelative(0, 10)));
+	Y->WhenPressed(new DriveToPosition(new RobotRelative(0, testdistance)));
 	LB = new frc::JoystickButton(Xbox, 5);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
