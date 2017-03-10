@@ -49,10 +49,9 @@ void DriveTrain::SetRobot(RobotChoice thisRobot) {
 // here. Call these from Commands.
 void DriveTrain::Drive(Joystick* stick, Orientation orientation) {
     if (stick) {
-	    double scale = 0.6-0.4*stick->GetThrottle();
 	    DriveWithCoordinates(
-	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), orientation
+	  	      stick->GetX(), stick->GetY(),
+	  	      stick->GetZ(), orientation, stick->GetThrottle()
 	    );
     }
 }
@@ -64,10 +63,10 @@ void DriveTrain::DriveLeft() {
 
 void DriveTrain::DriveLeftSideForward(Joystick* stick) {
     if (stick) {
-	    double scale = 0.6-0.4*stick->GetThrottle();
+
 	    DriveWithCoordinates(
-	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), 90
+	  	     stick->GetX(), stick->GetY(),
+	  	      stick->GetZ(), 90, stick->GetThrottle()
 	    );
     }
 }
@@ -76,20 +75,20 @@ void DriveTrain::DriveLeftSideForward(Joystick* stick) {
 
 void DriveTrain::DriveRightSideForward(Joystick* stick) {
     if (stick) {
-	    double scale = 0.6-0.4*stick->GetThrottle();
+
 	    DriveWithCoordinates(
-	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), -90
+	  	      stick->GetX(), stick->GetY(),
+	  	      stick->GetZ(), -90, stick->GetThrottle()
 	    );
     }
 }
 
 void DriveTrain::DriveBackSideForward(Joystick* stick) {
     if (stick) {
-	    double scale = 0.6-0.4*stick->GetThrottle();
+
 	    DriveWithCoordinates(
-	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), 180
+	  	      stick->GetX(), stick->GetY(),
+	  	     stick->GetZ(), 180, stick->GetThrottle()
 	    );
     }
 }
@@ -104,13 +103,33 @@ double deadband(double value) {
 	}
 	return 0;
 }
+double GetThrottleMultiplier (double CurrentThrottle) {
+	const double MinThrottle = 0.3 ;
+	return  -((1-MinThrottle)/2)*CurrentThrottle+((1-MinThrottle)/2)+MinThrottle;
+}
+double GetScaledPower (double unscaledPower, double ThrottleMultiplier, double db) {
+	const double MinPower = 0.2;
+	double absPower = std::fabs (unscaledPower);
+	if (absPower < db) return 0;
+	double scaledPower = (ThrottleMultiplier-MinPower)*absPower+MinPower;
+    double s = std::signbit(unscaledPower);
+    return s*scaledPower;
+}
+void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle) {
 
-void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle) {
-	z = z*std::abs(z);
-	DirectDrive(deadband(x), deadband(y), deadband(z), Angle);
+	double tm = GetThrottleMultiplier (Throttle);
+
+	x=GetScaledPower(x,tm,db);
+	y=GetScaledPower(x,tm,db);
+	z=GetScaledPower(x,1.0,db);
+	robotDrive->MecanumDrive_Cartesian(x,y,z,Angle);
 }
 
 void DriveTrain::DirectDrive(double x, double y, double z, double Angle) {
+	double db = 0.001;
+	    x=GetScaledPower(x,1.0,db);
+		y=GetScaledPower(x,1.0,db);
+		z=GetScaledPower(x,1.0,db);
 	robotDrive->MecanumDrive_Cartesian(x, y, z, Angle);
 }
 
@@ -119,3 +138,6 @@ void DriveTrain::Stop() {
 
 	robotDrive->MecanumDrive_Cartesian(0,0,0);
 }
+
+
+

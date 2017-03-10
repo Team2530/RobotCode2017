@@ -17,10 +17,10 @@ void MecanumDriveFieldOriented::Initialize() {
 void MecanumDriveFieldOriented::Execute() {
 	AHRS* ahrs = Robot::oi->GetAHRS();
 	Joystick* stick = Robot::oi->GetJoystick();
-    double scale = 0.6-0.4*stick->GetThrottle();
+
 	Robot::drivetrain->DriveWithCoordinates(
-	  	      scale*stick->GetX(), scale*stick->GetY(),
-	  	      scale*stick->GetZ(), (ahrs != nullptr) ? ahrs->GetAngle(): 0.0);
+	  	   stick->GetX(), stick->GetY(),
+	  	    stick->GetZ(), (ahrs != nullptr) ? ahrs->GetAngle(): 0.0, stick->GetThrottle());
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -38,7 +38,7 @@ public:
 	void DriveRightSideForward(Joystick* stick);
 	void DriveBackSideForward(Joystick* stick);
 
-	void DriveWithCoordinates(double x, double y, double z, double Angle);
+	void DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle);
 	void DirectDrive(double x, double y, double z, double Angle);
 
 	void Stop();
