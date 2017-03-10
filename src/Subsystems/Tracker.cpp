@@ -17,6 +17,8 @@ Tracker::Tracker() :
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
+	frontLastMeasurement = 0;
+	sideLastMeasurement = 0;
 
 	pidpc.SetAbsoluteTolerance(4.0); // inches
 	pidpc.SetSetpoint(0);
@@ -37,6 +39,8 @@ void Tracker::InitDefaultCommand() {
 	// SetDefaultCommand(new MySpecialCommand());
 	frontEncoder->Reset();
 	sideEncoder->Reset();
+	frontLastMeasurement = 0;
+	sideLastMeasurement = 0;
 	SetDefaultCommand(new GetFieldPosition());
 }
 void Tracker::StartTracking(){
@@ -55,10 +59,12 @@ void Tracker::GetPosition(){
 	if (ahrs == nullptr) {
 		ahrs = Robot::oi->GetAHRS();
 	}
-	double distanceX = sideEncoder->GetDistance();
-	double distanceY = frontEncoder->GetDistance();
-	frontEncoder->Reset();
-	sideEncoder->Reset();
+	double side = sideEncoder->GetDistance();
+	double front = frontEncoder->GetDistance();
+	double distanceX = side - sideLastMeasurement;
+	double distanceY = front - frontLastMeasurement;
+	sideLastMeasurement = side;
+	frontLastMeasurement = front;
 	double angle =  ahrs != nullptr ? ahrs->GetYaw() : 0.0;
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
@@ -158,16 +164,21 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dx, dy) * 180 / M_PI;
-	double backward = power;
-	if (backward > MAX_POW) backward = MAX_POW;
-	if (backward < -MAX_POW) backward = -MAX_POW;
+	double pwr = power;
+	if (pwr > MAX_POW) pwr = MAX_POW;
+	if (pwr < -MAX_POW) pwr = -MAX_POW;
 	double rot = pidr;
 	if (rot > MAX_ROT) rot = MAX_ROT;
 	if (rot < -MAX_ROT) rot = -MAX_ROT;
 	//std::printf("Drive command: %f\n", backward);
+
+	// Rotate coordinates to robot oriented
+	double rad = (goalAngle - currentAngle + 90) * M_PI/180;
+	double x = pwr*cos(rad);
+	double y = pwr*sin(rad);
+
 	drivetrain->DirectDrive(
-		0, backward, rot,
-		currentAngle - goalAngle
+		x, y, rot
 	);
 }
 

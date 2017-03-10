@@ -46,6 +46,9 @@ private:
 	frc::Encoder* sideEncoder;
 	AHRS* ahrs;
 
+	double frontLastMeasurement;
+	double sideLastMeasurement;
+
 	// These represent where we are on the field (X, Y)
 	// and where we are facing.
 	double goalPositionX;

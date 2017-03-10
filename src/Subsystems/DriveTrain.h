@@ -39,7 +39,8 @@ public:
 	void DriveBackSideForward(Joystick* stick);
 
 	void DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle);
-	void DirectDrive(double x, double y, double z, double Angle);
+	// Robot oriented: increase left/right authority
+	void DirectDrive(double x, double y, double z);
 
 	void Stop();
 };
