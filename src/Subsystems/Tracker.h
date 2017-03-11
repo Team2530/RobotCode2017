@@ -55,7 +55,9 @@ private:
 	double goalPositionY;
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
-	double currentAngle; // angle in degrees, right is positive??
+	double currentAngle; // angle in degrees, right is positive
+
+	double angleAdjustment;
 
 	// Outputs from PID Controllers
 	double pidr;
@@ -81,7 +83,7 @@ private:
 public:
 	Tracker();
 	void InitDefaultCommand();
-	void StartTracking();
+	void StartTracking(double initialX = 0, double initialY = 0, double initialAngle = 0);
 	void GetPosition();
 	// For controlling position
 	// Initialize the PID controllers

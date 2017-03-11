@@ -7,6 +7,8 @@
 
 #include "DriveLeftSideForward.h"
 
+#include "../Orientation.h"
+
 #include "Robot.h"
 DriveLeftSideForward::DriveLeftSideForward():Command("DriveLeftSideForward") {
 	// Use Requires() here to declare subsystem dependencies
@@ -20,7 +22,7 @@ void DriveLeftSideForward::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveLeftSideForward::Execute() {
-	Robot::drivetrain->DriveLeftSideForward(Robot::oi->GetJoystick());
+	Robot::drivetrain->Drive(Robot::oi->GetJoystick(), TAKKO_FORWARD);
 }
 
 // Make this return true when this Command no longer needs to run execute()

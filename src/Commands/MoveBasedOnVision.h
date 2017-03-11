@@ -5,8 +5,11 @@
 // replace with FieldLocation??
 
 class MoveBasedOnVision : public frc::Command {
+private:
+	double goal;
+	double lock;
 public:
-	MoveBasedOnVision();
+	MoveBasedOnVision(double distance = 36, double angle = 0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

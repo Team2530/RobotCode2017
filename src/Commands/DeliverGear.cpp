@@ -18,9 +18,12 @@
 #include "../FieldPositions/FieldPositionToRotateTo.h"
 
 DeliverGear::DeliverGear(){
+	double angle = 90;
 	AddSequential(new ApproachGear());
-	AddSequential(new MoveBasedOnVision());
+	AddSequential(new MoveBasedOnVision(36, angle));
+	AddSequential(new MoveBasedOnVision(30, angle));
+	AddSequential(new MoveBasedOnVision(24, angle));
 	// The vision is supposed to line up 3 feet away: drive forward that amount
 	// Reserve 16-17 inches between the center of the robot and the lift
-	AddSequential(new DriveToPosition(new RobotRelative(0, 3*12 - 17)));
+	AddSequential(new DriveToPosition(new RobotRelative(-20, 0, angle, true)));
 }

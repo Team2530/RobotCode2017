@@ -15,8 +15,9 @@ private:
 	double distr;
 	double distf;
 	double rot;
+	bool rotation_abs;
 public:
-	RobotRelative(double right, double forward, double rotation = 0);
+	RobotRelative(double right, double forward, double rotation = 0, bool absrotation = false);
 	void UpdatePositionAbs(double* x, double* y, double* r) override;
 };
 

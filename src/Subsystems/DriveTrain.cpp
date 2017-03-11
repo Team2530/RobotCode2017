@@ -35,10 +35,14 @@ void DriveTrain::SetRobot(RobotChoice thisRobot) {
 		// Invert motors for max
 		robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
 		robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+		robotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, false);
+		robotDrive->SetInvertedMotor(RobotDrive::kFrontRightMotor, false);
 
 	} else if (thisRobot == ZOMBERDINCK) {
 
 		// Invert the left side motors for zomberdinck
+		robotDrive->SetInvertedMotor(RobotDrive::kFrontLeftMotor, false);
+		robotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, false);
 		robotDrive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 		robotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	}
@@ -59,38 +63,6 @@ void DriveTrain::Drive(Joystick* stick, Orientation orientation) {
 void DriveTrain::DriveLeft() {
 	robotDrive->MecanumDrive_Cartesian(-0.5,0,0);
 
-}
-
-void DriveTrain::DriveLeftSideForward(Joystick* stick) {
-    if (stick) {
-
-	    DriveWithCoordinates(
-	  	     stick->GetX(), stick->GetY(),
-	  	      stick->GetZ(), 90, stick->GetThrottle()
-	    );
-    }
-}
-
-
-
-void DriveTrain::DriveRightSideForward(Joystick* stick) {
-    if (stick) {
-
-	    DriveWithCoordinates(
-	  	      stick->GetX(), stick->GetY(),
-	  	      stick->GetZ(), -90, stick->GetThrottle()
-	    );
-    }
-}
-
-void DriveTrain::DriveBackSideForward(Joystick* stick) {
-    if (stick) {
-
-	    DriveWithCoordinates(
-	  	      stick->GetX(), stick->GetY(),
-	  	     stick->GetZ(), 180, stick->GetThrottle()
-	    );
-    }
 }
 
 const double db = 0.1;
@@ -121,13 +93,14 @@ void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 
 	x=GetScaledPower(x,tm,db,MinPower);
 	y=GetScaledPower(y,tm,db,MinPower);
-	z=GetScaledPower(z,tm,db,0.05);
+	// Square z (and db) to make it less sensitive around the center
+	z=GetScaledPower(z*fabs(z),tm,db*db,0.05);
 	robotDrive->MecanumDrive_Cartesian(x,y,z,Angle);
 }
 
 void DriveTrain::DirectDrive(double x, double y, double z) {
 	const double db = 0.001;
-	const double MinPower = 0.1;
+	const double MinPower = 0.05;
 	x=GetScaledPower(x,1.0,db,MinPower*2);
 	y=GetScaledPower(y,1.0,db,MinPower);
 	z=GetScaledPower(z,1.0,db,0.05);

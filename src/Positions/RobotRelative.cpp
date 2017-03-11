@@ -8,10 +8,11 @@
 #include <Positions/RobotRelative.h>
 #include <math.h>
 
-RobotRelative::RobotRelative(double right, double forward, double rotation) {
+RobotRelative::RobotRelative(double right, double forward, double rotation, bool absrotation) {
 	distr = right;
 	distf = forward;
 	rot = rotation;
+	rotation_abs = absrotation;
 }
 void RobotRelative::UpdatePositionAbs(double* x, double* y, double* r) {
 	double rad = (*r) * M_PI / 180;
@@ -19,5 +20,9 @@ void RobotRelative::UpdatePositionAbs(double* x, double* y, double* r) {
 	double dy = -distr*sin(rad) + distf*cos(rad);
 	*x += dx;
 	*y += dy;
-	*r += rot;
+	if (rotation_abs) {
+		*r = rot;
+	} else {
+		*r += rot;
+	}
 }

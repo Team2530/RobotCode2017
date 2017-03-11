@@ -10,6 +10,7 @@
 #include <Commands/DriveLeftSideForward.h>
 #include <Commands/DriveRightSideForward.h>
 
+#include <Commands/MoveBasedOnVision.h>
 #include <Commands/DriveToPosition.h>
 
 //Xbox
@@ -37,8 +38,7 @@ OI::OI() {
 	joy = new Joystick(0);
 
 	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
-	B1->WhenPressed(new LEDControl(true));
-	B1->WhenReleased(new LEDControl(false));
+	B1->WhenPressed(new MoveBasedOnVision(36));
 	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
 	B2->WhileHeld(new DriveLeft());
 	B3 = new frc::JoystickButton(joy, 3);
@@ -49,7 +49,10 @@ OI::OI() {
 	B5->WhileHeld(new DriveLeftSideForward());
 	B6 = new frc::JoystickButton(joy,6);				//Has the dumper side act as the front!
 	B6->WhileHeld(new DriveRightSideForward());
-
+	B7 = new frc::JoystickButton(joy, 7);
+	B7->WhenPressed(new MoveBasedOnVision(30));
+	B8 = new frc::JoystickButton(joy, 8);
+	B8->WhenPressed(new MoveBasedOnVision(24));
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 

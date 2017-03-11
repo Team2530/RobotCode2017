@@ -50,7 +50,7 @@ void Vision::Update() {
 	if (displacement != displacement || distance != distance) {
 		valid = false;
 	} else if (valid) {
-		std::printf("Dist %f, disp %f", distance, displacement);
+		//std::printf("Dist %f, disp %f", distance, displacement);
 	}
 }
 

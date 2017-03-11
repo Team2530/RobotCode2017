@@ -20,7 +20,7 @@ Tracker::Tracker() :
 	frontLastMeasurement = 0;
 	sideLastMeasurement = 0;
 
-	pidpc.SetAbsoluteTolerance(4.0); // inches
+	pidpc.SetAbsoluteTolerance(2.0); // inches
 	pidpc.SetSetpoint(0);
 	//pidpc.SetOutputRange(0, 1);
 
@@ -43,16 +43,19 @@ void Tracker::InitDefaultCommand() {
 	sideLastMeasurement = 0;
 	SetDefaultCommand(new GetFieldPosition());
 }
-void Tracker::StartTracking(){
+void Tracker::StartTracking(double initialX, double initialY, double initialAngle){
 	//currentPositionX = Robot::initialX;
 	//currentPositionY = 17.25;
-	currentPositionX = 0;
-	currentPositionY = 0;
-	currentAngle = 0;
+	currentPositionX = initialX;
+	currentPositionY = initialY;
+	currentAngle = initialAngle;
+	angleAdjustment = initialAngle;
 	if (ahrs == nullptr) {
 		ahrs = Robot::oi->GetAHRS();
 	}
-	if (ahrs != nullptr) ahrs->Reset();
+	if (ahrs != nullptr) {
+		ahrs->Reset();
+	}
 }
 
 void Tracker::GetPosition(){
@@ -65,15 +68,17 @@ void Tracker::GetPosition(){
 	double distanceY = front - frontLastMeasurement;
 	sideLastMeasurement = side;
 	frontLastMeasurement = front;
-	double angle =  ahrs != nullptr ? ahrs->GetYaw() : 0.0;
+	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
 	currentPositionX += changeInX;
 	currentPositionY += changeInY;
 	currentAngle = angle;
-	table->PutNumber("x", currentPositionX);;
-	table->PutNumber("y", currentPositionY);;
+	table->PutNumber("x", currentPositionX);
+	table->PutNumber("y", currentPositionY);
+	table->PutNumber("dx", goalPositionX - currentPositionX);
+	table->PutNumber("dy", goalPositionY - currentPositionY);
 	table->PutNumber("angle", currentAngle);
 }
 

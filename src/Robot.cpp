@@ -77,7 +77,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutData("Start Position", &chooserPos);
 
 	chooserAngle.AddDefault("Start facing forward", &start0);
-	chooserAngle.AddObject("Start with taco forward", &start_90);
+	chooserAngle.AddObject("Start with taco forward", &start90);
 	SmartDashboard::PutData("Starting orientation", &chooserAngle);
 
 	chooserBot.AddDefault("Miracle Max", &max);
@@ -118,16 +118,13 @@ void Robot::AutonomousInit() {
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
 	Command* autonomousDo = chooserDo.GetSelected();
 	double* angle = chooserAngle.GetSelected();
+	double initialAngle = 0;
+	if (angle != nullptr) initialAngle = *angle;
 
 	if (chooserBot.GetSelected() != nullptr)
 		thisRobot = *chooserBot.GetSelected();
 
 	drivetrain->SetRobot(thisRobot);
-
-	if (angle != nullptr && oi->GetAHRS() != nullptr) {
-
-		oi->GetAHRS()->SetAngleAdjustment(*angle);
-	}
 
 	Robot::initialY = StartingPlaceY;
 	Robot::hopperY = hopperPositionY;
@@ -192,7 +189,9 @@ void Robot::AutonomousInit() {
 			Robot::gearLifterR = rightGearPlaceR;
 			break;
 	}
-	tracker->StartTracking();
+	std::printf("Initial X: %f\nInitial Y: %f\nInitial R: %f\n", Robot::initialX, Robot::initialY, initialAngle);
+	std::printf("Gear X: %f\nGear Y: %f\nGear R: %f\n", Robot::gearLifterX, Robot::gearLifterY, Robot::gearLifterR);
+	tracker->StartTracking(Robot::initialX, Robot::initialY, initialAngle);
 
 	autonomousDo->Start();
 }

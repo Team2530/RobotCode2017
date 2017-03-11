@@ -15,7 +15,7 @@ void ApproachGear::Initialize() {
 	Absolute* approach = new Absolute(new GearFieldPosition());
 	// line up 3 ft away from the gear lift
 	// update rotation by 90 degrees to put takko forward
-	approach->Update(new RobotRelative(0, -3*12, 90));
+	//approach->Update(new RobotRelative(0, -3*12, 90));
 	Robot::tracker->PIDReset();
 	Robot::tracker->MoveToPos(approach);
 }
