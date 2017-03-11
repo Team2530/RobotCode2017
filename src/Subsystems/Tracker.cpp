@@ -175,3 +175,8 @@ double Tracker::GetCurrentPositionX(){
 double Tracker::GetCurrentPositionY(){
 	return currentPositionY;
 }
+void Tracker::AngleLock(){
+	UpdatePIDFromTable();
+		pidrc.SetSetpoint(currentAngle);
+		pidrc.Enable();
+}

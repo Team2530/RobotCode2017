@@ -115,6 +115,7 @@ public:
 	// Call with Robot::drivetrain.get()
 	// To move wheels towards goal position or rotation
 	void Drive(DriveTrain* drivetrain);
+	void AngleLock();
 };
 
 #endif  // Tracker_H

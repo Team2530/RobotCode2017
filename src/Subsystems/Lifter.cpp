@@ -25,4 +25,8 @@ void Lifter::Fast(){
 void Lifter::Slow(){
 	lifterMotor->SetSpeed(0.5);
 }
+void Lifter::Reverse(){
+	lifterMotor->SetSpeed(-0.2);
+
+}
 

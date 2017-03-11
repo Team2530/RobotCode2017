@@ -16,6 +16,7 @@ public:
 	void Fast();
 	void Slow();
 	void Stop();
+	void Reverse();
 
 
 
