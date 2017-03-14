@@ -40,7 +40,7 @@ OI::OI() {
 	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
 	B1->WhenPressed(new MoveBasedOnVision(36));
 	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
-	B2->WhileHeld(new DriveLeft());
+	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
 	B3 = new frc::JoystickButton(joy, 3);
 	B3->WhileHeld(new MecanumDriveWithJoystick());
 	B4 = new frc::JoystickButton(joy,4);				//Has the lifter side act as the front!
