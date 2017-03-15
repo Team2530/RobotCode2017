@@ -14,7 +14,10 @@ void DriveLeft::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveLeft::Execute() {
-  Robot::drivetrain->DriveLeft();
+  //Robot::drivetrain->DriveLeft();
+	double headingLockPID = Robot::tracker->GetPIDRotation();
+	bool enableHeadingLock = Robot::drivetrain->DriveWithCoordinates(-0.5, 0, 0, 0, -1, headingLockPID);
+	Robot::tracker->EnableHeadingLock(enableHeadingLock);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -25,10 +28,12 @@ bool DriveLeft::IsFinished() {
 // Called once after isFinished returns true
 void DriveLeft::End() {
   Robot::drivetrain->Stop();
+  Robot::tracker->EnableHeadingLock(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveLeft::Interrupted() {
   Robot::drivetrain->Stop();
+  Robot::tracker->EnableHeadingLock(false);
 }

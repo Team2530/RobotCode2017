@@ -22,7 +22,7 @@ void MoveBasedOnVision::Initialize() {
 	double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
 	double distance = Robot::vision->GetDistance() - goal;
 	double displacement = camera_offset - Robot::vision->GetDisplacement();
-	std::printf("Move forward %f in, right %f\n", distance, displacement);
+	std::printf("VISION INIT: Move forward %f in, right %f\n", distance, displacement);
 	// Move until the takko is (hopefully) centered, about 3 feet away
 	Robot::tracker->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
 }
@@ -40,6 +40,7 @@ bool MoveBasedOnVision::IsFinished() {
 
 // Called once after isFinished returns true
 void MoveBasedOnVision::End() {
+	std::printf("VISION END\n");
 	Robot::tracker->PIDDisable();
 	Robot::drivetrain->Stop();
 }
@@ -47,6 +48,7 @@ void MoveBasedOnVision::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MoveBasedOnVision::Interrupted() {
+	std::printf("VISION INTERRUPT\n");
 	Robot::tracker->PIDDisable();
 	Robot::drivetrain->Stop();
 }

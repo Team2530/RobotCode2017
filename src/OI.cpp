@@ -36,7 +36,7 @@ OI::OI() {
 	joy = new Joystick(0);
 
 	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
-	B1->WhenPressed(new MoveBasedOnVision(36));
+	B1->WhenPressed(new MoveBasedOnVision(36, 90));
 	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
 	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
 	B3 = new frc::JoystickButton(joy, 3);
@@ -48,9 +48,9 @@ OI::OI() {
 	B6 = new frc::JoystickButton(joy,6);				//Has the dumper side act as the front!
 	B6->WhileHeld(new DriveRightSideForward());
 	B7 = new frc::JoystickButton(joy, 7);
-	B7->WhenPressed(new MoveBasedOnVision(30));
+	B7->WhenPressed(new MoveBasedOnVision(30, 90));
 	B8 = new frc::JoystickButton(joy, 8);
-	B8->WhenPressed(new MoveBasedOnVision(24));
+	B8->WhenPressed(new MoveBasedOnVision(24, 90));
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 

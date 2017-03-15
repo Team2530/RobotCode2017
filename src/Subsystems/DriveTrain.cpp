@@ -86,7 +86,7 @@ double GetScaledPower (double unscaledPower, double ThrottleMultiplier, double d
     double finalPower = std::copysign(scaledPower, unscaledPower);
     return finalPower;
 }
-void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle) {
+bool DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle, double Throttle, double headinglock) {
 	const double MinPower = 0.1;
 
 	double tm = GetThrottleMultiplier (Throttle);
@@ -95,7 +95,16 @@ void DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 	y=GetScaledPower(y,tm,db,MinPower);
 	// Square z (and db) to make it less sensitive around the center
 	z=GetScaledPower(z*fabs(z),tm,db*db,0.05);
+
+	bool enableHeadingLock = false;
+	// If twist is within the deadband, use the heading lock value passed in
+	// and return true to enable the PIDs
+	if (z == 0) {
+		enableHeadingLock = true;
+		z = headinglock;
+	}
 	robotDrive->MecanumDrive_Cartesian(x,y,z,Angle);
+	return enableHeadingLock;
 }
 
 void DriveTrain::DirectDrive(double x, double y, double z) {

@@ -24,7 +24,7 @@ Tracker::Tracker() :
 	pidpc.SetSetpoint(0);
 	//pidpc.SetOutputRange(0, 1);
 
-	pidrc.SetInputRange(0, 360);
+	pidrc.SetInputRange(-180, 180);
 	pidrc.SetAbsoluteTolerance(2); // degrees
 	pidrc.SetContinuous();
 	pidrc.SetOutputRange(-1, 1);
@@ -69,6 +69,8 @@ void Tracker::GetPosition(){
 	sideLastMeasurement = side;
 	frontLastMeasurement = front;
 	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
+	if (angle > 180) angle -= 180;
+	if (angle < -180) angle += 180;
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
@@ -163,9 +165,10 @@ void Tracker::UpdatePIDFromTable() {
 	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
 }
 
+const double MAX_POW = 0.25;
+const double MAX_ROT = 0.5;
+
 void Tracker::Drive(DriveTrain* drivetrain) {
-	const double MAX_POW = 0.25;
-	const double MAX_ROT = 0.5;
 	double dx = goalPositionX - currentPositionX;
 	double dy = goalPositionY - currentPositionY;
 	double goalAngle = atan2(dx, dy) * 180 / M_PI;
@@ -185,6 +188,27 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 	drivetrain->DirectDrive(
 		x, y, rot
 	);
+}
+
+void Tracker::EnableHeadingLock(bool enabled) {
+	// If the joystick is twisted, use that value for control
+	if (!enabled) {
+		pidrc.Disable();
+		std::printf("Disable heading lock\n");
+		headingLockEnabled = false;
+		return;
+	}
+	// Enable PID is locked to the current angle and enabled
+	if (!headingLockEnabled) {
+		GetPosition();
+		pidr = 0; // reset PID output to 0, just in case
+		pidrc.Reset();
+		pidrc.SetSetpoint(currentAngle);
+		std::printf("Lock to heading %f\n", currentAngle);
+		pidrc.Enable();
+		headingLockEnabled = true;
+		return;
+	}
 }
 
 double Tracker::GetCurrentPositionX(){

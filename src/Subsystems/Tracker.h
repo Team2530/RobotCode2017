@@ -54,6 +54,9 @@ private:
 	double currentPositionY; // Forward
 	double currentAngle; // angle in degrees, right is positive
 
+	// Heading lock variables
+	bool headingLockEnabled;
+
 	double angleAdjustment;
 
 	// Outputs from PID Controllers
@@ -100,6 +103,10 @@ public:
 
 	// Read PID controller output
 	double GetPIDRotation();
+	// Pass in a deadbanded twist value
+	// Enable heading lock and return PID value if twist == 0
+	// Otherwise, return twist back
+	void EnableHeadingLock(bool enabled);
 
 	// Check if the robot is close to its goal
 	bool PIDFinished();
