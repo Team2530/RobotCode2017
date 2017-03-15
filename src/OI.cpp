@@ -4,9 +4,6 @@
 #include <Commands/LEDControl.h>				//Please do not include the same file multiple times!
 #include <Commands/DriveLeft.h>
 #include <Commands/MecanumDriveWithJoystick.h>
-#include <Commands/DriveBackSideForward.h>
-#include <Commands/DriveLeftSideForward.h>
-#include <Commands/DriveRightSideForward.h>
 
 #include <Commands/MoveBasedOnVision.h>
 #include <Commands/DriveToPosition.h>
@@ -31,6 +28,8 @@
 
 #include <Positions/FieldRelative.h>
 
+#include "Orientation.h"
+
 OI::OI() {
 	// Process operator interface input here.
 	joy = new Joystick(0);
@@ -41,12 +40,12 @@ OI::OI() {
 	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
 	B3 = new frc::JoystickButton(joy, 3);
 	B3->WhileHeld(new MecanumDriveWithJoystick());
-	B4 = new frc::JoystickButton(joy,4);				//Has the lifter side act as the front!
-	B4->WhileHeld(new DriveBackSideForward());
-	B5 = new frc::JoystickButton(joy,5);				//Has the taco side act as the front!
-	B5->WhileHeld(new DriveLeftSideForward());
-	B6 = new frc::JoystickButton(joy,6);				//Has the dumper side act as the front!
-	B6->WhileHeld(new DriveRightSideForward());
+	B4 = new frc::JoystickButton(joy,4);
+	B4->WhileHeld(new MecanumDriveWithJoystick(CLIMBER_FORWARD));
+	B5 = new frc::JoystickButton(joy,5);
+	B5->WhileHeld(new MecanumDriveWithJoystick(TAKKO_FORWARD));
+	B6 = new frc::JoystickButton(joy,6);
+	B6->WhileHeld(new MecanumDriveWithJoystick(DUMP_FORWARD));
 	B7 = new frc::JoystickButton(joy, 7);
 	B7->WhenPressed(new MoveBasedOnVision(30, 90));
 	B8 = new frc::JoystickButton(joy, 8);

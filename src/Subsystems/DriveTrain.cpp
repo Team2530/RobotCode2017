@@ -51,13 +51,15 @@ void DriveTrain::SetRobot(RobotChoice thisRobot) {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void DriveTrain::Drive(Joystick* stick, Orientation orientation) {
+bool DriveTrain::Drive(Joystick* stick, Orientation orientation, double headingLock) {
     if (stick) {
-	    DriveWithCoordinates(
+	    return DriveWithCoordinates(
 	  	      stick->GetX(), stick->GetY(),
-	  	      stick->GetZ(), orientation, stick->GetThrottle()
+	  	      stick->GetZ(), orientation, stick->GetThrottle(),
+			  headingLock
 	    );
     }
+    return false;
 }
 
 void DriveTrain::DriveLeft() {

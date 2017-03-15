@@ -14,7 +14,9 @@ void MecanumDriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MecanumDriveWithJoystick::Execute() {
-	Robot::drivetrain->Drive(Robot::oi->GetJoystick(), orientation);
+	double headingLockPID = Robot::tracker->GetPIDRotation();
+	bool enableHeadingLock = Robot::drivetrain->Drive(Robot::oi->GetJoystick(), orientation, headingLockPID);
+	Robot::tracker->EnableHeadingLock(enableHeadingLock);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -25,10 +27,12 @@ bool MecanumDriveWithJoystick::IsFinished() {
 // Called once after isFinished returns true
 void MecanumDriveWithJoystick::End() {
 	Robot::drivetrain->Stop();
+	Robot::tracker->EnableHeadingLock(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MecanumDriveWithJoystick::Interrupted() {
 	Robot::drivetrain->Stop();
+	Robot::tracker->EnableHeadingLock(false);
 }
