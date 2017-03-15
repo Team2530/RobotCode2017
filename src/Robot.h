@@ -22,6 +22,7 @@
 
 #include "OI.h"
 
+#include "Commands/TurnDriveToFieldPosition.h"
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"

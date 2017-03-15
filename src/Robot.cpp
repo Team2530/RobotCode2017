@@ -3,6 +3,7 @@
 
 #include "Commands/AimCameratoTaco.h"
 #include "Commands/AimCameratoLift.h"
+#include "FieldPositions/GearFieldPosition.h"
 
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
@@ -60,6 +61,7 @@ void Robot::RobotInit() {
 
 	oi = std::make_unique<OI>();
 
+	chooserDo.AddDefault("Test TurnDriveToFieldPosition", new TurnDriveToFieldPosition(new GearFieldPosition()));
 	chooserDo.AddDefault("Cross BaseLine", new CrossBaseLine()); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
