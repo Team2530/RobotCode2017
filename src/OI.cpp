@@ -1,7 +1,5 @@
 #include "OI.h"
 
-#include <WPILib.h>
-
 //JOYSTICK
 #include <Commands/LEDControl.h>				//Please do not include the same file multiple times!
 #include <Commands/DriveLeft.h>

@@ -1,5 +1,14 @@
 #include "Robot.h"
 
+#include "Commands/MecanumDriveWithJoystick.h"
+#include "Commands/CrossBaseLine.h"
+#include "Commands/IntakeOn.h"
+#include "Commands/Dump.h"
+#include "Commands/IntakeInvert.h"
+#include "Commands/DoNothing.h"
+#include "Commands/DeliverGear.h"
+#include "Commands/DriveToFieldPosition.h"
+#include "Commands/PerimeterMovement.h"
 
 #include "Commands/AimCameratoTaco.h"
 #include "Commands/AimCameratoLift.h"
