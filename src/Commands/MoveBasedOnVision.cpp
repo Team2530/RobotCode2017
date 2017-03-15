@@ -5,9 +5,9 @@
 #include "../Positions/RobotRelative.h"
 #include "../Positions/AbsoluteAngle.h"
 
-MoveBasedOnVision::MoveBasedOnVision(double distance, double angle) {
+MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldposition) {
 	goal = distance;
-	lock = angle;
+	fp = fieldposition;
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::tracker.get());
 	Requires(Robot::vision.get());
@@ -18,6 +18,7 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, double angle) {
 void MoveBasedOnVision::Initialize() {
 	Robot::tracker->PIDReset();
 	Robot::vision->Update();
+	double lock = fp->GetR();
 	// Try to compensate for the camera offset to approach with the gear centered
 	double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
 	double distance = Robot::vision->GetDistance() - goal;

@@ -16,14 +16,16 @@
 #include "../Positions/Absolute.h"
 #include "../Positions/RobotRelative.h"
 #include "../FieldPositions/FieldPositionToRotateTo.h"
+#include "../FieldPositions/GearFieldPosition.h"
 
 DeliverGear::DeliverGear(){
-	double angle = 90;
+	//double angle = 90;
+	FieldPosition* gear = new GearFieldPosition();
 	AddSequential(new ApproachGear());
-	AddSequential(new MoveBasedOnVision(36, angle));
-	AddSequential(new MoveBasedOnVision(30, angle));
-	AddSequential(new MoveBasedOnVision(24, angle));
+	AddSequential(new MoveBasedOnVision(36, gear));
+	AddSequential(new MoveBasedOnVision(30, gear));
+	AddSequential(new MoveBasedOnVision(24, gear));
 	// The vision is supposed to line up 3 feet away: drive forward that amount
 	// Reserve 16-17 inches between the center of the robot and the lift
-	AddSequential(new DriveToPosition(new RobotRelative(-20, 0, angle, true)));
+	AddSequential(new DriveToPosition(new RobotRelative(-20, 0)));
 }

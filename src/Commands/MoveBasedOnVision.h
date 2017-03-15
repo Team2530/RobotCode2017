@@ -2,14 +2,14 @@
 #define MoveBasedOnVision_H
 
 #include <Commands/Command.h>
-// replace with FieldLocation??
+#include "../FieldPositions/FieldPosition.h"
 
 class MoveBasedOnVision : public frc::Command {
 private:
 	double goal;
-	double lock;
+	FieldPosition* fp;
 public:
-	MoveBasedOnVision(double distance = 36, double angle = 0);
+	MoveBasedOnVision(double distance, FieldPosition* fieldposition);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

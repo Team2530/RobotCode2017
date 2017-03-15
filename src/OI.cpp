@@ -27,15 +27,18 @@
 #include <Positions/AbsoluteAngle.h>
 
 #include <Positions/FieldRelative.h>
+#include <FieldPositions/GearFieldPosition.h>
 
 #include "Orientation.h"
 
 OI::OI() {
+	FieldPosition* gear = new GearFieldPosition();
+
 	// Process operator interface input here.
 	joy = new Joystick(0);
 
 	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
-	B1->WhenPressed(new MoveBasedOnVision(36, 90));
+	B1->WhenPressed(new MoveBasedOnVision(36, gear));
 	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
 	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
 	B3 = new frc::JoystickButton(joy, 3);
@@ -47,9 +50,9 @@ OI::OI() {
 	B6 = new frc::JoystickButton(joy,6);
 	B6->WhileHeld(new MecanumDriveWithJoystick(DUMP_FORWARD));
 	B7 = new frc::JoystickButton(joy, 7);
-	B7->WhenPressed(new MoveBasedOnVision(30, 90));
+	B7->WhenPressed(new MoveBasedOnVision(30, gear));
 	B8 = new frc::JoystickButton(joy, 8);
-	B8->WhenPressed(new MoveBasedOnVision(24, 90));
+	B8->WhenPressed(new MoveBasedOnVision(24, gear));
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 
