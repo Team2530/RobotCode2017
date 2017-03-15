@@ -5,7 +5,6 @@
  *      Author: Admin
  */
 
-#include <FieldPositions/CrossBaseLineFieldPosition.h>
 #include  "Robot.h"
 
 CrossBaseLineFieldPosition::CrossBaseLineFieldPosition() {

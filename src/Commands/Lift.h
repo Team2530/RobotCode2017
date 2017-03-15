@@ -1,7 +1,6 @@
 #ifndef Lift_H
 #define Lift_H
 
-#include <Commands/Command.h>
 #include "Robot.h"
 
 class Lift : public Command {

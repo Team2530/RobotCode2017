@@ -1,7 +1,6 @@
 #ifndef FastLift_H
 #define FastLift_H
 
-#include <Commands/Command.h>
 #include "Robot.h"
 
 class FastLift : public Command {

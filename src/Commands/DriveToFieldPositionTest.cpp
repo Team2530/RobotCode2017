@@ -1,7 +1,5 @@
-#include "DriveToFieldPositionTest.h"										//Use DriveToFieldPosition.cpp instead!
+#include "DriveToFieldPositionTest.h"																	//Does not stop!
 #include "../Robot.h"
-#include "Subsystems/Tracker.h"
-#include "FieldPositions/FieldPosition.h"
 DriveToFieldPositionTest::DriveToFieldPositionTest(FieldPosition *FP) {
 	FieldP = FP;
 	Requires(Robot::tracker.get());

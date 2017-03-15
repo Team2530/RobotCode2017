@@ -1,7 +1,6 @@
 #ifndef LEDControl_H
 #define LEDControl_H
 
-#include <Commands/Command.h>
 #include "../Robot.h"
 
 class LEDControl : public Command {

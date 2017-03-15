@@ -68,9 +68,7 @@ void Tracker::GetPosition(){
 	double distanceY = front - frontLastMeasurement;
 	sideLastMeasurement = side;
 	frontLastMeasurement = front;
-	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
-	if (angle > 180) angle -= 180;
-	if (angle < -180) angle += 180;
+	double angle = GetCurrentAngle();
 	double rad = angle * M_PI / 180;
 	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
@@ -216,4 +214,10 @@ double Tracker::GetCurrentPositionX(){
 }
 double Tracker::GetCurrentPositionY(){
 	return currentPositionY;
+}
+double Tracker::GetCurrentAngle(){
+	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
+		if (angle > 180) angle -= 180;
+		if (angle < -180) angle += 180;
+	return angle;
 }

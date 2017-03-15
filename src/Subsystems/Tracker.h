@@ -119,7 +119,7 @@ public:
 	double GetCurrentPositionY();
 	double GetDistance(); // gets distance between current and goal positions
 	double PIDGet(); // alias for GetDistance() for the PID feeding into power
-
+	double GetCurrentAngle();
 	void UpdatePIDFromTable();
 
 	// Call with Robot::drivetrain.get()

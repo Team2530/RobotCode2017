@@ -3,7 +3,6 @@
 #include "Dump.h"
 #include "Robot.h"
 #include "DriveToFieldPosition.h"
-#include "StartPositions.h"
 #include "../FieldPositions/BoilerFieldPosition.h"
 
 DeliverFuel::DeliverFuel() {
