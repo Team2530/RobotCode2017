@@ -140,7 +140,21 @@ double Tracker::PIDGet() {
 }
 
 bool Tracker::PIDFinished() {
-	return pidpc.OnTarget() && pidrc.OnTarget();
+	bool correctPosition = pidpc.OnTarget();
+	bool correctHeading = pidrc.OnTarget();
+	if (correctPosition && !correctHeading) {
+		double goal = pidrc.GetSetpoint();
+		double deviation = goal - currentAngle;
+		std::printf("Waiting to rotate (%f deg away)\n", deviation);
+		//if (fabs(deviation) < 1) return true;
+	} else if (correctHeading && !correctPosition) {
+		double dx = this->goalPositionX - this->currentPositionX;
+		double dy = this->goalPositionY - this->currentPositionY;
+		double distance = hypot(dx,dy);
+		std::printf("Waiting to move (%f in away)\n", distance);
+		//if (distance < 0.1) return true;
+	}
+	return correctPosition && correctHeading;
 }
 
 void Tracker::PIDReset() {
@@ -191,9 +205,11 @@ void Tracker::Drive(DriveTrain* drivetrain) {
 void Tracker::EnableHeadingLock(bool enabled) {
 	// If the joystick is twisted, use that value for control
 	if (!enabled) {
-		pidrc.Disable();
-		std::printf("Disable heading lock\n");
-		headingLockEnabled = false;
+		if (headingLockEnabled) {
+			pidrc.Disable();
+			std::printf("Disable heading lock\n");
+			headingLockEnabled = false;
+		}
 		return;
 	}
 	// Enable PID is locked to the current angle and enabled

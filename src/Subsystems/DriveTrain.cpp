@@ -111,7 +111,7 @@ bool DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 
 void DriveTrain::DirectDrive(double x, double y, double z) {
 	const double db = 0.001;
-	const double MinPower = 0.05;
+	const double MinPower = 0.07;
 	x=GetScaledPower(x,1.0,db,MinPower*2);
 	y=GetScaledPower(y,1.0,db,MinPower);
 	z=GetScaledPower(z,1.0,db,0.05);
