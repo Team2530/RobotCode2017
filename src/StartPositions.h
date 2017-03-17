@@ -49,13 +49,17 @@ enum RobotChoice {
 	//almost 100% positive starting position accounts for length of robot
 	static const double StartingPlaceY = 17.25; //y coordinate of starting place roughly,
 	//starting position x for red team
-	static const double startingRedLeftX = 75.545;
-	static const double startingRedMiddleX = 183.107;
-	static const double startingRedRightX = 249.587;
+
+	//changed below starting positions: plate by loading station: left wheel of robot on line
+	                                  //middle plate: wheel by overflow bin
+	                                  //plate by boiler: right wheel of robot on line
+	static const double startingRedLeftX = 94.2941; // center: 75.545;
+	static const double startingRedMiddleX = 163.794; //center: 183.107;
+	static const double startingRedRightX = 223.25; //center: 249.587;
 	//starting position x for blue team
-	static const double startingBlueLeftX = 73.712;
-	static const double startingBlueMiddleX = 140.192;
-	static const double startingBlueRightX = 235.584;
+	static const double startingBlueLeftX = 61.7059;// center: 73.712;
+	static const double startingBlueMiddleX = 121.206;//center: 140.192;
+	static const double startingBlueRightX = 259.206;//center: 235.584;
 	//all below do not account for robot width (39.5) or length (35.5)
 	//TODO: make below coordinates where navx should be, not absolute target coordinates
 	//coordinates (x,y,r) of red boiler and hopper
