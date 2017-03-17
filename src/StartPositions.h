@@ -55,9 +55,9 @@ enum RobotChoice {
 	                                  //plate by boiler: right wheel of robot on line
 	static const double startingRedLeftX = 94.2941; // center: 75.545;
 	static const double startingRedMiddleX = 163.794; //center: 183.107;
-	static const double startingRedRightX = 223.25; //center: 249.587;
+	static const double startingRedRightX = 262.75; //center: 249.587;
 	//starting position x for blue team
-	static const double startingBlueLeftX = 61.7059;// center: 73.712;
+	static const double startingBlueLeftX = 71.4559;// center: 73.712;
 	static const double startingBlueMiddleX = 121.206;//center: 140.192;
 	static const double startingBlueRightX = 259.206;//center: 235.584;
 	//all below do not account for robot width (39.5) or length (35.5)
