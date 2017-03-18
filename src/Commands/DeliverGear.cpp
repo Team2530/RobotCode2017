@@ -9,6 +9,8 @@
 
 #include <math.h>
 
+#include "../Commands/LEDControl.h"
+#include "../Commands/AimCameratoTaco.h"
 #include "../Commands/ApproachGear.h"
 #include "../Commands/DriveToFieldPosition.h"
 #include "../Commands/DriveToPosition.h"
@@ -21,6 +23,8 @@
 DeliverGear::DeliverGear(){
 	//double angle = 90;
 	FieldPosition* gear = new GearFieldPosition();
+	AddSequential(new LEDControl(true));
+	AddSequential(new AimCameratoTaco());
 	AddSequential(new ApproachGear(), 6.0); // Cut off this command after this amount of time
 	AddSequential(new MoveBasedOnVision(36, gear), 2.0);
 	AddSequential(new MoveBasedOnVision(30, gear), 1.5);
