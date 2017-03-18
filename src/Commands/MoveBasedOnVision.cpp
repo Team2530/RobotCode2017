@@ -18,7 +18,20 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 void MoveBasedOnVision::Initialize() {
 	Robot::tracker->PIDReset();
 	Robot::vision->Update();
-	double lock = fp->GetR();
+	double lock;
+	if (fp != nullptr) {
+		lock = fp->GetR();
+	} else {
+		lock = Robot::tracker->GetCurrentAngle();
+		// If we are within 10 degrees of a gear position, lock onto that.
+		for (double angle = 90-60; angle <= 90+60; angle += 60) {
+			if (lock < angle+25 && lock > angle-25) {
+				std::printf("Lock on to %f (current: %f)\n", angle, lock);
+				lock = angle;
+				break;
+			}
+		}
+	}
 	// Try to compensate for the camera offset to approach with the gear centered
 	double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
 	double distance = Robot::vision->GetDistance() - goal;
