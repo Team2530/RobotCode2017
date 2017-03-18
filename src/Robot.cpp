@@ -7,6 +7,7 @@
 #include "Commands/IntakeInvert.h"
 #include "Commands/DoNothing.h"
 #include "Commands/DeliverGear.h"
+#include "Commands/DeliverGearDumpHopper.h"
 #include "Commands/DriveToFieldPosition.h"
 #include "Commands/PerimeterMovement.h"
 #include "Commands/DumpThenGear.h"
@@ -74,7 +75,7 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
-	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DoNothing()); // new GearThenHopper());//Subject to change
+	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
@@ -130,10 +131,10 @@ void Robot::AutonomousInit() {
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
 	Command* autonomousDo = chooserDo.GetSelected();
 	double* angle = chooserAngle.GetSelected();
-	if(chooserDo.GetSelected()) == DumpThenGear()){
-		angle = -90;
-	}
-	}
+
+	//if(chooserDo.GetSelected() == DumpThenGear()){
+	//	angle = -90;
+	//}
 	double initialAngle = 0;
 	if (angle != nullptr) initialAngle = *angle;
 
@@ -143,7 +144,6 @@ void Robot::AutonomousInit() {
 	drivetrain->SetRobot(thisRobot);
 
 	Robot::initialY = StartingPlaceY;
-	Robot::hopperY = hopperPositionY;
 	Robot::boilerY = boilerPositionY;
 	if (team == frc::DriverStation::Alliance::kBlue) {
 		Robot::boilerX = blueBoilerPositionX;
@@ -182,27 +182,27 @@ void Robot::AutonomousInit() {
 			Robot::positionBaseLineX = initialX;
 			Robot::positionBaseLineY = initialY + 93.5;
 			Robot::positionBaseLineR = 0;
-			Robot::redHopperPositionX = redHopperPositionLX;
-			Robot::redHopperPositionY = redHopperPositionLY;
-			Robot::redHopperPositionR = redHopperPositionLR;
+			Robot::hopperX = redHopperPositionLX;
+			Robot::hopperY = redHopperPositionLY;
+			Robot::hopperR = redHopperPositionLR;
 			break;
 		case START_RIGHT:
 			Robot::initialX = startingRedRightX;
 			Robot::positionBaseLineX =  initialX;
 			Robot::positionBaseLineY =  initialY + 93.5;
 			Robot::positionBaseLineR =  0;
-			Robot::redHopperPositionX = redHopperPositionRX;
-			Robot::redHopperPositionY = redHopperPositionRY;
-			Robot::redHopperPositionR = redHopperPositionRR;
+			Robot::hopperX = redHopperPositionRX;
+			Robot::hopperY = redHopperPositionRY;
+			Robot::hopperR = redHopperPositionRR;
 			break;
 		case START_MIDDLE:
 			Robot::initialX = startingRedMiddleX;
 			Robot::positionBaseLineX = middleBaseLineX;
 			Robot::positionBaseLineY = middleBaseLineY;
 			Robot::positionBaseLineR = middleBaseLineR;
-			Robot::redHopperPositionX = redHopperPositionLX;
-			Robot::redHopperPositionY = redHopperPositionLY;
-			Robot::redHopperPositionR = redHopperPositionLR;
+			Robot::hopperX = redHopperPositionLX;
+			Robot::hopperY = redHopperPositionLY;
+			Robot::hopperR = redHopperPositionLR;
 			break;
 		}
 	}

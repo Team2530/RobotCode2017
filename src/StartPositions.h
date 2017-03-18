@@ -86,7 +86,7 @@ enum RobotChoice {
 	static const double redHopperPositionABSRX = 324;
 	static const double redHopperPositionABSRY = 95.5;
 	static const double redHopperPositionRX = redHopperPositionABSRX - (centerFromHopper * root3over2);
-	static const double redHoperPositioinRY = redHopperPositionABSLY;// + (centerFromHopper * root3over2);
+	static const double redHopperPositionRY = redHopperPositionABSLY;// + (centerFromHopper * root3over2);
 	static const double redHopperPositionRR = 90;
 	//coordinates (x,y,r) of blue boiler and hopper
 	static const double blueBoilerPositionABSX = 51.79561;
