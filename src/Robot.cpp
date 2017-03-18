@@ -130,6 +130,10 @@ void Robot::AutonomousInit() {
 	frc::DriverStation::Alliance team = frc::DriverStation::GetInstance().GetAlliance();
 	Command* autonomousDo = chooserDo.GetSelected();
 	double* angle = chooserAngle.GetSelected();
+	if(chooserDo.GetSelected()) == DumpThenGear()){
+		angle = -90;
+	}
+	}
 	double initialAngle = 0;
 	if (angle != nullptr) initialAngle = *angle;
 
@@ -144,43 +148,61 @@ void Robot::AutonomousInit() {
 	if (team == frc::DriverStation::Alliance::kBlue) {
 		Robot::boilerX = blueBoilerPositionX;
 		Robot::boilerR = blueBoilerPositionR;
-		Robot::hopperX = blueHopperPositionX;
-		Robot::hopperR = blueHopperPositionR;
+		//Robot::hopperX = blueHopperPositionX;
+		//Robot::hopperR = blueHopperPositionR;
 
 		switch (*autonomousPos) {
 		case START_LEFT:
 			Robot::initialX = startingBlueLeftX;
+			Robot::hopperX = blueHopperPositionLX;
+			Robot::hopperY = blueHopperPositionLY;
+			Robot::hopperR = blueHopperPositionLR;
 			break;
 		case START_MIDDLE:
 			Robot::initialX = startingBlueMiddleX;
+			Robot::hopperX = blueHopperPositionLX;
+			Robot::hopperY = blueHopperPositionLY;
+			Robot::hopperR = blueHopperPositionLR;
 			break;
 		case START_RIGHT:
 			Robot::initialX = startingBlueRightX;
+			Robot::hopperX = blueHopperPositionRX;
+			Robot::hopperY = blueHopperPositionRY;
+			Robot::hopperR = blueHopperPositionRR;
 			break;
 		}
 	} else {
 		Robot::boilerX = redBoilerPositionX;
 		Robot::boilerR = redBoilerPositionR;
-		Robot::hopperX = redHopperPositionX;
-		Robot::hopperR = redHopperPositionR;
+		//Robot::hopperX = redHopperPositionX;
+		//Robot::hopperR = redHopperPositionR;
 		switch (*autonomousPos) {
 		case START_LEFT:
 			Robot::initialX = startingRedLeftX;
 			Robot::positionBaseLineX = initialX;
 			Robot::positionBaseLineY = initialY + 93.5;
 			Robot::positionBaseLineR = 0;
+			Robot::redHopperPositionX = redHopperPositionLX;
+			Robot::redHopperPositionY = redHopperPositionLY;
+			Robot::redHopperPositionR = redHopperPositionLR;
 			break;
 		case START_RIGHT:
 			Robot::initialX = startingRedRightX;
 			Robot::positionBaseLineX =  initialX;
 			Robot::positionBaseLineY =  initialY + 93.5;
 			Robot::positionBaseLineR =  0;
+			Robot::redHopperPositionX = redHopperPositionRX;
+			Robot::redHopperPositionY = redHopperPositionRY;
+			Robot::redHopperPositionR = redHopperPositionRR;
 			break;
 		case START_MIDDLE:
 			Robot::initialX = startingRedMiddleX;
 			Robot::positionBaseLineX = middleBaseLineX;
 			Robot::positionBaseLineY = middleBaseLineY;
 			Robot::positionBaseLineR = middleBaseLineR;
+			Robot::redHopperPositionX = redHopperPositionLX;
+			Robot::redHopperPositionY = redHopperPositionLY;
+			Robot::redHopperPositionR = redHopperPositionLR;
 			break;
 		}
 	}

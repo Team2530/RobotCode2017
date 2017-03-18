@@ -76,20 +76,35 @@ enum RobotChoice {
 
 	static const double redBoilerPositionABSX = 278.23058;
 	static const double redBoilerPositionX = redBoilerPositionABSX-(centerFromBoiler * root2over2);
-	static const double redBoilerPositionR = 135;
-	static const double redHopperPositionABSX = 51.7957;
-	static const double redHopperPositionX = redHopperPositionABSX + (centerFromHopper * root3over2);
-	static const double redHopperPositionR = -120;
+	static const double redBoilerPositionR = 133.75;
+
+	static const double redHopperPositionABSLX = 0;
+	static const double redHopperPositionABSLY = 204;
+	static const double redHopperPositionLX = redHopperPositionABSLX + (centerFromHopper * root3over2);
+	static const double redHopperPositionLY= redHopperPositionABSLY;// + (centerFromHopper * root3over2);//check
+	static const double redHopperPositionLR = -90;
+	static const double redHopperPositionABSRX = 324;
+	static const double redHopperPositionABSRY = 95.5;
+	static const double redHopperPositionRX = redHopperPositionABSRX - (centerFromHopper * root3over2);
+	static const double redHoperPositioinRY = redHopperPositionABSLY;// + (centerFromHopper * root3over2);
+	static const double redHopperPositionRR = 90;
 	//coordinates (x,y,r) of blue boiler and hopper
 	static const double blueBoilerPositionABSX = 51.79561;
 	static const double blueBoilerPositionX = blueBoilerPositionABSX + (centerFromBoiler * root2over2);
-	static const double blueBoilerPositionR = -135;
-	static const double blueHopperPositionABSX = 278.23059;
-	static const double blueHopperPositionX = blueHopperPositionABSX-(centerFromHopper* root3over2);
-	static const double blueHopperPositionR = 120;
+	static const double blueBoilerPositionR = -133.5;
 
-	static const double hopperPositionABSY = 64.352291;
-	static const double hopperPositionY= hopperPositionABSY + (centerFromHopper * root3over2);
+	static const double blueHopperPositionABSLX = 0;
+	static const double blueHopperPositionABSLY = 95.5;
+	static const double blueHopperPositionLX = blueHopperPositionABSLX+(centerFromHopper* root3over2);
+	static const double blueHopperPositionLY = blueHopperPositionABSLY;//+(centerFromHopper * root3over2);//check
+	static const double blueHopperPositionLR = -90;
+	static const double blueHopperPositionABSRX = 324;
+	static const double blueHopperPositionABSRY = 204;
+	static const double blueHopperPositionRX = blueHopperPositionABSRX-(centerFromHopper*root3over2);
+	static const double blueHopperPositionRY = blueHopperPositionABSRY;//+(centerFromHopper*root3over2);//check
+	static const double blueHopperPositionRR = 90;
+
+	//static const double hopperPositionABSY = 64.352291;
 	static const double boilerPositionABSY = 70.562761;
 	static const double boilerPositionY = boilerPositionABSY + (centerFromBoiler*root2over2);
 
