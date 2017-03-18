@@ -10,12 +10,7 @@
 class DumpThenGear : public CommandGroup {
 public:
 	DumpThenGear();
-		void Initialize();
-		void Execute();
-		bool IsFinished();
-		void End();
-		void Interrupted();
-	};
+};
 
 
 

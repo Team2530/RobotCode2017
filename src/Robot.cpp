@@ -74,7 +74,7 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
-	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new GearThenHopper());//Subject to change
+	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DoNothing()); // new GearThenHopper());//Subject to change
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 

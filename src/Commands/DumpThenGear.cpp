@@ -12,6 +12,7 @@
 #include "../Positions/RobotRelative.h"
 #include "../FieldPositions/FieldPositionToRotateTo.h"
 #include "../FieldPositions/GearFieldPosition.h"
+
 DumpThenGear::DumpThenGear() {
 	// Add Commands here:
 	AddSequential(new Dump());
