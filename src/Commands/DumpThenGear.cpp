@@ -1,8 +1,6 @@
 #include "DumpThenGear.h"
 #include "Robot.h"
 #include "DeliverGear.h"
-#include "Robot.h"
-#include <math.h>
 #include <Commands/Dump.h>
 #include "../Commands/ApproachGear.h"
 #include "../Commands/DriveToFieldPosition.h"
