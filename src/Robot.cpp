@@ -10,6 +10,7 @@
 #include "Commands/DriveToFieldPosition.h"
 #include "Commands/PerimeterMovement.h"
 #include "Commands/DumpThenGear.h"
+#include "Commands/DeliverGearDumpHopper.h"
 
 #include "Commands/AimCameratoTaco.h"
 #include "Commands/AimCameratoLift.h"
@@ -74,7 +75,7 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
-	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new GearThenHopper());//Subject to change
+	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());//Subject to change
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
