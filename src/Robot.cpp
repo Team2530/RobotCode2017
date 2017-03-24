@@ -73,12 +73,21 @@ void Robot::RobotInit() {
 	oi = std::make_unique<OI>();
 
 	chooserDo.AddDefault("Cross BaseLine", new DriveToFieldPosition(new CrossBaseLineFieldPosition(), 0.5)); //starting action
+	/*
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
 	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	chooserDo.AddObject("Drive to gear ONLY", new DriveToFieldPosition(new GearFieldPosition()));
+	/*/
+	chooserDo.AddObject("Deliver Gear (df)", new DeliverGear(DG_default));
+	chooserDo.AddObject("Deliver Gear: 4sec initial", new DeliverGear(DG_4sec));
+	chooserDo.AddObject("Deliver Gear: no second vision step", new DeliverGear(DG_no2nd));
+	chooserDo.AddObject("Deliver Gear: 4sec init, no second visn", new DeliverGear(DG_4sec_no2nd));
+	chooserDo.AddObject("Deliver Gear: no first vision step", new DeliverGear(DG_no1st));
+	chooserDo.AddObject("Deliver Gear: 4sec init, no first visn", new DeliverGear(DG_4sec_no1st));
+	//*/
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
 	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to

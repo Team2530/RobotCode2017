@@ -16,9 +16,19 @@
 #include "Commands/CommandGroupEntry.h"
 #include "../StartPositions.h"
 
+enum DGvariant {
+	DG_default,
+	DG_4sec,
+	DG_no2nd,
+	DG_4sec_no2nd,
+	DG_no1st,
+	DG_4sec_no1st
+};
+
 class DeliverGear : public frc::CommandGroup {
 	public:
 		DeliverGear();
+		DeliverGear(DGvariant variant);
 };
 
 #endif /* SRC_COMMANDGROUPS_DELIVERGEAR_H_ */
