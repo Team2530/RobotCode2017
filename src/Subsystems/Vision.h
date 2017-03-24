@@ -4,6 +4,8 @@
 #include <Commands/Subsystem.h>
 #include <NetworkTables/NetworkTable.h>
 
+#include <CameraServer.h>
+
 class Vision : public frc::Subsystem {
 private:
 	bool valid;
@@ -11,10 +13,12 @@ private:
 	double displacement;
 	double distance;
 	std::shared_ptr<NetworkTable> table;
+	cs::UsbCamera camera;
 
 public:
 	Vision();
 	void InitDefaultCommand();
+	void SetExposure(bool manual);
 	bool GetValid();
 	double GetTargets();
 	double GetDisplacement();

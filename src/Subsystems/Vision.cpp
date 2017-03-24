@@ -2,8 +2,6 @@
 #include "../RobotMap.h"
 #include "../Commands/PullVisionEstimate.h"
 
-#include <CameraServer.h>
-
 Vision::Vision() : Subsystem("VisionSubsystem") {
 	valid = false;
 	targets = 0;
@@ -15,15 +13,23 @@ Vision::Vision() : Subsystem("VisionSubsystem") {
 	// Get the USB camera from CameraServer,
 	// start streaming to dashboard
 	// (the vision processing will pick it up thusly)
-	cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
+	camera = frc::CameraServer::GetInstance()->StartAutomaticCapture("USB Camera 0", 0);
 	// Set the resolution
 	camera.SetResolution(320, 240);
-	camera.SetExposureManual(20);
 	camera.SetBrightness(100);
+	SetExposure(true);
 }
 
 void Vision::InitDefaultCommand() {
 	SetDefaultCommand(new PullVisionEstimate());
+}
+
+void Vision::SetExposure(bool manual) {
+	if (manual) {
+		camera.SetExposureManual(20);
+	} else {
+		camera.SetExposureAuto();
+	}
 }
 
 // Put methods for controlling this subsystem

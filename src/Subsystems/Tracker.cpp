@@ -20,6 +20,8 @@ Tracker::Tracker() :
 	frontLastMeasurement = 0;
 	sideLastMeasurement = 0;
 
+	MAX_POW = 0.75;
+
 	pidpc.SetAbsoluteTolerance(2.0); // inches
 	pidpc.SetSetpoint(0);
 	//pidpc.SetOutputRange(0, 1);
@@ -105,6 +107,15 @@ void Tracker::MoveToAbs(double x, double y) {
 	Set(x, y, currentAngle);
 }
 
+void Tracker::UpdatePIDFromTable() {
+	double scale = 50;
+	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP()*scale)/scale;
+	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD()*scale)/scale;
+	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP()*scale)/scale;
+	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD()*scale)/scale;
+	pidpc.SetPID(Pdist, pidpc.GetI(), Ddist);
+	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
+}
 
 void Tracker::Set(double x, double y, double angle) {
 	//UpdatePIDFromTable();
@@ -167,18 +178,11 @@ void Tracker::PIDDisable() {
 	pidrc.Disable();
 }
 
-void Tracker::UpdatePIDFromTable() {
-	double scale = 50;
-	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP()*scale)/scale;
-	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD()*scale)/scale;
-	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP()*scale)/scale;
-	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD()*scale)/scale;
-	pidpc.SetPID(Pdist, pidpc.GetI(), Ddist);
-	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
-}
-
-const double MAX_POW = 0.75;
 const double MAX_ROT = 0.5;
+
+void Tracker::SetMaxPower(double pow) {
+	MAX_POW = pow;
+}
 
 void Tracker::Drive(DriveTrain* drivetrain) {
 	double dx = goalPositionX - currentPositionX;

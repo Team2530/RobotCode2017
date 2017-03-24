@@ -62,6 +62,7 @@ private:
 	// Outputs from PID Controllers
 	double pidr;
 	double power;
+	double MAX_POW;
 
 	// PID helper classes for the PID Controllers
 	// (The other source is this class itself
@@ -121,6 +122,8 @@ public:
 	double PIDGet(); // alias for GetDistance() for the PID feeding into power
 	double GetCurrentAngle();
 	void UpdatePIDFromTable();
+
+	void SetMaxPower(double pow = 0.75);
 
 	// Call with Robot::drivetrain.get()
 	// To move wheels towards goal position or rotation

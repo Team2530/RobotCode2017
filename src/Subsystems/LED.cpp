@@ -1,6 +1,8 @@
 #include "LED.h"
 #include "../RobotMap.h"
 
+#include "Robot.h"
+
 LED::LED() : Subsystem("LEDSubsystem") {
 	LEDRing = new frc::Relay(kLEDRing, frc::Relay::Direction::kForwardOnly);
 	state = false;
@@ -18,5 +20,6 @@ void LED::Toggle() {
 void LED::Set(bool on) {
 	LEDRing->Set(on ? frc::Relay::Value::kForward : frc::Relay::Value::kOff);
 	state = on;
+	Robot::vision->SetExposure(on);
 }
 
