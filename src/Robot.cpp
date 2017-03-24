@@ -1,6 +1,7 @@
 #include "Robot.h"
 
 #include "Commands/MecanumDriveWithJoystick.h"
+#include "Commands/MecanumDriveFieldOriented.h"
 #include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
@@ -252,7 +253,7 @@ void Robot::TeleopInit() {
 
 	SmartDashboard::PutNumber("This  Robot", static_cast<char>(thisRobot));
 	drivetrain->SetRobot(thisRobot);
-	Command* dfault = new MecanumDriveWithJoystick();
+	Command* dfault = new MecanumDriveFieldOriented();
 	dfault->Start();
 }
 

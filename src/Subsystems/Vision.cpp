@@ -25,8 +25,9 @@ void Vision::InitDefaultCommand() {
 }
 
 void Vision::SetExposure(bool manual) {
+	manual = true;
 	if (manual) {
-		camera.SetExposureManual(20);
+		camera.SetExposureManual(20); // TODO: do negative values work?? apparently
 	} else {
 		camera.SetExposureAuto();
 	}
