@@ -11,6 +11,7 @@
 #include "Commands/DriveToFieldPosition.h"
 #include "Commands/PerimeterMovement.h"
 #include "Commands/DumpThenGear.h"
+#include "FieldPositions/GearFieldPosition.h"
 
 #include "Commands/AimCameratoTaco.h"
 #include "Commands/AimCameratoLift.h"
@@ -77,6 +78,7 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
 	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
+	chooserDo.AddObject("Drive to gear ONLY", new DriveToFieldPosition(new GearFieldPosition()));
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 
 	chooserGear.AddObject("Left Gear", &leftGear);//choose which gear to go to
@@ -235,20 +237,13 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	/*if (autonomousCommand != nullptr) {
-		autonomousCommand->Cancel();
-	}*/
-	//??autonomous->End();
 	if (chooserBot.GetSelected() != nullptr)
 		thisRobot = *chooserBot.GetSelected();
 
-
 	SmartDashboard::PutNumber("This  Robot", static_cast<char>(thisRobot));
 	drivetrain->SetRobot(thisRobot);
+	Command* dfault = new MecanumDriveWithJoystick();
+	dfault->Start();
 }
 
 void Robot::TeleopPeriodic() {

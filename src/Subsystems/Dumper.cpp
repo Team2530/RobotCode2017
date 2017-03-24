@@ -30,7 +30,7 @@ void Dumper::Dump(){
 	dumperController->Set(-1);
 }
 void Dumper::ResetDump(){
-	dumperController->Set(0.30);
+	dumperController->Set(0.50);
 }
 /*bool Dumper::FinishedDumping(){
 

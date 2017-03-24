@@ -61,7 +61,7 @@ OI::OI() {
 
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such
-	/**/
+	/*
 	const double testdistance = 20;
 	A = new frc::JoystickButton(Xbox, 1);
 	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance)));
@@ -101,7 +101,7 @@ OI::OI() {
 	Start->WhileHeld(new AimCameratoTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
-	*/
+	//*/
 }
 
 Joystick* OI::GetJoystick() {

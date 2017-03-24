@@ -177,7 +177,7 @@ void Tracker::UpdatePIDFromTable() {
 	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
 }
 
-const double MAX_POW = 0.25;
+const double MAX_POW = 0.75;
 const double MAX_ROT = 0.5;
 
 void Tracker::Drive(DriveTrain* drivetrain) {

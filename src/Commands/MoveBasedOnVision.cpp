@@ -11,11 +11,15 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::tracker.get());
 	Requires(Robot::vision.get());
+	Requires(Robot::led.get());
 	Requires(Robot::drivetrain.get());
+	Requires(Robot::cameraservo.get());
 }
 
 // Called just before this Command runs the first time
 void MoveBasedOnVision::Initialize() {
+	Robot::cameraservo->AimTaco();
+	Robot::led->Set(true);
 	Robot::tracker->PIDReset();
 	Robot::vision->Update();
 	double lock;
