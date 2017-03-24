@@ -11,6 +11,7 @@
 #include "Commands/DriveToFieldPosition.h"
 #include "Commands/PerimeterMovement.h"
 #include "Commands/DumpThenGear.h"
+#include "Commands/DeliverGearDumpHopper.h"
 #include "FieldPositions/GearFieldPosition.h"
 
 #include "Commands/AimCameratoTaco.h"
@@ -77,7 +78,7 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Do Nothing", new DoNothing());//^^
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
 	chooserDo.AddObject("Perimeter Movement Test", new PerimeterMovement());
-	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());
+	chooserDo.AddObject("Deliver Gear Then Dump Hopper", new DeliverGearDumpHopper());//Subject to change
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	chooserDo.AddObject("Drive to gear ONLY", new DriveToFieldPosition(new GearFieldPosition()));
 	/*/
