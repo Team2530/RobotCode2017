@@ -211,7 +211,7 @@ void Tracker::EnableHeadingLock(bool enabled) {
 	if (!enabled) {
 		if (headingLockEnabled) {
 			pidrc.Disable();
-			std::printf("Disable heading lock\n");
+			//std::printf("Disable heading lock\n");
 			headingLockEnabled = false;
 		}
 		return;
@@ -222,7 +222,7 @@ void Tracker::EnableHeadingLock(bool enabled) {
 		pidr = 0; // reset PID output to 0, just in case
 		pidrc.Reset();
 		pidrc.SetSetpoint(currentAngle);
-		std::printf("Lock to heading %f\n", currentAngle);
+		//std::printf("Lock to heading %f\n", currentAngle);
 		pidrc.Enable();
 		headingLockEnabled = true;
 		return;

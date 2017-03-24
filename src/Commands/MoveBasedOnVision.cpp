@@ -36,12 +36,18 @@ void MoveBasedOnVision::Initialize() {
 			}
 		}
 	}
-	// Try to compensate for the camera offset to approach with the gear centered
-	double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
-	double distance = Robot::vision->GetDistance() - goal;
-	double displacement = camera_offset - Robot::vision->GetDisplacement();
-	std::printf("VISION INIT: Move forward %f in, right %f\n", distance, displacement);
-	// Move until the takko is (hopefully) centered, about 3 feet away
+	double distance = 0;
+	double displacement = 10;
+	if (Robot::vision->GetValid()) {
+		// Try to compensate for the camera offset to approach with the gear centered
+		double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
+		distance = Robot::vision->GetDistance() - goal;
+		displacement = camera_offset - Robot::vision->GetDisplacement();
+		std::printf("VISION INIT: Move forward %f in, right %f\n", distance, displacement);
+		// Move until the takko is (hopefully) centered, about 3 feet away
+	} else {
+		std::printf("VISION FAILED: move in %fin\n", distance);
+	}
 	Robot::tracker->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
 }
 

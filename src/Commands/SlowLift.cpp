@@ -4,7 +4,6 @@ SlowLift::SlowLift() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::lifter.get());
-	Requires(Robot::drivetrain.get());
 }
 
 // Called just before this Command runs the first time

@@ -51,7 +51,7 @@ void Vision::Update() {
 	targets = table->GetNumber("targets", 0);
 	displacement = table->GetNumber("displacementIn", 0);
 	distance = table->GetNumber("distanceIn", 0);
-	valid = targets == 2;
+	valid = targets > 0;
 	// Detect NaN values: these are NOT valid!
 	if (displacement != displacement || distance != distance) {
 		valid = false;

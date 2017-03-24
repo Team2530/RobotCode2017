@@ -53,13 +53,13 @@ enum RobotChoice {
 	//changed below starting positions: plate by loading station: left wheel of robot on line
 	                                  //middle plate: wheel by overflow bin
 	                                  //plate by boiler: right wheel of robot on line
-	static const double startingRedLeftX = 94.2941; // center: 75.545;
-	static const double startingRedMiddleX = 163.794; //center: 183.107;
-	static const double startingRedRightX = 262.75; //center: 249.587;
+	static const double startingRedLeftX = 98.5;//94.2941; // center: 75.545;
+	static const double startingRedMiddleX = 157.5;//163.794; //center: 183.107;
+	static const double startingRedRightX = 231.5;//262.75; //center: 249.587;
 	//starting position x for blue team
-	static const double startingBlueLeftX = 71.4559;// center: 73.712;
-	static const double startingBlueMiddleX = 121.206;//center: 140.192;
-	static const double startingBlueRightX = 259.206;//center: 235.584;
+	static const double startingBlueLeftX = 86.5;//71.4559;// center: 73.712;
+	static const double startingBlueMiddleX = 110.5;//121.206;//center: 140.192;
+	static const double startingBlueRightX = 219.5;//259.206;//center: 235.584;
 	//all below do not account for robot width (39.5) or length (35.5)
 	//TODO: make below coordinates where navx should be, not absolute target coordinates
 	//coordinates (x,y,r) of red boiler and hopper
@@ -112,20 +112,20 @@ enum RobotChoice {
 	// Add 90 degrees to position the Takko side forward
 
 
-	static const double leftGearPlaceABSX = 162.2656;
-	static const double leftGearPlaceABSY = 146.1925;
+	static const double leftGearPlaceABSX = 138-21.867;//162.2656;
+	static const double leftGearPlaceABSY = 133;//146.1925;
 	static const double leftGearPlaceX = leftGearPlaceABSX - (centerFromGear * root3over2);
 	static const double leftGearPlaceY = leftGearPlaceABSY - (centerFromGear / 2);
 	static const double leftGearPlaceR = 60+90;
 
-	static const double middleGearPlaceABSX = 192.0868;
+	static const double middleGearPlaceABSX = 138;//192.0868;
 	static const double middleGearPlaceABSY = 93.25;
 	static const double middleGearPlaceX = middleGearPlaceABSX;
 	static const double middleGearPlaceY = middleGearPlaceABSY - distanceFromGear;
 	static const double middleGearPlaceR = 0+90;
 
-	static const double rightGearPlaceABSX = 221.908;
-	static const double rightGearPlaceABSY = 146.1925;
+	static const double rightGearPlaceABSX = 138+21.867;//210;//221.908; ESTIMATE
+	static const double rightGearPlaceABSY = 133;//146.1925;
 	static const double rightGearPlaceX = rightGearPlaceABSX + (centerFromGear * root3over2);
 	static const double rightGearPlaceY = rightGearPlaceABSY - (centerFromGear / 2);
 	static const double rightGearPlaceR = -60+90;
