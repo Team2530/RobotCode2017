@@ -237,7 +237,7 @@ double Tracker::GetCurrentPositionY(){
 }
 double Tracker::GetCurrentAngle(){
 	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
-		if (angle > 180) angle -= 180;
-		if (angle < -180) angle += 180;
+	while (angle > 180) angle -= 360;
+	while (angle < -180) angle += 360;
 	return angle;
 }
