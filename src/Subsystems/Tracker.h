@@ -85,7 +85,7 @@ public:
 	Tracker();
 	void InitDefaultCommand();
 	void StartTracking(double initialX = 0, double initialY = 0, double initialAngle = 0);
-	void GetPosition();
+	void UpdatePosition();
 	// For controlling position
 	// Initialize the PID controllers
 	// Rotate while staying in place

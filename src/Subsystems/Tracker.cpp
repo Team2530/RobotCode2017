@@ -60,7 +60,7 @@ void Tracker::StartTracking(double initialX, double initialY, double initialAngl
 	}
 }
 
-void Tracker::GetPosition(){
+void Tracker::UpdatePosition(){
 	if (ahrs == nullptr) {
 		ahrs = Robot::oi->GetAHRS();
 	}
@@ -139,7 +139,7 @@ double Tracker::GetPIDRotation() {
 }
 
 double Tracker::GetDistance() {
-	GetPosition();
+	UpdatePosition();
 	double dx = this->goalPositionX - this->currentPositionX;
 	double dy = this->goalPositionY - this->currentPositionY;
 	double distance = hypot(dx,dy);
@@ -218,7 +218,7 @@ void Tracker::EnableHeadingLock(bool enabled) {
 	}
 	// Enable PID is locked to the current angle and enabled
 	if (!headingLockEnabled) {
-		GetPosition();
+		UpdatePosition();
 		pidr = 0; // reset PID output to 0, just in case
 		pidrc.Reset();
 		pidrc.SetSetpoint(currentAngle);

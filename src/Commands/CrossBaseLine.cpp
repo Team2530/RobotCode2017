@@ -20,7 +20,7 @@ void CrossBaseLine::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void CrossBaseLine::Execute() {
 //where 112 = 93.25 + robot distance
-	Robot::tracker->GetPosition();
+	Robot::tracker->UpdatePosition();
 	Robot::tracker->Drive(Robot::drivetrain.get());
 }
 

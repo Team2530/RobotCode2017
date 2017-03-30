@@ -15,7 +15,7 @@ void GetFieldPosition::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GetFieldPosition::Execute() {
-	Robot::tracker->GetPosition();
+	Robot::tracker->UpdatePosition();
 }
 
 // Make this return true when this Command no longer needs to run execute()
