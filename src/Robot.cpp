@@ -2,7 +2,6 @@
 
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/MecanumDriveFieldOriented.h"
-#include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
