@@ -2,7 +2,6 @@
 
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/MecanumDriveFieldOriented.h"
-#include "Commands/CrossBaseLine.h"
 #include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
 #include "Commands/IntakeInvert.h"
@@ -27,6 +26,7 @@ std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Lifter> Robot::lifter;
 std::shared_ptr<CameraServo> Robot::cameraservo;
 std::shared_ptr<LED> Robot::led;
+std::shared_ptr<AutoDrive> Robot::autodrive;
 
 StartPosition left = START_LEFT;
 StartPosition middle = START_MIDDLE;
@@ -66,6 +66,7 @@ void Robot::RobotInit() {
 	intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
 	led = std::make_shared<LED>();
+    autodrive = std::make_shared<AutoDrive>();
 
 	vision = std::make_shared<Vision>();
     lifter = std::make_shared<Lifter>();

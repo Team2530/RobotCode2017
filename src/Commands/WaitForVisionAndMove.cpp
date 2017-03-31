@@ -2,7 +2,6 @@
 
 #include "../Commands/LEDControl.h"
 #include "../Commands/AimCameratoTaco.h"
-#include "../Commands/ApproachGear.h"
 #include "../Commands/DriveToFieldPosition.h"
 #include "../Commands/DriveToPosition.h"
 #include "../Commands/MoveBasedOnVision.h"

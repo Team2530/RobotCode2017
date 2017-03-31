@@ -1,17 +1,13 @@
 #ifndef DriveToPosition_H
 #define DriveToPosition_H
 
-#include <Commands/Command.h>
+#include "AutoDriveBase.h"
 #include "../Positions/Position.h"
 
-class DriveToPosition : public frc::Command {
+class DriveToPosition : public AutoDriveBase {
 public:
 	DriveToPosition(Position* pos);
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+	void UpdatePosition() override;
 private:
 	Position* pos;
 };

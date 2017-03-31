@@ -20,7 +20,7 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 void MoveBasedOnVision::Initialize() {
 	Robot::cameraservo->AimTaco();
 	Robot::led->Set(true);
-	Robot::tracker->PIDReset();
+	Robot::autodrive->PIDReset();
 	Robot::vision->Update();
 	double lock;
 	if (fp != nullptr) {
@@ -48,24 +48,24 @@ void MoveBasedOnVision::Initialize() {
 	} else {
 		std::printf("VISION FAILED: move in %fin\n", distance);
 	}
-	Robot::tracker->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
+	Robot::autodrive->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveBasedOnVision::Execute() {
 	Robot::tracker->GetPosition();
-	Robot::tracker->Drive(Robot::drivetrain.get());
+	Robot::autodrive->Drive(Robot::drivetrain.get());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveBasedOnVision::IsFinished() {
-	return Robot::tracker->PIDFinished();
+	return Robot::autodrive->PIDFinished();
 }
 
 // Called once after isFinished returns true
 void MoveBasedOnVision::End() {
 	std::printf("VISION END\n");
-	Robot::tracker->PIDDisable();
+	Robot::autodrive->PIDDisable();
 	Robot::drivetrain->Stop();
 }
 
@@ -73,6 +73,6 @@ void MoveBasedOnVision::End() {
 // subsystems is scheduled to run
 void MoveBasedOnVision::Interrupted() {
 	std::printf("VISION INTERRUPT\n");
-	Robot::tracker->PIDDisable();
+	Robot::autodrive->PIDDisable();
 	Robot::drivetrain->Stop();
 }

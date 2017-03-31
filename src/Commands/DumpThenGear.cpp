@@ -2,7 +2,6 @@
 #include "Robot.h"
 #include "DeliverGear.h"
 #include <Commands/Dump.h>
-#include "../Commands/ApproachGear.h"
 #include "../Commands/DriveToFieldPosition.h"
 #include "../Commands/DriveToPosition.h"
 #include "../Commands/MoveBasedOnVision.h"
