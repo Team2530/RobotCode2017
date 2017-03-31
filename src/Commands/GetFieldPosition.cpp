@@ -5,7 +5,6 @@ GetFieldPosition::GetFieldPosition(){// : Command("GetFieldPosition")
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::tracker.get());
-
 }
 
 // Called just before this Command runs the first time

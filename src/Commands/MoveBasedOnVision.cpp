@@ -9,7 +9,6 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 	goal = distance;
 	fp = fieldposition;
 	// Use Requires() here to declare subsystem dependencies
-	Requires(Robot::tracker.get());
 	Requires(Robot::vision.get());
 	Requires(Robot::led.get());
 	Requires(Robot::drivetrain.get());

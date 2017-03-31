@@ -3,7 +3,6 @@
 #include "../Robot.h"
 
 AutoDriveBase::AutoDriveBase() {
-	Requires(Robot::tracker.get());
 	Requires(Robot::autodrive.get());
 	Requires(Robot::drivetrain.get());
 }

@@ -2,7 +2,6 @@
 #include "../Robot.h"
 DriveToFieldPositionTest::DriveToFieldPositionTest(FieldPosition *FP) {
 	FieldP = FP;
-	Requires(Robot::tracker.get());
 	Requires(Robot::drivetrain.get());
 }
 
