@@ -1,7 +1,5 @@
 #include "../Commands/GetFieldPosition.h"
-#include "Tracker.h"
 #include "../RobotMap.h"
-
 
 #include "../Robot.h"
 
@@ -38,7 +36,7 @@ void Tracker::StartTracking(double initialX, double initialY, double initialAngl
 	}
 }
 
-void Tracker::GetPosition(){
+void Tracker::UpdatePosition(){
 	double side = sideEncoder->GetDistance();
 	double front = frontEncoder->GetDistance();
 	double distanceX = side - sideLastMeasurement;

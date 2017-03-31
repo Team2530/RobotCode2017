@@ -16,7 +16,7 @@ void AutoDriveBase::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveBase::Execute() {
-	Robot::tracker->GetPosition();
+	Robot::tracker->UpdatePosition();
 	Robot::autodrive->Drive(Robot::drivetrain.get());
 }
 

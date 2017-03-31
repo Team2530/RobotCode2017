@@ -60,7 +60,7 @@ double AutoDrive::GetPIDRotation() {
 }
 
 double AutoDrive::GetDistance() {
-	Robot::tracker->GetPosition();
+	Robot::tracker->UpdatePosition();
 	double dx = this->goalPositionX - Robot::tracker->GetCurrentPositionX();
 	double dy = this->goalPositionY - Robot::tracker->GetCurrentPositionY();
 	double distance = hypot(dx,dy);
@@ -139,7 +139,7 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	}
 	// Enable PID is locked to the current angle and enabled
 	if (!headingLockEnabled) {
-		Robot::tracker->GetPosition();
+		Robot::tracker->UpdatePosition();
 		pidr = 0; // reset PID output to 0, just in case
 		pidrc.Reset();
 		pidrc.SetSetpoint(Robot::tracker->GetCurrentAngle());

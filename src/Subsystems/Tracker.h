@@ -28,7 +28,7 @@ public:
 	Tracker();
 	void InitDefaultCommand();
 	void StartTracking(double initialX = 0, double initialY = 0, double initialAngle = 0);
-	void GetPosition();
+	void UpdatePosition();
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();

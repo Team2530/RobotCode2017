@@ -14,7 +14,7 @@ void DriveToFieldPositionTest::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveToFieldPositionTest::Execute() {
-	Robot::tracker->GetPosition();
+	Robot::tracker->UpdatePosition();
 	Robot::autodrive->Drive(Robot::drivetrain.get());
 }
 
