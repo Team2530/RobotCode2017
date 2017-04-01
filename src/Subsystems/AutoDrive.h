@@ -14,11 +14,25 @@
 
 #include "../Positions/Position.h"
 
+// A PIDSource to track the current angle from Tracker
 class PIDAngleSource : public frc::PIDSource {
 public:
 	double PIDGet() override;
 };
 
+// A PIDSource to track displacement along the path
+class PIDParallelSource : public frc::PIDSource {
+public:
+	double PIDGet() override;
+};
+
+// A PIDSource to track drift across the path
+class PIDPerpendicularSource : public frc::PIDSource {
+public:
+	double PIDGet() override;
+};
+
+// Unused: returns value of a double pointer
 class PIDDoubleSource : public frc::PIDSource {
 public:
 	PIDDoubleSource(double* source) {
@@ -30,6 +44,8 @@ public:
 private:
 	double* src;
 };
+
+// Sets value to a double pointer
 class PIDDoubleOutput : public frc::PIDOutput {
 public:
 	PIDDoubleOutput(double* source) {
@@ -43,7 +59,7 @@ private:
 	double* src;
 };
 
-class AutoDrive : public Subsystem, frc::PIDSource {
+class AutoDrive : public Subsystem {
 private:
 	double goalPositionX;
 	double goalPositionY;
@@ -51,24 +67,30 @@ private:
 	// Heading lock variables
 	bool headingLockEnabled;
 
-	// Outputs from PID Controllers
-	double pidr;
-	double power;
+	// The angle from start position to goal position, for PID control
+	double pathAngleRad;
+
+	// How fast to limit the PID controller output to
 	double MAX_POW;
 
-	// PID helper classes for the PID Controllers
-	// (The other source is this class itself
-	// since it needs to calculate the distance)
-	PIDAngleSource pidrs; // &this->currentAngle
-	PIDDoubleOutput pidro; // &this->pidr
-	PIDDoubleOutput pidpo; // &this->power
+	// Corrections from PID Controllers
+	double angleC;
+	double parallelC;
+	double perpendicularC;
 
-	// Power PID Controller, goes from this class's
-	// distance calculation to the power member
-	frc::PIDController pidpc;
-	// Rotation PID Controller, using pidrs and pidro
-	// to go from currentAngle to pidr
-	frc::PIDController pidrc;
+	// PID helper classes for the PID Controllers
+	// Sources
+	PIDAngleSource angleS;
+	PIDParallelSource parallelS;
+	PIDPerpendicularSource perpendicularS;
+	// Outputs
+	PIDDoubleOutput angleO; // -> &this->angleC
+	PIDDoubleOutput parallelO; // -> &this->parallelC
+	PIDDoubleOutput perpendicularO; // -> &this->perpendicularC
+
+	frc::PIDController anglePID;
+	frc::PIDController parallelPID;
+	frc::PIDController perpendicularPID;
 
 	std::shared_ptr<NetworkTable> SDtable;
 	std::shared_ptr<ITable> DBtable;
@@ -98,14 +120,17 @@ public:
 	// Disable the PID loop when done
 	void PIDDisable();
 
-	double PIDGet(); // alias for GetDistance() for the PID feeding into power
-
 	void UpdatePIDFromTable();
 	void SetMaxPower(double pow = 0.75);
 
 	// Call with Robot::drivetrain.get()
 	// To move wheels towards goal position or rotation
 	void Drive(DriveTrain* drivetrain);
+
+	double GetCoordAngleRad();
+	double GetCoordAngleDeg();
+	double GetGoalPositionX();
+	double GetGoalPositionY();
 };
 
 #endif  // AutoDrive_H

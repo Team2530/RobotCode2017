@@ -109,13 +109,13 @@ bool DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 	return enableHeadingLock;
 }
 
-void DriveTrain::DirectDrive(double x, double y, double z) {
+void DriveTrain::DirectDrive(double x, double y, double z, double angle) {
 	const double db = 0.001;
 	const double MinPower = 0.07;
-	x=GetScaledPower(x,1.0,db,MinPower*2);
+	x=GetScaledPower(x,1.0,db,MinPower);
 	y=GetScaledPower(y,1.0,db,MinPower);
 	z=GetScaledPower(z,1.0,db,0.05);
-	robotDrive->MecanumDrive_Cartesian(x, y, z);
+	robotDrive->MecanumDrive_Cartesian(x, y, z, angle);
 }
 
 

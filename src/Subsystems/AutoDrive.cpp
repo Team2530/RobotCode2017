@@ -5,28 +5,53 @@ double PIDAngleSource::PIDGet() {
 	return Robot::tracker->GetCurrentAngle();
 }
 
+double coordAlongPath(bool alongx) {
+	double angle = Robot::autodrive->GetCoordAngleRad();
+	if (alongx) angle += M_PI/2; // if y-axis is 0, x-axis is 90 deg = pi/2 rad
+	double dx = Robot::autodrive->GetGoalPositionX() - Robot::tracker->GetCurrentPositionX();
+	double dy = Robot::autodrive->GetGoalPositionY() - Robot::tracker->GetCurrentPositionY();
+	return dy*cos(angle) + dx*sin(angle);
+}
+
+double PIDParallelSource::PIDGet() {
+	return coordAlongPath(false);
+}
+
+double PIDPerpendicularSource::PIDGet() {
+	return coordAlongPath(true);
+}
+
 AutoDrive::AutoDrive() :
 	Subsystem("AutoDrive"),
 	goalPositionX(0),
 	goalPositionY(0),
 	headingLockEnabled(false),
-	pidr(0),
-	power(0),
+	pathAngleRad(0),
 	MAX_POW(0.75),
-	pidrs(),
-	pidro(&this->pidr),
-	pidpo(&this->power),
-	pidpc(0.04, 0.000, 0.12, this, &pidpo),
-	pidrc(0.02, 0.000, 0.04, &pidrs, &pidro)
+	angleC(0),
+	parallelC(0),
+	perpendicularC(0),
+	angleS(),
+	parallelS(),
+	perpendicularS(),
+	angleO(&this->angleC),
+	parallelO(&this->parallelC),
+	perpendicularO(&this->perpendicularC),
+	anglePID(0.02, 0.000, 0.04, &angleS, &angleO),
+	parallelPID(0.04, 0.000, 0.12, &parallelS, &parallelO),
+	perpendicularPID(0.04, 0.000, 0.12, &perpendicularS, &perpendicularO)
 {
-	pidpc.SetAbsoluteTolerance(2.0); // inches
-	pidpc.SetSetpoint(0);
-	//pidpc.SetOutputRange(0, 1);
+	parallelPID.SetAbsoluteTolerance(2.0); // inches
+	parallelPID.SetSetpoint(0);
+	parallelPID.SetOutputRange(-1, 1);
+	perpendicularPID.SetAbsoluteTolerance(2.0); // inches
+	perpendicularPID.SetSetpoint(0);
+	perpendicularPID.SetOutputRange(-1, 1);
 
-	pidrc.SetInputRange(-180, 180);
-	pidrc.SetAbsoluteTolerance(2); // degrees
-	pidrc.SetContinuous();
-	pidrc.SetOutputRange(-1, 1);
+	anglePID.SetInputRange(-180, 180);
+	anglePID.SetAbsoluteTolerance(2); // degrees
+	anglePID.SetContinuous();
+	anglePID.SetOutputRange(-1, 1);
 
 	SDtable = NetworkTable::GetTable("SmartDashboard");
 	DBtable = SDtable->GetSubTable("DB");
@@ -38,21 +63,25 @@ void AutoDrive::InitDefaultCommand() {
 
 void AutoDrive::UpdatePIDFromTable() {
 	double scale = 50;
-	double Pdist = DBtable->GetNumber("Slider 0", pidpc.GetP()*scale)/scale;
-	double Ddist = DBtable->GetNumber("Slider 1", pidpc.GetD()*scale)/scale;
-	double Prot = DBtable->GetNumber("Slider 2", pidrc.GetP()*scale)/scale;
-	double Drot = DBtable->GetNumber("Slider 3", pidrc.GetD()*scale)/scale;
-	pidpc.SetPID(Pdist, pidpc.GetI(), Ddist);
-	pidrc.SetPID(Prot, pidrc.GetI(), Drot);
+	double Pdist = DBtable->GetNumber("Slider 0", parallelPID.GetP()*scale)/scale;
+	double Ddist = DBtable->GetNumber("Slider 1", parallelPID.GetD()*scale)/scale;
+	double Prot = DBtable->GetNumber("Slider 2", anglePID.GetP()*scale)/scale;
+	double Drot = DBtable->GetNumber("Slider 3", anglePID.GetD()*scale)/scale;
+	parallelPID.SetPID(Pdist, parallelPID.GetI(), Ddist);
+	anglePID.SetPID(Prot, anglePID.GetI(), Drot);
 }
 
 void AutoDrive::Set(double x, double y, double angle) {
 	//UpdatePIDFromTable();
 	this->goalPositionX = x;
 	this->goalPositionY = y;
-	pidrc.SetSetpoint(angle);
-	pidrc.Enable();
-	pidpc.Enable();
+	double dx = x - Robot::tracker->GetCurrentPositionX();
+	double dy = y - Robot::tracker->GetCurrentPositionY();
+	pathAngleRad = atan2(dx, dy);
+	anglePID.SetSetpoint(angle);
+	anglePID.Enable();
+	parallelPID.Enable();
+	perpendicularPID.Enable();
 }
 
 void AutoDrive::MoveToPos(Position* pos) {
@@ -64,7 +93,7 @@ void AutoDrive::MoveToPos(Position* pos) {
 }
 
 double AutoDrive::GetPIDRotation() {
-	return pidr;
+	return angleC;
 }
 
 double AutoDrive::GetDistance() {
@@ -75,13 +104,27 @@ double AutoDrive::GetDistance() {
 	//std::printf("Distance: %f\n", distance);
 	return distance;
 }
-double AutoDrive::PIDGet() {
-	return GetDistance();
+
+double AutoDrive::GetGoalPositionX() {
+	return goalPositionX;
+}
+
+double AutoDrive::GetGoalPositionY() {
+	return goalPositionY;
+}
+
+double AutoDrive::GetCoordAngleRad() {
+	return pathAngleRad;
+}
+
+double AutoDrive::GetCoordAngleDeg() {
+	return pathAngleRad * 180/M_PI;
 }
 
 bool AutoDrive::PIDFinished() {
-	bool correctPosition = pidpc.OnTarget();
-	bool correctHeading = pidrc.OnTarget();
+	bool correctPosition = parallelPID.OnTarget() && perpendicularPID.OnTarget();
+	bool correctHeading = anglePID.OnTarget();
+	/*
 	if (correctPosition && !correctHeading) {
 		double goal = pidrc.GetSetpoint();
 		double deviation = goal - Robot::tracker->GetCurrentAngle();
@@ -94,17 +137,20 @@ bool AutoDrive::PIDFinished() {
 		std::printf("Waiting to move (%f in away)\n", distance);
 		//if (distance < 0.1) return true;
 	}
+	*/
 	return correctPosition && correctHeading;
 }
 
 void AutoDrive::PIDReset() {
-	pidpc.Reset();
-	pidrc.Reset();
+	anglePID.Reset();
+	parallelPID.Reset();
+	perpendicularPID.Reset();
 }
 
 void AutoDrive::PIDDisable() {
-	pidpc.Disable();
-	pidrc.Disable();
+	anglePID.Disable();
+	parallelPID.Disable();
+	perpendicularPID.Disable();
 }
 
 const double MAX_ROT = 0.5;
@@ -114,24 +160,21 @@ void AutoDrive::SetMaxPower(double pow) {
 }
 
 void AutoDrive::Drive(DriveTrain* drivetrain) {
-	double dx = goalPositionX - Robot::tracker->GetCurrentPositionX();
-	double dy = goalPositionY - Robot::tracker->GetCurrentPositionY();
-	double goalAngle = atan2(dx, dy) * 180 / M_PI;
-	double pwr = power;
-	if (pwr > MAX_POW) pwr = MAX_POW;
-	if (pwr < -MAX_POW) pwr = -MAX_POW;
-	double rot = pidr;
+	double x = perpendicularC;
+	if (x > MAX_POW) x = MAX_POW;
+	if (x < -MAX_POW) x = -MAX_POW;
+	double y = parallelC;
+	if (y > MAX_POW) y = MAX_POW;
+	if (y < -MAX_POW) y = -MAX_POW;
+	double rot = angleC;
 	if (rot > MAX_ROT) rot = MAX_ROT;
 	if (rot < -MAX_ROT) rot = -MAX_ROT;
-	//std::printf("Drive command: %f\n", backward);
 
 	// Rotate coordinates to robot oriented
-	double rad = (goalAngle - Robot::tracker->GetCurrentAngle() + 90) * M_PI/180;
-	double x = pwr*cos(rad);
-	double y = pwr*sin(rad);
+	double angle = Robot::tracker->GetCurrentAngle() + Robot::autodrive->GetCoordAngleDeg();
 
 	drivetrain->DirectDrive(
-		x, y, rot
+		x, y, rot, angle
 	);
 }
 
@@ -139,7 +182,7 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	// If the joystick is twisted, use that value for control
 	if (!enabled) {
 		if (headingLockEnabled) {
-			pidrc.Disable();
+			anglePID.Disable();
 			//std::printf("Disable heading lock\n");
 			headingLockEnabled = false;
 		}
@@ -148,11 +191,11 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	// Enable PID is locked to the current angle and enabled
 	if (!headingLockEnabled) {
 		Robot::tracker->UpdatePosition();
-		pidr = 0; // reset PID output to 0, just in case
-		pidrc.Reset();
-		pidrc.SetSetpoint(Robot::tracker->GetCurrentAngle());
+		angleC = 0; // reset PID output to 0, just in case
+		anglePID.Reset();
+		anglePID.SetSetpoint(Robot::tracker->GetCurrentAngle());
 		//std::printf("Lock to heading %f\n", currentAngle);
-		pidrc.Enable();
+		anglePID.Enable();
 		headingLockEnabled = true;
 		return;
 	}
