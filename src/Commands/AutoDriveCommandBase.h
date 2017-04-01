@@ -3,9 +3,9 @@
 
 #include <Commands/Command.h>
 
-class AutoDriveBase : public frc::Command {
+class AutoDriveCommandBase : public frc::Command {
 public:
-	AutoDriveBase();
+	AutoDriveCommandBase();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

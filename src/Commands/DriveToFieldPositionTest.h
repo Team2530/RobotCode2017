@@ -1,18 +1,19 @@
-#ifndef DriveToFieldPositionTest_H					//This file is unnecessary! Use DriveToFieldPosition.h instead!
+#ifndef DriveToFieldPositionTest_H
 #define DriveToFieldPositionTest_H
-#include "FieldPositions/FieldPosition.h"
-#include "Commands/Command.h"
 
-class DriveToFieldPositionTest : public Command {
+#include <Commands/AutoDriveCommandBase.h>
+#include "FieldPositions/FieldPosition.h"
+
+class DriveToFieldPositionTest : public AutoDriveCommandBase {
 public:
 	DriveToFieldPositionTest(FieldPosition *FP);
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+	DriveToFieldPositionTest(FieldPosition *FP, double speed);
+	void UpdatePosition() override;
+	bool IsFinished() override;
 private:
 	FieldPosition *FieldP;
+	bool has_power;
+	double max_power;
 };
 
-#endif  // DriveToFieldPosition_H
+#endif  // DriveToFieldPositionTest_H

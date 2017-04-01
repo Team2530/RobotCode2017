@@ -1,13 +1,13 @@
 #ifndef DriveToFieldPosition_H
 #define DriveToFieldPosition_H
 
-#include "AutoDriveBase.h"
+#include <Commands/AutoDriveCommandBase.h>
 #include "FieldPositions/FieldPosition.h"
 
-class DriveToFieldPosition : public AutoDriveBase {
+class DriveToFieldPosition : public AutoDriveCommandBase {
 public:
 	DriveToFieldPosition(FieldPosition *FP);
-	DriveToFieldPosition(FieldPosition *FP, double power);
+	DriveToFieldPosition(FieldPosition *FP, double speed);
 	void UpdatePosition() override;
 private:
 	FieldPosition *FieldP;

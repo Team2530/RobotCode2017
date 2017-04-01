@@ -1,35 +1,28 @@
 #include "DriveToFieldPositionTest.h"																	//Does not stop!
 #include "../Robot.h"
+
 DriveToFieldPositionTest::DriveToFieldPositionTest(FieldPosition *FP) {
 	FieldP = FP;
-	Requires(Robot::drivetrain.get());
+	has_power = false;
+}
+DriveToFieldPositionTest::DriveToFieldPositionTest(FieldPosition *FP, double speed) {
+	FieldP = FP;
+	has_power = true;
+	max_power = speed;
 }
 
 // Called just before this Command runs the first time
-void DriveToFieldPositionTest::Initialize() {
-	Robot::autodrive->PIDReset();
+void DriveToFieldPositionTest::UpdatePosition() {
 	Robot::autodrive->Set(FieldP->GetX(), FieldP->GetY(), FieldP->GetR());
+	if (has_power) {
+		Robot::autodrive->SetMaxPower(max_power);
+	} else {
+		// Reset to default max power: 0.75, as specified in AutoDrive.cpp
+		Robot::autodrive->SetMaxPower();
+	}
 }
 
-// Called repeatedly when this Command is scheduled to run
-void DriveToFieldPositionTest::Execute() {
-	Robot::tracker->UpdatePosition();
-	Robot::autodrive->Drive(Robot::drivetrain.get());
-}
-
-// Make this return true when this Command no longer needs to run execute()
+// Return false to keep the command running to see PID oscillation
 bool DriveToFieldPositionTest::IsFinished() {
 	return false;
-}
-// Called once after isFinished returns true
-void DriveToFieldPositionTest::End() {
-	Robot::autodrive->PIDDisable();
-	Robot::drivetrain->Stop();
-}
-
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
-void DriveToFieldPositionTest::Interrupted() {
-	Robot::autodrive->PIDDisable();
-	Robot::drivetrain->Stop();
 }
