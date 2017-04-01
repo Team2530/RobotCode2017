@@ -15,5 +15,9 @@ void CameraServo:: AimTaco () {
 void CameraServo:: AimLift (){
 	servo-> SetAngle (145);
 }
+
+void CameraServo:: AimFrontTaco () {
+	servo-> SetAngle (160);     									//This angle needs to be tested, it currently is a guess.
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

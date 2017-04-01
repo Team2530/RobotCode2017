@@ -11,6 +11,7 @@ public:
 	void InitDefaultCommand();
 	void AimTaco ();
 	void AimLift ();
+	void AimFrontTaco ();
 };
 
 #endif  // CameraServo_H

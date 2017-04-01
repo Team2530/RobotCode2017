@@ -1,33 +1,34 @@
 #include "Robot.h"
-#include "AimCameratoTaco.h"
+#include <Commands/AimCameratoFrontTaco.h>
 
-AimCameratoTaco::AimCameratoTaco() {
+AimCameratoFrontTaco::AimCameratoFrontTaco() {
 	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::cameraservo.get());
 }
 
 // Called just before this Command runs the first time
-void AimCameratoTaco::Initialize() {
+void AimCameratoFrontTaco::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AimCameratoTaco::Execute() {
-	Robot::cameraservo->AimTaco();
+void AimCameratoFrontTaco::Execute() {
+	Robot::cameraservo->AimFrontTaco();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AimCameratoTaco::IsFinished() {
-	return true;
+bool AimCameratoFrontTaco::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void AimCameratoTaco::End() {
+void AimCameratoFrontTaco::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AimCameratoTaco::Interrupted() {
+void AimCameratoFrontTaco::Interrupted() {
 
 }
