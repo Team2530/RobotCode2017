@@ -1,9 +1,7 @@
 #ifndef MecanumDriveFieldOriented_H
 #define MecanumDriveFieldOriented_H
 
-#include "Commands/Command.h"
 #include "AHRS.h"
-#include "WPILib.h"
 
 class MecanumDriveFieldOriented : public Command {
 public:

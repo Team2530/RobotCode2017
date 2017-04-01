@@ -2,8 +2,6 @@
 #define Dumper_H
 #include "WPILib.h"
 
-#include <Commands/Subsystem.h>
-
 class Dumper : public Subsystem {
 private:
 	static constexpr int kDumperController = 6; //SET TO ACTUAL

@@ -2,8 +2,6 @@
 #define Tracker_H
 
 #include "OI.h"
-#include "DriverStation.h"
-#include <Encoder.h>
 
 class Tracker : public frc::Subsystem {
 private:

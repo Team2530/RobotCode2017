@@ -4,7 +4,6 @@
 #include "IntakeOn.h"
 #include "../FieldPositions/HopperFieldPosition.h"
 #include "DeliverGear.h"
-#include "GetHopper.h"
 
 DeliverGearDumpHopper::DeliverGearDumpHopper() {
 	// Add Commands here:

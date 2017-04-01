@@ -1,10 +1,6 @@
 #ifndef OI_H
 #define OI_H
 
-#include <Joystick.h>
-#include <XboxController.h>
-#include "WPILib.h"
-#include <Buttons/JoystickButton.h>
 #include "Subsystems/ControllerConstants.h"
 #include <AHRS.h>
 

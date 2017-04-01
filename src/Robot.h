@@ -8,16 +8,7 @@
 #ifndef SRC_ROBOT_H_
 #define SRC_ROBOT_H_
 
-
-#include <memory>
-#include "DriverStation.h"
-
-#include <Commands/Command.h>
-#include <Commands/Scheduler.h>
-#include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
-#include <SmartDashboard/SendableChooser.h>
-#include <SmartDashboard/SmartDashboard.h>
 
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Dumper.h"

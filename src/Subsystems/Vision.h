@@ -2,7 +2,6 @@
 #define Vision_H
 
 #include <Commands/Subsystem.h>
-#include <NetworkTables/NetworkTable.h>
 
 #include <CameraServer.h>
 

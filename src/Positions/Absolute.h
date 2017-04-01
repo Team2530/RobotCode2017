@@ -8,7 +8,6 @@
 #ifndef SRC_POSITIONS_ABSOLUTE_H_
 #define SRC_POSITIONS_ABSOLUTE_H_
 
-#include <Positions/Position.h>
 #include "../FieldPositions/FieldPosition.h"
 
 class Absolute: public Position {

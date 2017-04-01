@@ -2,11 +2,6 @@
 #define AutoDrive_H
 
 #include "OI.h"
-#include "DriverStation.h"
-#include <Commands/Subsystem.h>
-#include <PIDSource.h>
-#include <PIDOutput.h>
-#include <PIDController.h>
 
 #include "DriveTrain.h"
 

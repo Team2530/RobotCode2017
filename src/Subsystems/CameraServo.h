@@ -1,7 +1,6 @@
 #ifndef CameraServo_H
 #define CameraServo_H
 #include "WPILib.h"
-#include <Commands/Subsystem.h>
 
 class CameraServo : public Subsystem {
 private:

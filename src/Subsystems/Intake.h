@@ -9,7 +9,6 @@
 #define SRC_SUBSYSTEMS_INTAKE_H_
 
 #include "WPILib.h"
-#include <Commands/Subsystem.h>
 
 class Intake : public Subsystem {
 private:
