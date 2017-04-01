@@ -18,12 +18,12 @@ private:
 	// and where we are facing.
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
+	double currentAngle; // angle in degrees, right is positive
 	double angleAdjustment; // starting angle when AHRS is reset
 
 	std::shared_ptr<NetworkTable> table;
 
 public:
-	double currentAngle; // angle in degrees, right is positive
 
 	Tracker();
 	void InitDefaultCommand();

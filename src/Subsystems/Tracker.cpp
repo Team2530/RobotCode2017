@@ -4,16 +4,20 @@
 #include "../Robot.h"
 
 Tracker::Tracker() :
-	Subsystem("TrackerSubsystem")
+	Subsystem("TrackerSubsystem"),
+	ahrs(nullptr), // obtained from OI later
+	frontLastMeasurement(0),
+	sideLastMeasurement(0),
+	currentPositionX(0),
+	currentPositionY(0),
+	currentAngle(0),
+	angleAdjustment(0)
 {
 	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
 	frontEncoder->SetDistancePerPulse(0.012566/2);//encoderticks/revolution * dpi = 1/1000 * 4pi : ticks/rev = 1/1000 d = 4 pi = 3.14
 	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
-	frontLastMeasurement = 0;
-	sideLastMeasurement = 0;
 
-	ahrs = nullptr; // new AHRS(SerialPort::kMXP);//check port
 	table = NetworkTable::GetTable("robotPosition");
 }
 void Tracker::InitDefaultCommand() {

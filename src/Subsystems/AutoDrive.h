@@ -14,6 +14,11 @@
 
 #include "../Positions/Position.h"
 
+class PIDAngleSource : public frc::PIDSource {
+public:
+	double PIDGet() override;
+};
+
 class PIDDoubleSource : public frc::PIDSource {
 public:
 	PIDDoubleSource(double* source) {
@@ -54,7 +59,7 @@ private:
 	// PID helper classes for the PID Controllers
 	// (The other source is this class itself
 	// since it needs to calculate the distance)
-	PIDDoubleSource pidrs; // &this->currentAngle
+	PIDAngleSource pidrs; // &this->currentAngle
 	PIDDoubleOutput pidro; // &this->pidr
 	PIDDoubleOutput pidpo; // &this->power
 

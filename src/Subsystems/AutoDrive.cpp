@@ -1,16 +1,24 @@
 #include "AutoDrive.h"
 #include "../Robot.h"
 
+double PIDAngleSource::PIDGet() {
+	return Robot::tracker->GetCurrentAngle();
+}
+
 AutoDrive::AutoDrive() :
 	Subsystem("AutoDrive"),
-	pidrs(&Robot::tracker->currentAngle),
+	goalPositionX(0),
+	goalPositionY(0),
+	headingLockEnabled(false),
+	pidr(0),
+	power(0),
+	MAX_POW(0.75),
+	pidrs(),
 	pidro(&this->pidr),
 	pidpo(&this->power),
 	pidpc(0.04, 0.000, 0.12, this, &pidpo),
 	pidrc(0.02, 0.000, 0.04, &pidrs, &pidro)
 {
-	MAX_POW = 0.75;
-
 	pidpc.SetAbsoluteTolerance(2.0); // inches
 	pidpc.SetSetpoint(0);
 	//pidpc.SetOutputRange(0, 1);
