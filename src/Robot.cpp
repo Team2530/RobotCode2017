@@ -8,7 +8,7 @@
 #include "Commands/DoNothing.h"
 #include "Commands/DeliverGear.h"
 #include "Commands/DeliverGearDumpHopper.h"
-#include "Commands/DriveToFieldPosition.h"
+#include "Commands/DriveToPosition.h"
 #include "Commands/PerimeterMovement.h"
 #include "Commands/DumpThenGear.h"
 #include "Commands/DeliverGearDumpHopper.h"
@@ -75,7 +75,7 @@ void Robot::RobotInit() {
 
 	oi = std::make_unique<OI>();
 
-	chooserDo.AddDefault("Cross BaseLine", new DriveToFieldPosition(new CrossBaseLineFieldPosition(), 0.5)); //starting action
+	chooserDo.AddDefault("Cross BaseLine", new DriveToPosition(new CrossBaseLineFieldPosition(), 0.5)); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());
 	/*
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());

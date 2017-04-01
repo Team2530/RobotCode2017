@@ -2,13 +2,6 @@
 #include "Robot.h"
 #include "DeliverGear.h"
 #include <Commands/Dump.h>
-#include "../Commands/DriveToFieldPosition.h"
-#include "../Commands/DriveToPosition.h"
-#include "../Commands/MoveBasedOnVision.h"
-#include "../Positions/Absolute.h"
-#include "../Positions/RobotRelative.h"
-#include "../FieldPositions/FieldPositionToRotateTo.h"
-#include "../FieldPositions/GearFieldPosition.h"
 
 DumpThenGear::DumpThenGear() {
 	// Add Commands here:

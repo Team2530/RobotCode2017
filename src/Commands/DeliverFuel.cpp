@@ -2,11 +2,11 @@
 
 #include "Dump.h"
 #include "Robot.h"
-#include "DriveToFieldPosition.h"
+#include "DriveToPosition.h"
 #include "../FieldPositions/BoilerFieldPosition.h"
 
 DeliverFuel::DeliverFuel() {
 
-	AddSequential(new DriveToFieldPosition(new BoilerFieldPosition()));
+	AddSequential(new DriveToPosition(new BoilerFieldPosition()));
 	AddSequential(new Dump());
 }
