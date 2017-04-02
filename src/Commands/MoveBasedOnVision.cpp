@@ -13,10 +13,11 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 	Requires(Robot::led.get());
 	Requires(Robot::drivetrain.get());
 	Requires(Robot::cameraservo.get());
+	Requires(Robot::autodrive.get());
 }
 
 // Called just before this Command runs the first time
-void MoveBasedOnVision::Initialize() {
+void MoveBasedOnVision::UpdatePosition() {
 	Robot::cameraservo->AimTaco();
 	Robot::led->Set(true);
 	Robot::autodrive->PIDReset();
@@ -45,33 +46,20 @@ void MoveBasedOnVision::Initialize() {
 		std::printf("VISION INIT: Move forward %f in, right %f\n", distance, displacement);
 		// Move until the takko is (hopefully) centered, about 3 feet away
 	} else {
-		std::printf("VISION FAILED: move in %fin\n", distance);
+		std::printf("VISION FAILED: move in %fin, right%fin\n", distance, displacement);
 	}
 	Robot::autodrive->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
-}
-
-// Called repeatedly when this Command is scheduled to run
-void MoveBasedOnVision::Execute() {
-	Robot::tracker->UpdatePosition();
-	Robot::autodrive->Drive(Robot::drivetrain.get());
-}
-
-// Make this return true when this Command no longer needs to run execute()
-bool MoveBasedOnVision::IsFinished() {
-	return Robot::autodrive->PIDFinished();
 }
 
 // Called once after isFinished returns true
 void MoveBasedOnVision::End() {
 	std::printf("VISION END\n");
-	Robot::autodrive->PIDDisable();
-	Robot::drivetrain->Stop();
+	AutoDriveCommandBase::End();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MoveBasedOnVision::Interrupted() {
 	std::printf("VISION INTERRUPT\n");
-	Robot::autodrive->PIDDisable();
-	Robot::drivetrain->Stop();
+	AutoDriveCommandBase::Interrupted();
 }

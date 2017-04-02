@@ -4,6 +4,9 @@ double PIDAngleSource::PIDGet() {
 	return Robot::tracker->GetCurrentAngle();
 }
 
+// Get the current displacement vector from current to goal
+// and rotate it into the coordinate system of the PIDs
+// (call with true/false for each component)
 double coordAlongPath(bool alongx) {
 	double angle = Robot::autodrive->GetCoordAngleRad();
 	if (alongx) angle += M_PI/2; // if y-axis is 0, x-axis is 90 deg = pi/2 rad
@@ -12,10 +15,12 @@ double coordAlongPath(bool alongx) {
 	return dy*cos(angle) + dx*sin(angle);
 }
 
+// Measures how far out the robot is from its target
 double PIDParallelSource::PIDGet() {
 	return coordAlongPath(false);
 }
 
+// Measures how far off the robot is from the path
 double PIDPerpendicularSource::PIDGet() {
 	return coordAlongPath(true);
 }

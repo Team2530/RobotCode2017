@@ -1,18 +1,16 @@
 #ifndef MoveBasedOnVision_H
 #define MoveBasedOnVision_H
 
-#include <Commands/Command.h>
+#include "AutoDriveCommandBase.h"
 #include "../FieldPositions/FieldPosition.h"
 
-class MoveBasedOnVision : public frc::Command {
+class MoveBasedOnVision : public AutoDriveCommandBase {
 private:
 	double goal;
 	FieldPosition* fp;
 public:
 	MoveBasedOnVision(double distance, FieldPosition* fieldposition);
-	void Initialize();
-	void Execute();
-	bool IsFinished();
+	void UpdatePosition();
 	void End();
 	void Interrupted();
 };
