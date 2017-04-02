@@ -10,6 +10,8 @@ double PIDAngleSource::PIDGet() {
 double coordAlongPath(bool alongx) {
 	double angle = Robot::autodrive->GetCoordAngleRad();
 	if (alongx) angle += M_PI/2; // if y-axis is 0, x-axis is 90 deg = pi/2 rad
+	// Ensure the position is most current
+	Robot::tracker->UpdatePosition();
 	double dx = Robot::autodrive->GetGoalPositionX() - Robot::tracker->GetCurrentPositionX();
 	double dy = Robot::autodrive->GetGoalPositionY() - Robot::tracker->GetCurrentPositionY();
 	return dy*cos(angle) + dx*sin(angle);
@@ -31,7 +33,6 @@ AutoDrive::AutoDrive() :
 	goalPositionY(0),
 	headingLockEnabled(false),
 	pathAngleRad(0),
-	MAX_POW(0.75),
 	angleC(0),
 	parallelC(0),
 	perpendicularC(0),
@@ -59,6 +60,9 @@ AutoDrive::AutoDrive() :
 
 	SDtable = NetworkTable::GetTable("SmartDashboard");
 	DBtable = SDtable->GetSubTable("DB");
+
+	// Set MAX_POW to default
+	SetMaxPower();
 }
 
 void AutoDrive::InitDefaultCommand() {
@@ -88,6 +92,8 @@ void AutoDrive::Set(double x, double y, double angle) {
 }
 
 void AutoDrive::MoveToPos(Position* pos) {
+	// Ensure the position is most current
+	Robot::tracker->UpdatePosition();
 	double x = Robot::tracker->GetCurrentPositionX();
 	double y = Robot::tracker->GetCurrentPositionY();
 	double angle = Robot::tracker->GetCurrentAngle();
@@ -95,6 +101,7 @@ void AutoDrive::MoveToPos(Position* pos) {
 	Set(x, y, angle);
 }
 
+// Get the PID correction amount
 double AutoDrive::GetPIDRotation() {
 	return angleC;
 }
@@ -152,6 +159,9 @@ void AutoDrive::PIDReset() {
 	anglePID.Reset();
 	parallelPID.Reset();
 	perpendicularPID.Reset();
+	angleC = 0;
+	parallelC = 0;
+	perpendicularC = 0;
 }
 
 void AutoDrive::PIDDisable() {
@@ -206,7 +216,6 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	}
 	// Enable PID locked to the current angle
 	if (!headingLockEnabled) {
-		Robot::tracker->UpdatePosition();
 		// Set PID to maintain current angle
 		anglePID.SetSetpoint(Robot::tracker->GetCurrentAngle());
 		// Reset the PID controller itself

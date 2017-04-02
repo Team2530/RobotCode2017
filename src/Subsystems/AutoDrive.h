@@ -100,7 +100,7 @@ public:
 	void MoveToPos(Position* pos);
 	// Set both a field position and a rotation to achieve
 	void Set(double x, double y, double angle);
-	// Set a speed to move at (maximum)
+	// Set a speed to move at (maximum).
 	// Default: 0.75
 	void SetMaxPower(double pow = 0.75);
 
