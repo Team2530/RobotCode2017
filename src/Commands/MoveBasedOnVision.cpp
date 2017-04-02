@@ -20,7 +20,6 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 void MoveBasedOnVision::UpdatePosition() {
 	Robot::cameraservo->AimTaco();
 	Robot::led->Set(true);
-	Robot::autodrive->PIDReset();
 	Robot::vision->Update();
 	double lock;
 	if (fp != nullptr) {

@@ -108,11 +108,9 @@ public:
 	// to move wheels towards goal position or rotation
 	void Drive(DriveTrain* drivetrain);
 
-	// Reset the PID Controllers during initialization
-	void PIDReset();
 	// Check if the robot is close enough to its goal
 	bool PIDFinished();
-	// Disable the PID loop when done
+	// Disable and reset the PID controllers when done
 	void PIDDisable();
 
 	// Enable or disable the heading lock

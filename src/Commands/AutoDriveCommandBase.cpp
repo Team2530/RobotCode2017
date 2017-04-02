@@ -8,9 +8,7 @@ AutoDriveCommandBase::AutoDriveCommandBase() {
 
 // Called just before this Command runs the first time
 // Set the position based on the derived class.
-// Reset the PID controllers (prevent integral windup)
 void AutoDriveCommandBase::Initialize() {
-	Robot::autodrive->PIDReset();
 	Robot::tracker->UpdatePosition();
 	// Reset the max power to default (just in case)
 	Robot::autodrive->SetMaxPower();

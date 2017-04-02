@@ -155,19 +155,12 @@ bool AutoDrive::PIDFinished() {
 	return correctPosition && correctHeading;
 }
 
-void AutoDrive::PIDReset() {
+// Reset each PID controller: this will disable them
+// and set their outputs to 0, besides avoiding integral windup
+void AutoDrive::PIDDisable() {
 	anglePID.Reset();
 	parallelPID.Reset();
 	perpendicularPID.Reset();
-	angleC = 0;
-	parallelC = 0;
-	perpendicularC = 0;
-}
-
-void AutoDrive::PIDDisable() {
-	anglePID.Disable();
-	parallelPID.Disable();
-	perpendicularPID.Disable();
 }
 
 const double MAX_ROT = 0.5;
@@ -205,9 +198,7 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	if (!enabled) {
 		if (headingLockEnabled) {
 			// Stop updating PID values
-			anglePID.Disable();
-			// Reset default output to 0
-			angleC = 0;
+			anglePID.Reset();
 			//std::printf("Disable heading lock\n");
 			// Unset this flag to avoid disabling the PID again
 			headingLockEnabled = false;
@@ -218,12 +209,8 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	if (!headingLockEnabled) {
 		// Set PID to maintain current angle
 		anglePID.SetSetpoint(Robot::tracker->GetCurrentAngle());
-		// Reset the PID controller itself
-		anglePID.Reset();
-		// Reset PID output to 0, just in case
-		angleC = 0;
 		//std::printf("Lock to heading %f\n", currentAngle);
-		// Enable PID to update angleC value (eventually)
+		// Enable PID to update angleC value
 		anglePID.Enable();
 		// Set this flag to avoid re-enabling the PID every time
 		headingLockEnabled = true;
