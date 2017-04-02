@@ -19,7 +19,6 @@ private:
 public:
 	Absolute(double x, double y);
 	Absolute(double x, double y, double r);
-	Absolute(FieldPosition* src);
 	void UpdatePositionAbs(double* x, double* y, double* r) override;
 	void Update(Position* updater);
 };

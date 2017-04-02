@@ -32,9 +32,10 @@ OI::OI() {
 	// Process operator interface input here.
 	joy = new Joystick(0);
 
-	B1 = new frc::JoystickButton(joy,1);				//Please do not have more than one button do the exact same command!
+	B1 = new frc::JoystickButton(joy,1);
 	B1->WhenPressed(new MoveBasedOnVision(36, nullptr));
-	B2 = new frc::JoystickButton(joy, 2);				//Moves towards the peg when the taco is already aligned with the peg!
+	//Moves towards the peg when the taco is already aligned with the peg!
+	B2 = new frc::JoystickButton(joy, 2);
 	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
 	B3 = new frc::JoystickButton(joy, 3);
 	B3->WhileHeld(new MecanumDriveWithJoystick());
@@ -78,17 +79,17 @@ OI::OI() {
 	RS->WhenPressed(new DriveToPosition(new AbsoluteAngle(0)));
 	/*/
 	// Button configuration for competition driving
-	A = new frc::JoystickButton(Xbox, 1);
+	A = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kAbutton);
 	A->ToggleWhenPressed(new IntakeOn());
-	B = new frc::JoystickButton(Xbox, 2);
+	B = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBbutton);
 	B->WhenPressed(new LEDToggle());
-	X = new frc::JoystickButton(Xbox, 3);
+	X = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kXbutton);
 	X->WhileHeld(new Dump());
-	Y = new frc::JoystickButton(Xbox, 4);
+	Y = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kYbutton);
 	Y->ToggleWhenPressed(new IntakeInvert());
-	LB = new frc::JoystickButton(Xbox, 5);
+	LB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLBbutton);
 	LB->WhileHeld(new SlowLift());
-	RB = new frc::JoystickButton(Xbox, 6);
+	RB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRBbutton);
 	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhileHeld(new AimCameratoLift());
