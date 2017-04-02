@@ -10,7 +10,6 @@ Tracker::Tracker() :
 	sideLastMeasurement(0),
 	currentPositionX(0),
 	currentPositionY(0),
-	currentAngle(0),
 	angleAdjustment(0)
 {
 	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
@@ -20,6 +19,8 @@ Tracker::Tracker() :
 
 	table = NetworkTable::GetTable("robotPosition");
 }
+
+// Set a command to update this tracker with the current position every iteration
 void Tracker::InitDefaultCommand() {
 	frontEncoder->Reset();
 	sideEncoder->Reset();
@@ -30,7 +31,6 @@ void Tracker::InitDefaultCommand() {
 void Tracker::StartTracking(double initialX, double initialY, double initialAngle){
 	currentPositionX = initialX;
 	currentPositionY = initialY;
-	currentAngle = initialAngle;
 	angleAdjustment = initialAngle;
 	if (ahrs == nullptr) {
 		ahrs = Robot::oi->GetAHRS();
@@ -45,18 +45,20 @@ void Tracker::UpdatePosition(){
 	double front = frontEncoder->GetDistance();
 	double distanceX = side - sideLastMeasurement;
 	double distanceY = front - frontLastMeasurement;
-	sideLastMeasurement = side;
-	frontLastMeasurement = front;
-	double angle = GetCurrentAngle();
-	double rad = angle * M_PI / 180;
-	double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
-	double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
-	currentPositionX += changeInX;
-	currentPositionY += changeInY;
-	currentAngle = angle;
-	table->PutNumber("x", currentPositionX);
-	table->PutNumber("y", currentPositionY);
-	table->PutNumber("angle", currentAngle);
+	// Only do our calculations if at least one encoder's value has changed
+	if (distanceX != 0 || distanceY != 0) {
+		sideLastMeasurement = side;
+		frontLastMeasurement = front;
+		double angle = GetCurrentAngle();
+		double rad = angle * M_PI / 180;
+		double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
+		double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
+		currentPositionX += changeInX;
+		currentPositionY += changeInY;
+		table->PutNumber("x", currentPositionX);
+		table->PutNumber("y", currentPositionY);
+		table->PutNumber("angle", angle);
+	}
 }
 
 double Tracker::GetCurrentPositionX(){
@@ -67,6 +69,8 @@ double Tracker::GetCurrentPositionY(){
 }
 double Tracker::GetCurrentAngle(){
 	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
+	// Rotate the output around by a full resolution if it is outside of +/-180
+	// (This will only occur if angleAdjustment is nonzero, as GetYaw is always in that range)
 	while (angle > 180) angle -= 360;
 	while (angle < -180) angle += 360;
 	return angle;

@@ -12,11 +12,12 @@ private:
 	double frontLastMeasurement;
 	double sideLastMeasurement;
 
-	// These represent where we are on the field (X, Y)
-	// and where we are facing.
+	// These represent where the robot is on the field (X, Y)
+	// and where it faced at the start of the match.
+	// (The current angle is no longer kept in a variable,
+	// use Tracker::GetCurrentAngle for that.)
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
-	double currentAngle; // angle in degrees, right is positive
 	double angleAdjustment; // starting angle when AHRS is reset
 
 	std::shared_ptr<NetworkTable> table;
@@ -30,6 +31,9 @@ public:
 
 	double GetCurrentPositionX();
 	double GetCurrentPositionY();
+	// Get the adjusted angle on the field, in the range +/-180
+	// where positive is rotated right/clockwise and 0 degrees points
+	// straight forward on the field (i.e. away from the driver)
 	double GetCurrentAngle();
 };
 
