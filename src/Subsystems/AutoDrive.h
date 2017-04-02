@@ -93,39 +93,48 @@ private:
 public:
 	AutoDrive();
 	void InitDefaultCommand();
-	// Set both position and rotation
-	void Set(double x, double y, double angle);
-	// Set based on a Position that receives the current position
-	// to update to the goal position.
+
+	// Set a goal position based on a Position.
+	// Position::updatePosition will receive
+	// the current position to update to the goal position.
 	void MoveToPos(Position* pos);
+	// Set both a field position and a rotation to achieve
+	void Set(double x, double y, double angle);
+	// Set a speed to move at (maximum)
+	// Default: 0.75
+	void SetMaxPower(double pow = 0.75);
 
-	double GetDistance(); // gets distance between current and goal positions
+	// Call with Robot::drivetrain.get() each iteration
+	// to move wheels towards goal position or rotation
+	void Drive(DriveTrain* drivetrain);
 
-	// Read PID controller output
-	double GetPIDRotation();
-	// Pass in a deadbanded twist value
-	// Enable heading lock and return PID value if twist == 0
-	// Otherwise, return twist back
-	void EnableHeadingLock(bool enabled);
-
-	// Check if the robot is close to its goal
-	bool PIDFinished();
-	// Reset the PID Controllers
+	// Reset the PID Controllers during initialization
 	void PIDReset();
+	// Check if the robot is close enough to its goal
+	bool PIDFinished();
 	// Disable the PID loop when done
 	void PIDDisable();
 
+	// Enable or disable the heading lock
+	// (This will set the PID to track the current angle)
+	void EnableHeadingLock(bool enabled);
+	// Read PID controller output for heading lock
+	double GetPIDRotation();
+
+	// Update PIDs using values from SmartDashboard's "Basic" tab
 	void UpdatePIDFromTable();
-	void SetMaxPower(double pow = 0.75);
 
-	// Call with Robot::drivetrain.get()
-	// To move wheels towards goal position or rotation
-	void Drive(DriveTrain* drivetrain);
-
-	double GetCoordAngleRad();
-	double GetCoordAngleDeg();
+	// Get the coordinates of the goal
 	double GetGoalPositionX();
 	double GetGoalPositionY();
+	double GetGoalAngle(); // degrees
+	// Unused: Get distance between current and goal positions
+	double GetDistance();
+	// Get the rotation of the coordinate system for the PIDs
+	// from the default field coordinate system
+	// (y = away from driver, x = positive to the right)
+	double GetCoordAngleRad();
+	double GetCoordAngleDeg();
 };
 
 #endif  // AutoDrive_H

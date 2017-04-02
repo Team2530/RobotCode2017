@@ -57,7 +57,6 @@ AutoDrive::AutoDrive() :
 }
 
 void AutoDrive::InitDefaultCommand() {
-
 }
 
 void AutoDrive::UpdatePIDFromTable() {
@@ -112,6 +111,10 @@ double AutoDrive::GetGoalPositionY() {
 	return goalPositionY;
 }
 
+double AutoDrive::GetGoalAngle() {
+	return anglePID.GetSetpoint();
+}
+
 double AutoDrive::GetCoordAngleRad() {
 	return pathAngleRad;
 }
@@ -158,18 +161,23 @@ void AutoDrive::SetMaxPower(double pow) {
 	MAX_POW = pow;
 }
 
+double clamp(double value, double max) {
+	if (value > max) return max;
+	if (value < -max) return -max;
+	return value;
+}
+
 void AutoDrive::Drive(DriveTrain* drivetrain) {
-	double x = perpendicularC;
-	if (x > MAX_POW) x = MAX_POW;
-	if (x < -MAX_POW) x = -MAX_POW;
-	double y = parallelC;
-	if (y > MAX_POW) y = MAX_POW;
-	if (y < -MAX_POW) y = -MAX_POW;
-	double rot = angleC;
-	if (rot > MAX_ROT) rot = MAX_ROT;
-	if (rot < -MAX_ROT) rot = -MAX_ROT;
+	// x is positive rightwards
+	double x = clamp(perpendicularC, MAX_POW);
+	// To match up with the joystick,
+	// y is negative forwards
+	double y = -clamp(parallelC, MAX_POW);
+	double rot = clamp(angleC, MAX_ROT);
 
 	// Rotate coordinates to robot oriented
+	// Take into account the angle between field oriented and robot oriented
+	// And between field oriented and relative to our path
 	double angle = Robot::tracker->GetCurrentAngle() + Robot::autodrive->GetCoordAngleDeg();
 
 	drivetrain->DirectDrive(
@@ -181,21 +189,29 @@ void AutoDrive::EnableHeadingLock(bool enabled) {
 	// If the joystick is twisted, use that value for control
 	if (!enabled) {
 		if (headingLockEnabled) {
+			// Stop updating PID values
 			anglePID.Disable();
+			// Reset default output to 0
+			angleC = 0;
 			//std::printf("Disable heading lock\n");
+			// Unset this flag to avoid disabling the PID again
 			headingLockEnabled = false;
 		}
 		return;
 	}
-	// Enable PID is locked to the current angle and enabled
+	// Enable PID locked to the current angle
 	if (!headingLockEnabled) {
 		Robot::tracker->UpdatePosition();
-		angleC = 0; // reset PID output to 0, just in case
-		anglePID.Reset();
+		// Set PID to maintain current angle
 		anglePID.SetSetpoint(Robot::tracker->GetCurrentAngle());
+		// Reset the PID controller itself
+		anglePID.Reset();
+		// Reset PID output to 0, just in case
+		angleC = 0;
 		//std::printf("Lock to heading %f\n", currentAngle);
+		// Enable PID to update angleC value (eventually)
 		anglePID.Enable();
+		// Set this flag to avoid re-enabling the PID every time
 		headingLockEnabled = true;
-		return;
 	}
 }
