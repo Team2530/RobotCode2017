@@ -101,8 +101,8 @@ public:
 	// Set both a field position and a rotation to achieve
 	void Set(double x, double y, double angle);
 	// Set a speed to move at (maximum).
-	// Default: 0.75
-	void SetMaxPower(double pow = 0.75);
+	// Default: 0.75 (Miracle Max), 0.3 (Zomberdinck)
+	void SetMaxPower(double pow = 0.5);
 
 	// Call with Robot::drivetrain.get() each iteration
 	// to move wheels towards goal position or rotation
