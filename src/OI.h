@@ -8,7 +8,6 @@ class OI {
 public:
 	OI();
 	Joystick* GetJoystick();
-	AHRS* GetAHRS();
 private:
 	Joystick* joy;
 	JoystickButton *B1;  //LED Control
@@ -40,8 +39,6 @@ private:
 	JoystickButton *LS;  //Unused
 
 	JoystickButton *RS;  //Reset Dump
-
-	AHRS* ahrs;			 //navX MXP
 
 	double testx;
 	double testy;

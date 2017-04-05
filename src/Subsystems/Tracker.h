@@ -20,9 +20,8 @@ private:
 	double currentPositionY; // Forward
 	double angleAdjustment; // starting angle when AHRS is reset
 
-	std::shared_ptr<NetworkTable> table;
-
 public:
+	std::shared_ptr<NetworkTable> table;
 
 	Tracker();
 	void InitDefaultCommand();

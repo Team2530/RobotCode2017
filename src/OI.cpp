@@ -19,6 +19,7 @@
 #include <Commands/ResetDump.h>
 #include <Commands/ResetTracker.h>
 
+#include <Commands/DriveToPositionTest.h>
 #include <Positions/RobotRelative.h>
 #include <Positions/Absolute.h>
 #include <Positions/AbsoluteAngle.h>
@@ -52,21 +53,18 @@ OI::OI() {
 	B9 = new frc::JoystickButton(joy, 9);
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 
-	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->Reset();
-
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such
-	/*
+	/**/
 	const double testdistance = 20;
 	A = new frc::JoystickButton(Xbox, 1);
-	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance)));
+	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance), 0.3));
 	B = new frc::JoystickButton(Xbox, 2);
-	B->WhenPressed(new DriveToPosition(new RobotRelative(testdistance, 0)));
+	B->WhenPressed(new DriveToPosition(new RobotRelative(testdistance, 0), 0.3));
 	X = new frc::JoystickButton(Xbox, 3);
-	X->WhenPressed(new DriveToPosition(new RobotRelative(-testdistance, 0)));
+	X->WhenPressed(new DriveToPosition(new RobotRelative(-testdistance, 0), 0.3));
 	Y = new frc::JoystickButton(Xbox, 4);
-	Y->WhenPressed(new DriveToPosition(new RobotRelative(0, testdistance)));
+	Y->WhenPressed(new DriveToPosition(new RobotRelative(0, testdistance), 0.3));
 	LB = new frc::JoystickButton(Xbox, 5);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, 6);
@@ -74,9 +72,9 @@ OI::OI() {
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhenPressed(new ResetTracker());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhenPressed(new DriveToPosition(new Absolute(0,0)));
+	Start->WhenPressed(new DriveToPositionTest(new Absolute(0,0)));
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
-	RS->WhenPressed(new DriveToPosition(new AbsoluteAngle(0)));
+	RS->WhenPressed(new DriveToPositionTest(new AbsoluteAngle(0)));
 	/*/
 	// Button configuration for competition driving
 	A = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kAbutton);
@@ -102,8 +100,4 @@ OI::OI() {
 
 Joystick* OI::GetJoystick() {
 	return joy;
-}
-
-AHRS* OI::GetAHRS() {
-	return ahrs;
 }

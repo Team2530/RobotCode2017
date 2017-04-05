@@ -18,6 +18,8 @@ Tracker::Tracker() :
 	sideEncoder->SetDistancePerPulse(-0.012566/2); //^^
 
 	table = NetworkTable::GetTable("robotPosition");
+	ahrs = new AHRS(SPI::Port::kMXP);
+	ahrs->Reset();
 }
 
 // Set a command to update this tracker with the current position every iteration
@@ -32,9 +34,6 @@ void Tracker::StartTracking(double initialX, double initialY, double initialAngl
 	currentPositionX = initialX;
 	currentPositionY = initialY;
 	angleAdjustment = initialAngle;
-	if (ahrs == nullptr) {
-		ahrs = Robot::oi->GetAHRS();
-	}
 	if (ahrs != nullptr) {
 		ahrs->Reset();
 	}
@@ -45,20 +44,20 @@ void Tracker::UpdatePosition(){
 	double front = frontEncoder->GetDistance();
 	double distanceX = side - sideLastMeasurement;
 	double distanceY = front - frontLastMeasurement;
+	double angle = GetCurrentAngle();
 	// Only do our calculations if at least one encoder's value has changed
 	if (distanceX != 0 || distanceY != 0) {
 		sideLastMeasurement = side;
 		frontLastMeasurement = front;
-		double angle = GetCurrentAngle();
 		double rad = angle * M_PI / 180;
 		double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 		double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
 		currentPositionX += changeInX;
 		currentPositionY += changeInY;
-		table->PutNumber("x", currentPositionX);
-		table->PutNumber("y", currentPositionY);
-		table->PutNumber("angle", angle);
 	}
+	table->PutNumber("x", currentPositionX);
+	table->PutNumber("y", currentPositionY);
+	table->PutNumber("angle", angle);
 }
 
 double Tracker::GetCurrentPositionX(){
@@ -68,7 +67,7 @@ double Tracker::GetCurrentPositionY(){
 	return currentPositionY;
 }
 double Tracker::GetCurrentAngle(){
-	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.0;
+	double angle =  ahrs != nullptr ? ahrs->GetYaw()+angleAdjustment : 0.01;
 	// Rotate the output around by a full resolution if it is outside of +/-180
 	// (This will only occur if angleAdjustment is nonzero, as GetYaw is always in that range)
 	while (angle > 180) angle -= 360;
