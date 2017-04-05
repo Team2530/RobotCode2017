@@ -134,7 +134,7 @@ enum RobotChoice {
 
 	static const double middleBaseLineX = 160;//rough approximation based on left gear delivery thing
 	static const double middleBaseLineY = StartingPlaceY + 93.5;
-	static const double middleBaseLineR = leftGearPlaceR;
+	static const double middleBaseLineR = 0;
 
 
 
