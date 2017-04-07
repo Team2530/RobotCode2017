@@ -58,6 +58,10 @@ void Tracker::UpdatePosition(){
 	table->PutNumber("x", currentPositionX);
 	table->PutNumber("y", currentPositionY);
 	table->PutNumber("angle", angle);
+
+	previousPositionX=currentPositionX;
+	previousPositionY=currentPositionY;
+	previousAngle=angle;
 }
 
 double Tracker::GetCurrentPositionX(){
@@ -73,4 +77,19 @@ double Tracker::GetCurrentAngle(){
 	while (angle > 180) angle -= 360;
 	while (angle < -180) angle += 360;
 	return angle;
+}
+
+bool Tracker::IsRobotStopped() {
+	bool isXStopped = std::fabs(currentPositionX - previousPositionX) < 0.01;
+	bool isYStopped = std::fabs(currentPositionY - previousPositionY) < 0.01;
+	bool isAngleStopped = std::fabs(GetCurrentAngle() - previousAngle) < 0.01;
+
+	if (isXStopped && isYStopped && isAngleStopped) {
+		table->PutNumber("stopped", 1);
+		return true;
+	}
+	else {
+		table->PutNumber("stopped", 0);
+		return false;
+	}
 }

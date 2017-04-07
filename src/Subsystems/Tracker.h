@@ -19,7 +19,9 @@ private:
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
 	double angleAdjustment; // starting angle when AHRS is reset
-
+	double previousPositionX; // Right
+	double previousPositionY; // Forward
+	double previousAngle;
 public:
 	std::shared_ptr<NetworkTable> table;
 
@@ -34,6 +36,8 @@ public:
 	// where positive is rotated right/clockwise and 0 degrees points
 	// straight forward on the field (i.e. away from the driver)
 	double GetCurrentAngle();
+
+	bool IsRobotStopped();
 };
 
 #endif  // Tracker_H

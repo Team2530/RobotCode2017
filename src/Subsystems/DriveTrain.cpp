@@ -111,20 +111,20 @@ bool DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 
 void DriveTrain::DirectDrive(double x, double y, double z, double angle) {
 	const double db = 0.001;
-	/*
-	const double MinPowerB = 0.0;
-	const double MinPowerR = 0.07;
+	const double MinPowerB = 0.02;
+	const double MinPowerR = 0.1;
 	double rad = angle * M_PI / 180;
-	double r = x*cos(rad) - y*sin(rad);
-	double b = x*sin(rad) + y*sin(rad);
+	double r = x*cos(rad) + y*sin(rad);
+	double b = -x*sin(rad) + y*cos(rad);
 	b=GetScaledPower(b,1.0,db,MinPowerB);
 	r=GetScaledPower(r,1.0,db,MinPowerR);
-	robotDrive->MecanumDrive_Cartesian(b, r, z, 0);
-	*/
+	robotDrive->MecanumDrive_Cartesian(r, b, z, 0);
+	/*
 	x=GetScaledPower(x,1.0,db,0);
 	y=GetScaledPower(y,1.0,db,0);
 	z=GetScaledPower(z,1.0,db,0.05);
 	robotDrive->MecanumDrive_Cartesian(x, y, z, angle);
+	*/
 }
 
 

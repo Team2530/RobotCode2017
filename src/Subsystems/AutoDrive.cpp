@@ -83,7 +83,7 @@ void AutoDrive::UpdatePIDFromTable() {
 }
 
 void AutoDrive::Set(double x, double y, double angle) {
-	UpdatePIDFromTable();
+	//UpdatePIDFromTable();
 	this->goalPositionX = x;
 	this->goalPositionY = y;
 	double dx = x - Robot::tracker->GetCurrentPositionX();
@@ -144,6 +144,7 @@ double AutoDrive::GetCoordAngleDeg() {
 bool AutoDrive::PIDFinished() {
 	bool correctPosition = parallelPID.OnTarget() && perpendicularPID.OnTarget();
 	bool correctHeading = anglePID.OnTarget();
+	bool isStopped=Robot::tracker->IsRobotStopped();
 	/*
 	if (correctPosition && !correctHeading) {
 		double goal = pidrc.GetSetpoint();
@@ -158,7 +159,7 @@ bool AutoDrive::PIDFinished() {
 		//if (distance < 0.1) return true;
 	}
 	*/
-	return correctPosition && correctHeading;
+	return correctPosition && correctHeading && isStopped;
 }
 
 // Reset each PID controller: this will disable them
