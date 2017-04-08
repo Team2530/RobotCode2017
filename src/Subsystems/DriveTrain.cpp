@@ -111,8 +111,8 @@ bool DriveTrain::DriveWithCoordinates(double x, double y, double z, double Angle
 
 void DriveTrain::DirectDrive(double x, double y, double z, double angle) {
 	const double db = 0.001;
-	const double MinPowerB = 0.02;
-	const double MinPowerR = 0.1;
+	const double MinPowerB = 0.0;
+	const double MinPowerR = 0.07;
 	double rad = angle * M_PI / 180;
 	double r = x*cos(rad) + y*sin(rad);
 	double b = -x*sin(rad) + y*cos(rad);

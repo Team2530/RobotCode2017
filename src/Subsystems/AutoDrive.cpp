@@ -65,6 +65,7 @@ AutoDrive::AutoDrive() :
 
 	// Set MAX_POW to default
 	SetMaxPower();
+	countStopsInRow=0;
 }
 
 void AutoDrive::InitDefaultCommand() {
@@ -95,6 +96,7 @@ void AutoDrive::Set(double x, double y, double angle) {
 	anglePID.Enable();
 	parallelPID.Enable();
 	perpendicularPID.Enable();
+	countStopsInRow=0;
 }
 
 void AutoDrive::MoveToPos(Position* pos) {
@@ -145,6 +147,16 @@ bool AutoDrive::PIDFinished() {
 	bool correctPosition = parallelPID.OnTarget() && perpendicularPID.OnTarget();
 	bool correctHeading = anglePID.OnTarget();
 	bool isStopped=Robot::tracker->IsRobotStopped();
+	//try
+	if(isStopped){
+		countStopsInRow ++;
+		if (countStopsInRow > 5){
+			return isStopped;
+		}
+	}
+	else{
+		countStopsInRow=0;
+	}
 	/*
 	if (correctPosition && !correctHeading) {
 		double goal = pidrc.GetSetpoint();

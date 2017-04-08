@@ -44,12 +44,15 @@ void Tracker::UpdatePosition(){
 	double front = frontEncoder->GetDistance();
 	double distanceX = side - sideLastMeasurement;
 	double distanceY = front - frontLastMeasurement;
-	double angle = GetCurrentAngle();
+	previousPositionX=currentPositionX;
+	previousPositionY=currentPositionY;
+	previousAngle=currentAngle;
+	currentAngle=GetCurrentAngle();
 	// Only do our calculations if at least one encoder's value has changed
 	if (distanceX != 0 || distanceY != 0) {
 		sideLastMeasurement = side;
 		frontLastMeasurement = front;
-		double rad = angle * M_PI / 180;
+		double rad = currentAngle * M_PI / 180;
 		double changeInX = cos(rad) * distanceX + sin(rad) * distanceY;
 		double changeInY = cos(rad) * distanceY - sin(rad) * distanceX;
 		currentPositionX += changeInX;
@@ -57,11 +60,7 @@ void Tracker::UpdatePosition(){
 	}
 	table->PutNumber("x", currentPositionX);
 	table->PutNumber("y", currentPositionY);
-	table->PutNumber("angle", angle);
-
-	previousPositionX=currentPositionX;
-	previousPositionY=currentPositionY;
-	previousAngle=angle;
+	table->PutNumber("angle", currentAngle);
 }
 
 double Tracker::GetCurrentPositionX(){
@@ -82,7 +81,7 @@ double Tracker::GetCurrentAngle(){
 bool Tracker::IsRobotStopped() {
 	bool isXStopped = std::fabs(currentPositionX - previousPositionX) < 0.01;
 	bool isYStopped = std::fabs(currentPositionY - previousPositionY) < 0.01;
-	bool isAngleStopped = std::fabs(GetCurrentAngle() - previousAngle) < 0.01;
+	bool isAngleStopped = std::fabs(GetCurrentAngle() - previousAngle) < 0.1;
 
 	if (isXStopped && isYStopped && isAngleStopped) {
 		table->PutNumber("stopped", 1);

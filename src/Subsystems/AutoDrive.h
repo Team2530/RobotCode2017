@@ -90,6 +90,8 @@ private:
 	std::shared_ptr<NetworkTable> SDtable;
 	std::shared_ptr<ITable> DBtable;
 
+	int countStopsInRow;
+
 public:
 	AutoDrive();
 	void InitDefaultCommand();

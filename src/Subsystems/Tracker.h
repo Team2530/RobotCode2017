@@ -18,6 +18,7 @@ private:
 	// use Tracker::GetCurrentAngle for that.)
 	double currentPositionX; // Right
 	double currentPositionY; // Forward
+	double currentAngle;//angle
 	double angleAdjustment; // starting angle when AHRS is reset
 	double previousPositionX; // Right
 	double previousPositionY; // Forward
