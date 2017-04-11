@@ -22,12 +22,13 @@ void MoveBasedOnVision::UpdatePosition() {
 	Robot::led->Set(true);
 	Robot::vision->Update();
 	double lock;
+	double orientation = Robot::cameraservo->facing; // TAKKO_FOWARD or FRONT_FORWARD
 	if (fp != nullptr) {
-		lock = fp->GetR();
+		lock = fp->GetR() + orientation;
 	} else {
 		lock = Robot::tracker->GetCurrentAngle();
 		// If we are within 10 degrees of a gear position, lock onto that.
-		for (double angle = 90-60; angle <= 90+60; angle += 60) {
+		for (double angle = orientation-60; angle <= orientation+60; angle += 60) {
 			if (lock < angle+25 && lock > angle-25) {
 				std::printf("Lock on to %f (current: %f)\n", angle, lock);
 				lock = angle;
@@ -39,6 +40,15 @@ void MoveBasedOnVision::UpdatePosition() {
 	double displacement = 10;
 	if (Robot::vision->GetValid()) {
 		// Try to compensate for the camera offset to approach with the gear centered
+		// TODO: CHANGE BASED ON MIRACLE MAX
+		/*
+		double camera_offset;
+		if (orientation == TAKKO_FORWARD) {
+			camera_offset = 8.5;
+		} else { // orientation == FRONT_FORWARD
+			camera_offset = -8.5;
+		}
+		*/
 		double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
 		distance = Robot::vision->GetDistance() - goal;
 		displacement = camera_offset - Robot::vision->GetDisplacement();
@@ -47,7 +57,11 @@ void MoveBasedOnVision::UpdatePosition() {
 	} else {
 		std::printf("VISION FAILED: move in %fin, right%fin\n", distance, displacement);
 	}
-	Robot::autodrive->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
+	if (orientation == TAKKO_FORWARD) {
+		Robot::autodrive->MoveToPos(new RobotRelative(displacement, distance, lock, true));
+	} else {
+		Robot::autodrive->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
+	}
 }
 
 // Called once after isFinished returns true

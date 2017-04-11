@@ -30,7 +30,7 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void SetRobot(RobotChoice thisRobot);
-	bool Drive(Joystick* stick, Orientation orientation = INTAKE_FORWARD, double headinglock=0);
+	bool Drive(Joystick* stick, Orientation orientation = FRONT_FORWARD, double headinglock=0);
 	void DriveLeft();
 	void DriveLeftSideForward(Joystick* stick);
 	void DriveRightSideForward(Joystick* stick);

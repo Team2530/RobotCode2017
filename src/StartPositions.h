@@ -118,19 +118,19 @@ enum RobotChoice {
 	static const double leftGearPlaceABSY = 133;//146.1925;
 	static const double leftGearPlaceX = leftGearPlaceABSX - (centerFromGear * root3over2);
 	static const double leftGearPlaceY = leftGearPlaceABSY - (centerFromGear / 2);
-	static const double leftGearPlaceR = 60+TAKKO_FORWARD;
+	static const double leftGearPlaceR = 60;
 
 	static const double middleGearPlaceABSX = 138;//192.0868;
 	static const double middleGearPlaceABSY = 93.25;
 	static const double middleGearPlaceX = middleGearPlaceABSX;
 	static const double middleGearPlaceY = middleGearPlaceABSY - distanceFromGear;
-	static const double middleGearPlaceR = 0+TAKKO_FORWARD;
+	static const double middleGearPlaceR = 0;
 
 	static const double rightGearPlaceABSX = 138+21.867;//210;//221.908; ESTIMATE
 	static const double rightGearPlaceABSY = 133;//146.1925;
 	static const double rightGearPlaceX = rightGearPlaceABSX + (centerFromGear * root3over2);
 	static const double rightGearPlaceY = rightGearPlaceABSY - (centerFromGear / 2);
-	static const double rightGearPlaceR = -60+TAKKO_FORWARD;
+	static const double rightGearPlaceR = -60;
 
 	static const double middleBaseLineX = 160;//rough approximation based on left gear delivery thing
 	static const double middleBaseLineY = StartingPlaceY + 93.5;

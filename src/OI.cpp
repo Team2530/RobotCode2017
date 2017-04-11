@@ -15,6 +15,7 @@
 #include <Commands/FastLift.h>
 #include <Commands/AimCameratoLift.h>
 #include <Commands/AimCameratoTaco.h>
+#include <Commands/AimCameratoFrontTaco.h>
 
 #include <Commands/ResetDump.h>
 #include <Commands/ResetTracker.h>
@@ -55,7 +56,7 @@ OI::OI() {
 
 	Xbox = new frc::XboxController(1);
 	// Button configuration for testing PID controllers and such
-	/**/
+	/*
 	const double testdistance = 20;
 	A = new frc::JoystickButton(Xbox, 1);
 	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance), 0.3));
@@ -90,9 +91,9 @@ OI::OI() {
 	RB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRBbutton);
 	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
-	Back->WhileHeld(new AimCameratoLift());
+	Back->WhileHeld(new AimCameratoTaco());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new AimCameratoTaco());
+	Start->WhileHeld(new AimCameratoFrontTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
 	//*/

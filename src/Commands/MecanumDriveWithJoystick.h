@@ -8,7 +8,7 @@ class MecanumDriveWithJoystick : public Command {
 private:
 	Orientation orientation;
 public:
-	MecanumDriveWithJoystick(Orientation orient=INTAKE_FORWARD);
+	MecanumDriveWithJoystick(Orientation orient=FRONT_FORWARD);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
