@@ -60,35 +60,35 @@ DeliverFrontGear::DeliverFrontGear(DFGvariant variant){
 		//AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	} else if (variant == DFG_no2nd) {
 		AddSequential(new DriveToPosition(gear), 6.0); // Cut off this command after this amount of time
 		AddSequential(new MoveBasedOnVision(firstDistance, gear), 2.0);
 		//AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	} else if (variant == DFG_4sec_no2nd) {
 		AddSequential(new DriveToPosition(gear), 4.0); // Cut off this command after this amount of time
 		AddSequential(new MoveBasedOnVision(firstDistance, gear), 2.0);
 		//AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	} else if (variant == DFG_no1st) {
 		AddSequential(new DriveToPosition(gear), 6.0); // Cut off this command after this amount of time
 		AddSequential(new MoveBasedOnVision(secondDistance, gear), 2.0);
 		//AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	} else if (variant == DFG_4sec_no1st) {
 		AddSequential(new DriveToPosition(gear), 4.0); // Cut off this command after this amount of time
 		AddSequential(new MoveBasedOnVision(secondDistance, gear), 2.0);
 	//	AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	} else {
 		FieldPosition* gear = new GearFieldPosition();
 		AddSequential(new LEDControl(true));
@@ -99,6 +99,6 @@ DeliverFrontGear::DeliverFrontGear(DFGvariant variant){
 	//	AddSequential(new MoveBasedOnVision(thirdDistance, gear), 1.5);
 		// The vision is supposed to line up 3 feet away: drive forward that amount
 		// Reserve 16-17 inches between the center of the robot and the lift
-		AddSequential(new DriveToPosition(new RobotRelative(lastDistance, 0)));
+		AddSequential(new DriveToPosition(new RobotRelative(0, lastDistance)));
 	}
 }
