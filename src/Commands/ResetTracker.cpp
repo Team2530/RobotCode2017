@@ -3,6 +3,9 @@
 
 ResetTracker::ResetTracker() {
 	// Use Requires() here to declare subsystem dependencies
+	Requires(Robot::autodrive.get());
+	Requires(Robot::tracker.get());;
+	Requires(Robot::drivetrain.get());
 }
 
 // Called just before this Command runs the first time

@@ -73,12 +73,21 @@ void AutoDrive::InitDefaultCommand() {
 
 void AutoDrive::UpdatePIDFromTable() {
 	double scale = 100;
+	/*
 	double parallelP = DBtable->GetNumber("Slider 0", parallelPID.GetP()*scale)/scale;
 	double parallelI = DBtable->GetNumber("Slider 1", parallelPID.GetI()*scale)/scale;
 	double parallelD = DBtable->GetNumber("Slider 2", parallelPID.GetD()*scale)/scale;
 	double perpendicularP = DBtable->GetNumber("Slider 3", perpendicularPID.GetP()*scale)/scale;
 	double perpendicularI = perpendicularPID.GetI();
 	double perpendicularD = perpendicularPID.GetD();
+	/*/
+	double parallelP = DBtable->GetNumber("Slider 0", parallelPID.GetP()*scale)/scale;
+	double parallelI = parallelPID.GetI();
+	double parallelD = parallelPID.GetD();
+	double perpendicularP = DBtable->GetNumber("Slider 1", perpendicularPID.GetP()*scale)/scale;
+	double perpendicularI = DBtable->GetNumber("Slider 2", perpendicularPID.GetI()*scale)/scale;
+	double perpendicularD = DBtable->GetNumber("Slider 3", perpendicularPID.GetD()*scale)/scale;
+	//*/
 	parallelPID.SetPID(parallelP, parallelI, parallelD);
 	perpendicularPID.SetPID(perpendicularP, perpendicularI, perpendicularD);
 }
@@ -96,7 +105,8 @@ void AutoDrive::Set(double x, double y, double angle) {
 	anglePID.Enable();
 	parallelPID.Enable();
 	perpendicularPID.Enable();
-	countStopsInRow=0;
+	// Set at negative to make sure the robot moves before declaring it stopped
+	countStopsInRow=-40;
 }
 
 void AutoDrive::MoveToPos(Position* pos) {
