@@ -10,7 +10,10 @@ Tracker::Tracker() :
 	sideLastMeasurement(0),
 	currentPositionX(0),
 	currentPositionY(0),
-	angleAdjustment(0)
+	angleAdjustment(0),
+	previousPositionX(0),
+	previousPositionY(0),
+	previousAngle(0)
 {
 	frontEncoder = new frc::Encoder(8,9,false, Encoder::CounterBase::k2X );//0,1 gonna change: encoder wires
 	sideEncoder = new frc::Encoder(0,1,false, Encoder::CounterBase::k2X );//0,1 gonna change ^^
@@ -44,9 +47,6 @@ void Tracker::UpdatePosition(){
 	double front = frontEncoder->GetDistance();
 	double distanceX = side - sideLastMeasurement;
 	double distanceY = front - frontLastMeasurement;
-	previousPositionX=currentPositionX;
-	previousPositionY=currentPositionY;
-	previousAngle=currentAngle;
 	currentAngle=GetCurrentAngle();
 	// Only do our calculations if at least one encoder's value has changed
 	if (distanceX != 0 || distanceY != 0) {
@@ -79,9 +79,14 @@ double Tracker::GetCurrentAngle(){
 }
 
 bool Tracker::IsRobotStopped() {
+	currentAngle = GetCurrentAngle();
 	bool isXStopped = std::fabs(currentPositionX - previousPositionX) < 0.01;
 	bool isYStopped = std::fabs(currentPositionY - previousPositionY) < 0.01;
-	bool isAngleStopped = std::fabs(GetCurrentAngle() - previousAngle) < 0.1;
+	bool isAngleStopped = std::fabs(currentAngle - previousAngle) < 0.1;
+
+	previousPositionX=currentPositionX;
+	previousPositionY=currentPositionY;
+	previousAngle=currentAngle;
 
 	if (isXStopped && isYStopped && isAngleStopped) {
 		table->PutNumber("stopped", 1);
