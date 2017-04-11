@@ -7,6 +7,7 @@
 #include "Commands/IntakeInvert.h"
 #include "Commands/DoNothing.h"
 #include "Commands/DeliverGear.h"
+#include "Commands/DeliverFrontGear.h"
 #include "Commands/DeliverGearDumpHopper.h"
 #include "Commands/DriveToPosition.h"
 #include "Commands/PerimeterMovement.h"
@@ -90,6 +91,13 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Deliver Gear: 4sec init, no second visn", new DeliverGear(DG_4sec_no2nd));
 	chooserDo.AddObject("Deliver Gear: no first vision step", new DeliverGear(DG_no1st));
 	chooserDo.AddObject("Deliver Gear: 4sec init, no first visn", new DeliverGear(DG_4sec_no1st));
+
+	chooserDo.AddObject("Deliver Front Gear (df)", new DeliverFrontGear(DFG_default));
+	chooserDo.AddObject("Deliver Front Gear: 4sec initial", new DeliverFrontGear(DFG_4sec));
+	chooserDo.AddObject("Deliver Front Gear: no second vision step", new DeliverFrontGear(DFG_no2nd));
+	chooserDo.AddObject("Deliver Front Gear: 4sec init, no second visn", new DeliverFrontGear(DFG_4sec_no2nd));
+	chooserDo.AddObject("Deliver Front Gear: no first vision step", new DeliverFrontGear(DFG_no1st));
+	chooserDo.AddObject("Deliver Front Gear: 4sec init, no first visn", new DeliverFrontGear(DFG_4sec_no1st));
 	//*/
 	SmartDashboard::PutData("Autonomous modes", &chooserDo);
 

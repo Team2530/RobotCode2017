@@ -13,19 +13,19 @@
 //#include "GetFieldPosition.h"
 #include "../StartPositions.h"
 
-enum DGvariant {
-	DG_default,
-	DG_4sec,
-	DG_no2nd,
-	DG_4sec_no2nd,
-	DG_no1st,
-	DG_4sec_no1st
+enum DFGvariant {
+	DFG_default,
+	DFG_4sec,
+	DFG_no2nd,
+	DFG_4sec_no2nd,
+	DFG_no1st,
+	DFG_4sec_no1st
 };
 
 class DeliverFrontGear : public frc::CommandGroup {
 	public:
 		DeliverFrontGear();
-		DeliverFrontGear(DGvariant variant);
+		DeliverFrontGear(DFGvariant variant);
 };
 
 #endif /* SRC_COMMANDGROUPS_DELIVERFRONTGEAR_H_ */
