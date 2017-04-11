@@ -24,7 +24,7 @@ void MoveBasedOnVision::UpdatePosition() {
 	double lock;
 	double orientation = Robot::cameraservo->facing; // TAKKO_FOWARD or FRONT_FORWARD
 	if (fp != nullptr) {
-		lock = fp->GetR() + orientation;
+		lock = fp->GetR();
 	} else {
 		lock = Robot::tracker->GetCurrentAngle();
 		// If we are within 10 degrees of a gear position, lock onto that.
