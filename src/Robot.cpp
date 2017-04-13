@@ -2,9 +2,7 @@
 
 #include "Commands/MecanumDriveWithJoystick.h"
 #include "Commands/MecanumDriveFieldOriented.h"
-#include "Commands/IntakeOn.h"
 #include "Commands/Dump.h"
-#include "Commands/IntakeInvert.h"
 #include "Commands/DoNothing.h"
 #include "Commands/DeliverGear.h"
 #include "Commands/DeliverFrontGear.h"
@@ -21,7 +19,6 @@
 std::shared_ptr<DriveTrain> Robot::drivetrain;
 std::shared_ptr<Dumper> Robot::dumper;
 std::unique_ptr<OI> Robot::oi;
-std::shared_ptr<Intake> Robot::intake;
 std::shared_ptr<Tracker> Robot::tracker;
 std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Lifter> Robot::lifter;
@@ -64,7 +61,6 @@ void Robot::RobotInit() {
 	//std::printf("RobotInit start in %s, line %i\n", __FILE__, __LINE__);
 	drivetrain = std::make_shared<DriveTrain>();
 	dumper = std::make_shared<Dumper>();
-	//intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
 	led = std::make_shared<LED>();
     autodrive = std::make_shared<AutoDrive>();

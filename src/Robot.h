@@ -13,7 +13,6 @@
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Dumper.h"
 #include "OI.h"
-#include "Subsystems/Intake.h"
 #include "Subsystems/Tracker.h"
 #include "Subsystems/Vision.h"
 #include "Subsystems/CameraServo.h"
@@ -31,7 +30,6 @@ public:
 	static std::shared_ptr<DriveTrain> drivetrain;
 	static std::shared_ptr<Dumper> dumper;
 	static std::unique_ptr<OI> oi;
-	static std::shared_ptr<Intake> intake;
 	static std::shared_ptr<Tracker> tracker;
 	static std::shared_ptr<Vision> vision;
 	static std::shared_ptr<CameraServo> cameraservo;

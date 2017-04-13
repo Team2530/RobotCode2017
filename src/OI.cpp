@@ -7,10 +7,8 @@
 #include <Commands/DriveToPosition.h>
 
 //Xbox
-#include <Commands/IntakeOn.h>
 #include <Commands/LEDToggle.h>
 #include <Commands/Dump.h>
-#include <Commands/IntakeInvert.h>
 #include <Commands/SlowLift.h>
 #include <Commands/FastLift.h>
 #include <Commands/AimCameratoLift.h>

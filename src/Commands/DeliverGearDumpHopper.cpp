@@ -1,7 +1,6 @@
 #include "DeliverGearDumpHopper.h"
 #include "GetHopper.h"
 #include "Robot.h"
-#include "IntakeOn.h"
 #include "../FieldPositions/HopperFieldPosition.h"
 #include "DeliverGear.h"
 
