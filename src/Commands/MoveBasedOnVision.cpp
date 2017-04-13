@@ -41,15 +41,12 @@ void MoveBasedOnVision::UpdatePosition() {
 	if (Robot::vision->GetValid()) {
 		// Try to compensate for the camera offset to approach with the gear centered
 		// TODO: CHANGE BASED ON MIRACLE MAX
-		/*
 		double camera_offset;
-		if (orientation == TAKKO_FORWARD) {
+		if (orientation == FRONT_FORWARD) {
+			camera_offset = -13.75;
+		} else { // orientation == TAKKO_FORWARD
 			camera_offset = 8.5;
-		} else { // orientation == FRONT_FORWARD
-			camera_offset = -8.5;
 		}
-		*/
-		double camera_offset = -8.5; // the camera is 8.5 from the center of the taco
 		distance = Robot::vision->GetDistance() - goal;
 		displacement = camera_offset - Robot::vision->GetDisplacement();
 		std::printf("VISION INIT: Move forward %f in, right %f\n", distance, displacement);

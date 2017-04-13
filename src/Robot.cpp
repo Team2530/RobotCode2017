@@ -64,7 +64,7 @@ void Robot::RobotInit() {
 	//std::printf("RobotInit start in %s, line %i\n", __FILE__, __LINE__);
 	drivetrain = std::make_shared<DriveTrain>();
 	dumper = std::make_shared<Dumper>();
-	intake = std::make_shared<Intake>();
+	//intake = std::make_shared<Intake>();
 	tracker = std::make_shared<Tracker>();
 	led = std::make_shared<LED>();
     autodrive = std::make_shared<AutoDrive>();

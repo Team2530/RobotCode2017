@@ -10,7 +10,7 @@ void CameraServo::InitDefaultCommand() {
 
 }
 void CameraServo:: AimTaco () {
-	servo-> SetAngle (130);
+	servo-> SetAngle (35);
 	facing = TAKKO_FORWARD;
 }
 void CameraServo:: AimLift (){
@@ -19,7 +19,7 @@ void CameraServo:: AimLift (){
 }
 
 void CameraServo:: AimFrontTaco () {
-	servo-> SetAngle (160);     									//This angle needs to be tested, it currently is a guess.
+	servo-> SetAngle (120);     									//This angle needs to be tested, it currently is a guess.
 	facing = FRONT_FORWARD;
 }
 // Put methods for controlling this subsystem

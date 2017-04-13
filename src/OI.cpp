@@ -79,21 +79,21 @@ OI::OI() {
 	/*/
 	// Button configuration for competition driving
 	A = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kAbutton);
-	A->ToggleWhenPressed(new IntakeOn());
+	A->ToggleWhenPressed(new LEDToggle());
 	B = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBbutton);
-	B->WhenPressed(new LEDToggle());
+	B->WhenPressed(new AimCameratoTaco());
 	X = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kXbutton);
-	X->WhileHeld(new Dump());
+	X->WhileHeld(new AimCameratoFrontTaco());
 	Y = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kYbutton);
-	Y->ToggleWhenPressed(new IntakeInvert());
+	//Y->ToggleWhenPressed(new IntakeInvert());
 	LB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLBbutton);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRBbutton);
 	RB->WhileHeld(new FastLift());
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
-	Back->WhileHeld(new AimCameratoTaco());
+	Back->WhileHeld(new Dump());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	Start->WhileHeld(new AimCameratoFrontTaco());
+	//Start->WhileHeld(new AimCameratoFrontTaco());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetDump());
 	//*/

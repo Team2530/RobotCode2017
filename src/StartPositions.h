@@ -55,9 +55,9 @@ enum RobotChoice {
 	//changed below starting positions: plate by loading station: left wheel of robot on line
 	                                  //middle plate: wheel by overflow bin
 	                                  //plate by boiler: right wheel of robot on line
-	static const double startingRedLeftX = 98.5;//94.2941; // center: 75.545;
-	static const double startingRedMiddleX = 157.5;//163.794; //center: 183.107;
-	static const double startingRedRightX = 231.5;//262.75; //center: 249.587;
+	static const double startingRedLeftX = 106;//98.5;//94.2941; // center: 75.545;
+	static const double startingRedMiddleX = 106+76.5;//157.5;//163.794; //center: 183.107;
+	static const double startingRedRightX = 106+76.5+57;//231.5;//262.75; //center: 249.587;
 	//starting position x for blue team
 	static const double startingBlueLeftX = 86.5;//71.4559;// center: 73.712;
 	static const double startingBlueMiddleX = 110.5;//121.206;//center: 140.192;
