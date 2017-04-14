@@ -51,7 +51,7 @@ double Robot::gearLifterR;
 double Robot::positionBaseLineX;
 double Robot::positionBaseLineY;
 double Robot::positionBaseLineR;
-RobotChoice Robot::thisRobot = ZOMBERDINCK;
+RobotChoice Robot::thisRobot = MIRACLE_MAX;
 
 RobotChoice max = MIRACLE_MAX;
 RobotChoice zomber = ZOMBERDINCK;
@@ -72,7 +72,7 @@ void Robot::RobotInit() {
 
 	oi = std::make_unique<OI>();
 
-	chooserDo.AddDefault("Cross BaseLine", new DriveToPosition(new CrossBaseLineFieldPosition(), 0.5)); //starting action
+	chooserDo.AddObject("Cross BaseLine", new DriveToPosition(new CrossBaseLineFieldPosition(), 0.5)); //starting action
 	chooserDo.AddObject("Do Nothing", new DoNothing());
 	/*
 	chooserDo.AddObject("Deliver Gear", new DeliverGear());
@@ -81,15 +81,15 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	chooserDo.AddObject("Drive to gear ONLY", new DriveToFieldPosition(new GearFieldPosition()));
 	*/
-	chooserDo.AddObject("Deliver Gear (df)", new DeliverGear(DG_default));
-	chooserDo.AddObject("Deliver Gear: 4sec initial", new DeliverGear(DG_4sec));
+	chooserDo.AddObject("Deliver Gear (6sec initial)", new DeliverGear(DG_default));
+	chooserDo.AddDefault("BEST: Deliver Gear (4sec initial)", new DeliverGear(DG_4sec));
 	//chooserDo.AddObject("Deliver Gear: no second vision step", new DeliverGear(DG_no2nd));
 	//chooserDo.AddObject("Deliver Gear: 4sec init, no second visn", new DeliverGear(DG_4sec_no2nd));
 	//chooserDo.AddObject("Deliver Gear: no first vision step", new DeliverGear(DG_no1st));
 	//chooserDo.AddObject("Deliver Gear: 4sec init, no first visn", new DeliverGear(DG_4sec_no1st));
 
-	chooserDo.AddObject("Deliver Front Gear (df)", new DeliverFrontGear(DFG_default));
-	chooserDo.AddObject("Deliver Front Gear: 4sec initial", new DeliverFrontGear(DFG_4sec));
+	chooserDo.AddObject("Deliver Front Gear (6sec initial)", new DeliverFrontGear(DFG_default));
+	chooserDo.AddObject("Deliver Front Gear (4sec initial)", new DeliverFrontGear(DFG_4sec));
 	//chooserDo.AddObject("Deliver Front Gear: no second vision step", new DeliverFrontGear(DFG_no2nd));
 	//chooserDo.AddObject("Deliver Front Gear: 4sec init, no second visn", new DeliverFrontGear(DFG_4sec_no2nd));
 	//chooserDo.AddObject("Deliver Front Gear: no first vision step", new DeliverFrontGear(DFG_no1st));
@@ -107,8 +107,8 @@ void Robot::RobotInit() {
 	chooserPos.AddObject("Right", &right);//^^
 	SmartDashboard::PutData("Start Position", &chooserPos);
 
-	chooserAngle.AddDefault("Start facing forward", &start0);
-	chooserAngle.AddObject("Start with taco forward", &start90);
+	chooserAngle.AddDefault("Start with taco forward", &start90);
+	chooserAngle.AddObject("Start facing forward", &start0);
 	SmartDashboard::PutData("Starting orientation", &chooserAngle);
 
 	chooserBot.AddDefault("Miracle Max", &max);
