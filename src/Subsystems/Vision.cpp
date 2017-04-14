@@ -57,6 +57,11 @@ void Vision::Update() {
 	if (displacement != displacement || distance != distance) {
 		valid = false;
 	} else if (valid) {
+		if (targets == 1) {
+			double adjustment = 4.125;
+			std::printf("One target, adjusting disp from %f to %f\n", displacement, displacement+adjustment);
+			displacement += adjustment;
+		}
 		//std::printf("Dist %f, disp %f", distance, displacement);
 	}
 }
