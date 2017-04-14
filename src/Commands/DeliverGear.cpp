@@ -50,7 +50,7 @@ DeliverGear::DeliverGear(DGvariant variant){
 	double const firstDistance =  36.0;
 	double const secondDistance = 30.0;
 	//double const thirdDistance = 24.0;
-	double const lastDistance =  -31;//-25.0;
+	double const lastDistance =  -36;//-25.0;
 
 	if (variant == DG_4sec) {
 		AddSequential(new DriveToPosition(gear), 4.0); // Cut off this command after this amount of time

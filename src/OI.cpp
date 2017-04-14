@@ -36,7 +36,7 @@ OI::OI() {
 	B1->WhenPressed(new MoveBasedOnVision(36, nullptr));
 	//Moves towards the peg when the taco is already aligned with the peg!
 	B2 = new frc::JoystickButton(joy, 2);
-	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0)));
+	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0), 0.5));
 	B3 = new frc::JoystickButton(joy, 3);
 	B3->WhileHeld(new MecanumDriveWithJoystick());
 	B4 = new frc::JoystickButton(joy,4);
@@ -53,9 +53,9 @@ OI::OI() {
 	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
 
 	Xbox = new frc::XboxController(1);
+	const double testdistance = 20;
 	// Button configuration for testing PID controllers and such
 	/*
-	const double testdistance = 20;
 	A = new frc::JoystickButton(Xbox, 1);
 	A->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance), 0.3));
 	B = new frc::JoystickButton(Xbox, 2);
@@ -79,11 +79,11 @@ OI::OI() {
 	A = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kAbutton);
 	A->ToggleWhenPressed(new LEDToggle());
 	B = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBbutton);
-	B->WhenPressed(new AimCameratoTaco());
+	B->WhenPressed(new AimCameratoFrontTaco());
 	X = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kXbutton);
-	X->WhileHeld(new AimCameratoFrontTaco());
+	X->WhileHeld(new AimCameratoTaco());
 	Y = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kYbutton);
-	//Y->ToggleWhenPressed(new IntakeInvert());
+	Y->WhenPressed(new DriveToPositionTest(new RobotRelative(0, testdistance), 0.3));
 	LB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLBbutton);
 	LB->WhileHeld(new SlowLift());
 	RB = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRBbutton);
@@ -91,9 +91,11 @@ OI::OI() {
 	Back = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kBackbutton);
 	Back->WhileHeld(new Dump());
 	Start = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kStartbutton);
-	//Start->WhileHeld(new AimCameratoFrontTaco());
+	Start->WhileHeld(new ResetDump());
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
-	RS->WhileHeld(new ResetDump());
+	RS->WhileHeld(new ResetTracker());
+	LS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLSbutton);
+	LS->WhenPressed(new DriveToPositionTest(new AbsoluteAngle(0)));
 	//*/
 }
 

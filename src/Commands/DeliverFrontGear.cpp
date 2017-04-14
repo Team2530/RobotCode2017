@@ -51,7 +51,7 @@ DeliverFrontGear::DeliverFrontGear(DFGvariant variant){
 	double const secondDistance = 30.0;
 	//double const thirdDistance = 24.0;
 	// TODO: Double check this distance with front takko
-	double const lastDistance =  -31;//-25.0;
+	double const lastDistance =  -40;//-25.0;
 
 	if (variant == DFG_4sec) {
 		AddSequential(new DriveToPosition(gear), 4.0); // Cut off this command after this amount of time

@@ -46,7 +46,8 @@ AutoDrive::AutoDrive() :
 	perpendicularO(&this->perpendicularC),
 	anglePID(0.02, 0.000, 0.04, &angleS, &angleO),
 	parallelPID(0.04, 0.000, 0.12, &parallelS, &parallelO),
-	perpendicularPID(0.03, 0.0015, 0.0, &perpendicularS, &perpendicularO)
+	//perpendicularPID(0.03, 0.0015, 0.0, &perpendicularS, &perpendicularO)
+	perpendicularPID(0.04, 0.000, 0.12, &perpendicularS, &perpendicularO)
 {
 	parallelPID.SetAbsoluteTolerance(2.0); // inches
 	parallelPID.SetSetpoint(0);

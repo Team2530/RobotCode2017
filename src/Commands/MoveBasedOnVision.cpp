@@ -18,7 +18,6 @@ MoveBasedOnVision::MoveBasedOnVision(double distance, FieldPosition* fieldpositi
 
 // Called just before this Command runs the first time
 void MoveBasedOnVision::UpdatePosition() {
-	Robot::cameraservo->AimTaco();
 	Robot::led->Set(true);
 	Robot::vision->Update();
 	double lock;
@@ -37,7 +36,7 @@ void MoveBasedOnVision::UpdatePosition() {
 		}
 	}
 	double distance = 0;
-	double displacement = 10;
+	double displacement = 0;
 	if (Robot::vision->GetValid()) {
 		// Try to compensate for the camera offset to approach with the gear centered
 		// TODO: CHANGE BASED ON MIRACLE MAX
@@ -53,8 +52,9 @@ void MoveBasedOnVision::UpdatePosition() {
 		// Move until the takko is (hopefully) centered, about 3 feet away
 	} else {
 		std::printf("VISION FAILED: move in %fin, right%fin\n", distance, displacement);
+		Robot::drivetrain->Stop();
 	}
-	if (orientation == TAKKO_FORWARD) {
+	if (orientation == FRONT_FORWARD) {
 		Robot::autodrive->MoveToPos(new RobotRelative(displacement, distance, lock, true));
 	} else {
 		Robot::autodrive->MoveToPos(new RobotRelative(-distance, displacement, lock, true));
