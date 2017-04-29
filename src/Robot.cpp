@@ -81,15 +81,15 @@ void Robot::RobotInit() {
 	chooserDo.AddObject("Deliver Fuel then Gear", new DumpThenGear());
 	chooserDo.AddObject("Drive to gear ONLY", new DriveToFieldPosition(new GearFieldPosition()));
 	*/
-	chooserDo.AddObject("Deliver Gear (6sec initial)", new DeliverGear(DG_default));
-	chooserDo.AddDefault("BEST: Deliver Gear (4sec initial)", new DeliverGear(DG_4sec));
+	//chooserDo.AddObject("Deliver Gear (6sec initial)", new DeliverGear(DG_default));
+	chooserDo.AddDefault("Deliver Gear", new DeliverGear());
 	//chooserDo.AddObject("Deliver Gear: no second vision step", new DeliverGear(DG_no2nd));
 	//chooserDo.AddObject("Deliver Gear: 4sec init, no second visn", new DeliverGear(DG_4sec_no2nd));
 	//chooserDo.AddObject("Deliver Gear: no first vision step", new DeliverGear(DG_no1st));
 	//chooserDo.AddObject("Deliver Gear: 4sec init, no first visn", new DeliverGear(DG_4sec_no1st));
 
-	chooserDo.AddObject("Deliver Front Gear (6sec initial)", new DeliverFrontGear(DFG_default));
-	chooserDo.AddObject("Deliver Front Gear (4sec initial)", new DeliverFrontGear(DFG_4sec));
+	//chooserDo.AddObject("Deliver Front Gear (6sec initial)", new DeliverFrontGear(DFG_default));
+	//chooserDo.AddObject("Deliver Front Gear (4sec initial)", new DeliverFrontGear(DFG_4sec));
 	//chooserDo.AddObject("Deliver Front Gear: no second vision step", new DeliverFrontGear(DFG_no2nd));
 	//chooserDo.AddObject("Deliver Front Gear: 4sec init, no second visn", new DeliverFrontGear(DFG_4sec_no2nd));
 	//chooserDo.AddObject("Deliver Front Gear: no first vision step", new DeliverFrontGear(DFG_no1st));

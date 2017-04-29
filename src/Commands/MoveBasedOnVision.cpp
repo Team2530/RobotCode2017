@@ -35,7 +35,7 @@ void MoveBasedOnVision::UpdatePosition() {
 			}
 		}
 	}
-	double distance = 0;
+	double distance = -20;
 	double displacement = 0;
 	if (Robot::vision->GetValid()) {
 		// Try to compensate for the camera offset to approach with the gear centered
