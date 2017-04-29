@@ -1,9 +1,10 @@
 #include "DoNothing.h"
 #include "Robot.h"
 
-DoNothing::DoNothing() {
+DoNothing::DoNothing(bool oneshot) {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::drivetrain.get());
+	once = oneshot;
 }
 
 // Called just before this Command runs the first time
@@ -18,7 +19,7 @@ void DoNothing::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DoNothing::IsFinished() {
-	return false;
+	return once;
 }
 
 // Called once after isFinished returns true

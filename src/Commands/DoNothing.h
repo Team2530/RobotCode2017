@@ -5,8 +5,10 @@
 
 
 class DoNothing : public Command {
+private:
+	bool once;
 public:
-	DoNothing();
+	DoNothing(bool oneshot = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

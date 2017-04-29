@@ -3,8 +3,10 @@
 #include <Commands/DriveLeft.h>
 #include <Commands/MecanumDriveWithJoystick.h>
 
+#include <Commands/GetVision.h>
 #include <Commands/MoveBasedOnVision.h>
 #include <Commands/DriveToPosition.h>
+#include <Commands/DoNothing.h>
 
 //Xbox
 #include <Commands/LEDToggle.h>
@@ -33,7 +35,7 @@ OI::OI() {
 	joy = new Joystick(0);
 
 	B1 = new frc::JoystickButton(joy,1);
-	B1->WhenPressed(new MoveBasedOnVision(36, nullptr));
+	B1->WhileHeld(new DoNothing(true));
 	//Moves towards the peg when the taco is already aligned with the peg!
 	B2 = new frc::JoystickButton(joy, 2);
 	B2->WhileHeld(new DriveToPosition(new RobotRelative(-100, 0), 0.5));
@@ -46,11 +48,14 @@ OI::OI() {
 	B6 = new frc::JoystickButton(joy,6);
 	B6->WhileHeld(new MecanumDriveWithJoystick(DUMP_FORWARD));
 	B7 = new frc::JoystickButton(joy, 7);
-	B7->WhenPressed(new MoveBasedOnVision(30, nullptr));
+	B7->WhenPressed(new MoveBasedOnVision(36, nullptr));
 	B8 = new frc::JoystickButton(joy, 8);
-	B8->WhenPressed(new MoveBasedOnVision(24, nullptr));
+	//B8->WhenPressed(new MoveBasedOnVision(24, nullptr));
 	B9 = new frc::JoystickButton(joy, 9);
-	B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
+	//B9->WhileHeld(new DriveToPosition(new Absolute(0, 0)));
+	B9->WhenPressed(new MoveBasedOnVision(30, nullptr));
+	B11 = new frc::JoystickButton(joy,11);
+	B11->WhenPressed(new MoveBasedOnVision(24, nullptr));
 
 	Xbox = new frc::XboxController(1);
 	const double testdistance = 20;
@@ -95,7 +100,7 @@ OI::OI() {
 	RS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kRSbutton);
 	RS->WhileHeld(new ResetTracker());
 	LS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLSbutton);
-	LS->WhenPressed(new DriveToPositionTest(new AbsoluteAngle(0)));
+	LS->WhenPressed(new GetVision(nullptr));
 	//*/
 }
 
