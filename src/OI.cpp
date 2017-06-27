@@ -101,9 +101,22 @@ OI::OI() {
 	RS->WhileHeld(new ResetTracker());
 	LS = new frc::JoystickButton(Xbox, ControllerConstants::xBoxButtonMap::kLSbutton);
 	LS->WhenPressed(new GetVision(nullptr));
+	dpad = new POVTrigger(Xbox);
+	down = dpad->S();
+	down->WhenPressed(new DriveToPosition(new RobotRelative(0, -testdistance), 0.7));
+	right = dpad->E();
+	right->WhenPressed(new DriveToPosition(new RobotRelative(testdistance, 0), 0.7));
+	left = dpad->W();
+	left->WhenPressed(new DriveToPosition(new RobotRelative(-testdistance, 0), 0.7));
+	up = dpad->N();
+	up->WhenPressed(new DriveToPosition(new RobotRelative(0, testdistance), 0.7));
 	//*/
 }
 
 Joystick* OI::GetJoystick() {
 	return joy;
+}
+
+XboxController* OI::GetXbox() {
+	return Xbox;
 }

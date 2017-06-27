@@ -17,6 +17,7 @@ void MecanumDriveFieldOriented::Execute() {
 	double currentAngle = Robot::tracker->GetCurrentAngle();
 	Joystick* stick = Robot::oi->GetJoystick();
 	double headingLockPID = Robot::autodrive->GetPIDRotation();
+	XboxController* xbox = Robot::oi->GetXbox();
 	bool enableHeadingLock = Robot::drivetrain->DriveWithCoordinates(
 		stick->GetX(), stick->GetY(),
 	  	stick->GetZ(), currentAngle,

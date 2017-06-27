@@ -3,11 +3,13 @@
 
 #include "Subsystems/ControllerConstants.h"
 #include <AHRS.h>
+#include "POVTrigger.h"
 
 class OI {
 public:
 	OI();
 	Joystick* GetJoystick();
+	XboxController* GetXbox();
 private:
 	Joystick* joy;
 	JoystickButton *B1;  //LED Control
@@ -39,6 +41,11 @@ private:
 	JoystickButton *LS;  //Unused
 
 	JoystickButton *RS;  //Reset Dump
+	POVTrigger* dpad;
+	POVDirectionTrigger* up;
+	POVDirectionTrigger* left;
+	POVDirectionTrigger* down;
+	POVDirectionTrigger* right;
 
 	double testx;
 	double testy;
