@@ -114,6 +114,7 @@ void Robot::RobotInit() {
 	chooserBot.AddDefault("Miracle Max", &max);
 	chooserBot.AddObject("Zomberdinck", &zomber);
 	SmartDashboard::PutData("This Robot", &chooserBot);
+	tracker->StartTracking(0, 0, 0);
 }
 
 /**

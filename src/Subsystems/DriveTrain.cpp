@@ -78,12 +78,17 @@ double deadband(double value) {
 	return 0;
 }
 double GetThrottleMultiplier (double CurrentThrottle) {
-	const double MinThrottle = 0.3 ;
-	return  -((1-MinThrottle)/2)*CurrentThrottle+((1-MinThrottle)/2)+MinThrottle;
+
+	CurrentThrottle = CurrentThrottle * -1.0;
+	const double MinThrottle = 0.35 ;
+	return  (((1-MinThrottle)/2)*CurrentThrottle+((1-MinThrottle)/2)+MinThrottle);
 }
 double GetScaledPower (double unscaledPower, double ThrottleMultiplier, double db, double MinPower) {
+	//return unscaledPower;
 	double absPower = std::fabs(unscaledPower);
-	if (absPower < db) return 0;
+	if (absPower < db){
+		return 0;
+	}
 	double scaledPower = (ThrottleMultiplier-MinPower)*absPower+MinPower;
     double finalPower = std::copysign(scaledPower, unscaledPower);
     return finalPower;
